@@ -1,0 +1,4 @@
+﻿# Excel route files (private costs)
+Routen/
+*.xlsx
+*.xls
