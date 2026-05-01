@@ -3,85 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rauszeit – Authentische Reiseberichte, Routen und Inspirationen für Individualreisende. Von der USA-Rundreise bis Namibia-Camping.">
-  <title>Rauszeit – Reiseblog für Individualreisende</title>
+  <meta name="description" content="30 Tage Abenteuer – Unser Reiseblog. Authentische Routen und ehrliche Erlebnisse aus über einem Jahrzehnt Individualreisen zu zweit.">
+  <title>30 Tage Abenteuer – Unser Reiseblog</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- CDN Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="main.js" defer></script>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════
-     CUSTOM CURSOR
-═══════════════════════════════════════════════════════════ -->
+<!-- CURSOR -->
 <div id="cursor-dot" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
 
-<!-- ══════════════════════════════════════════════════════════
-     PRELOADER
-═══════════════════════════════════════════════════════════ -->
+<!-- PRELOADER -->
 <div id="preloader" aria-hidden="true">
-  <div class="preloader-logo" id="preloader-logo">Rauszeit</div>
-  <div class="preloader-bar-wrap">
-    <div class="preloader-bar" id="preloader-bar"></div>
+  <div class="preloader-logo" id="preloader-logo">
+    <img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer Logo">
   </div>
+  <div class="preloader-bar-wrap"><div class="preloader-bar"></div></div>
   <div class="preloader-count" id="preloader-count">0%</div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     NAVIGATION
-═══════════════════════════════════════════════════════════ -->
+<!-- ══════ NAVIGATION ══════════════════════════════════════ -->
 <header id="nav" role="banner">
-  <a href="#hero" class="nav-logo" aria-label="Rauszeit – Startseite">Rauszeit</a>
+  <a href="index.html" class="nav-logo" aria-label="30 Tage Abenteuer – Startseite">
+    <img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer">
+  </a>
+
   <nav aria-label="Hauptnavigation">
     <ul class="nav-links">
-      <li><a href="#destinations">Reisen</a></li>
+
+      <li><a href="index.html">Start</a></li>
+
+      <!-- Reiseziele Dropdown -->
+      <li class="has-dropdown">
+        <a href="#">Reiseziele</a>
+        <div class="dropdown wide">
+          <div class="dropdown-col">
+            <span class="dropdown-heading">Asien</span>
+            <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
+            <a href="reise-bali-2017.html">Bali 2017</a>
+            <a href="reise-vietnam-2018.html">Vietnam 2018</a>
+            <a href="reise-thailand-2019.html">Thailand 2019</a>
+            <a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
+            <a href="reise-philippinen-2025.html">Philippinen 2025</a>
+            <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
+            <a href="reise-thailand-2026.html">Thailand 2026</a>
+          </div>
+          <div class="dropdown-col">
+            <span class="dropdown-heading">Amerika</span>
+            <a href="reise-usa-2013.html">USA Rundreise 2013</a>
+            <a href="reise-newyork-2017.html">New York 2017</a>
+            <a href="reise-lasvegas-2019.html">Las Vegas 2019</a>
+            <a href="reise-costarica-2022.html">Costa Rica 2022</a>
+            <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
+            <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
+            <a href="reise-namibia-2024.html">Namibia 2024</a>
+            <span class="dropdown-heading" style="margin-top:14px">Europa</span>
+            <a href="reise-london-2024.html">London 2024</a>
+            <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦ Upcoming</a>
+          </div>
+        </div>
+      </li>
+
       <li><a href="#timeline">Zeitreise</a></li>
-      <li><a href="#trips">Routen</a></li>
-      <li><a href="#about">Über mich</a></li>
+
+      <!-- Reisetipps Dropdown -->
+      <li class="has-dropdown">
+        <a href="reisetipps.html">Reisetipps</a>
+        <div class="dropdown simple">
+          <a href="reisetipps.html#planung">Wie wir planen</a>
+          <a href="reisetipps.html#packliste">Packliste</a>
+          <a href="reisetipps.html#hotels">Hotels finden</a>
+          <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+          <a href="reisetipps.html#budget">Reisebudget</a>
+        </div>
+      </li>
+
+      <li><a href="ueber-uns.html">Über Uns</a></li>
     </ul>
   </nav>
-  <a href="#trips" class="nav-cta magnetic">Alle Routen</a>
+
+  <a href="#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 
-<!-- ══════════════════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════════════════ -->
+<!-- ══════ HERO ════════════════════════════════════════════ -->
 <section id="hero" aria-label="Hero">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-overlay" aria-hidden="true"></div>
+  <!-- BILDHINWEIS: Hier ein starkes Landschaftsfoto einsetzen – z.B. Sossusvlei Dead Vlei (Namibia)
+       oder El Nido Karstfelsen (Philippinen) oder Khao Sok Stausee (Thailand).
+       Empfehlung: Querformat, min. 1920×1080px, warm und atmosphärisch.
+       Aktuell wird das erste verfügbare Namibia-Bild genutzt. -->
+  <img src="Bilder/Namibia 2024/IMG_7470.jpg"
+       alt="Weite Naturlandschaft – Sossusvlei, Namibia"
+       class="hero-bg-img" id="hero-bg">
+  <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow" id="hero-eyebrow">
-      Reiseblog · Individualreisen · Fernweh
-    </div>
-
+    <div class="hero-eyebrow" id="hero-eyebrow">Reiseblog · Individualreisen · Zu zweit</div>
+    <img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png"
+         alt="" class="hero-logo-big" id="hero-logo-big" aria-hidden="true">
     <h1 class="hero-title">
-      <span class="glitch" data-text="Raus·">Raus·</span>
-      <em class="hero-subtitle-italic">zeit</em>
+      <span>30 Tage</span>
+      <em><span>Abenteuer</span></em>
     </h1>
-
     <p class="hero-desc" id="hero-desc">
-      Echte Routen. Ungeschönte Erlebnisse. Von der USA-Rundreise 2013 bis
-      zu Camper-Abenteuern in Namibia und Inselhopping auf den Philippinen —
-      hier teile ich, was wirklich passiert auf Reisen.
+      Unsere echten Routen, ehrlichen Erlebnisse und Inspirationen –
+      von Thailand 2011 bis Namibia 2024. Keine Hochglanz-Broschüre,
+      sondern Reisen, wie sie wirklich sind.
     </p>
-
     <div class="hero-actions" id="hero-actions">
-      <a href="#trips" class="btn-primary magnetic">
-        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13V7m0 13l6-3m-6-10l6-3m0 0l5.447 2.724A1 1 0 0121 7.618v10.764a1 1 0 01-1.447.894L15 17m0-13v13"/></svg>
-        Routen entdecken
+      <a href="#destinations" class="btn-primary btn-primary-light magnetic">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13V7m0 13l6-3m-6-10l6-3m0 0l5.447 2.724A1 1 0 0121 7.618v10.764a1 1 0 01-1.447.894L15 17m0-13v13"/></svg>
+        Unsere Reisen
       </a>
-      <a href="#about" class="btn-outline magnetic">
-        Mehr erfahren
-        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      <a href="ueber-uns.html" class="btn-outline magnetic">
+        Wer wir sind
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
     </div>
   </div>
@@ -92,336 +136,436 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     STATS
-═══════════════════════════════════════════════════════════ -->
+<!-- ══════ STATS ══════════════════════════════════════════ -->
 <section id="stats" aria-label="Reise-Statistiken">
   <div class="stats-inner">
     <div class="stat-item reveal-hidden">
-      <span class="stat-num" data-count="13">0</span>
+      <span class="stat-num" data-count="15">0</span>
       <span class="stat-label">Reisen</span>
     </div>
     <div class="stat-item reveal-hidden">
-      <span class="stat-num" data-count="24">0</span>
+      <span class="stat-num" data-count="26">0</span>
       <span class="stat-label">Länder</span>
     </div>
     <div class="stat-item reveal-hidden">
-      <span class="stat-num" data-count="180">0</span>
+      <span class="stat-num" data-count="200">0</span>
       <span class="stat-label">Nächte unterwegs</span>
     </div>
     <div class="stat-item reveal-hidden">
-      <span class="stat-num" data-count="2013">0</span>
+      <span class="stat-num" data-count="2011">0</span>
       <span class="stat-label">Erstes Abenteuer</span>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     ABOUT
-═══════════════════════════════════════════════════════════ -->
-<section id="about" class="parallax-section" aria-label="Über den Blog">
+<!-- ══════ ABOUT ══════════════════════════════════════════ -->
+<section id="about" class="section-pad">
   <div class="section-inner">
     <div class="about-grid">
-
-      <div class="about-text-col">
-        <p class="section-tag reveal-hidden">Der Blog</p>
-        <h2 class="section-title reveal-hidden">
-          Nicht <em>Instagram-perfekt</em>,<br>
-          sondern echt.
-        </h2>
+      <div class="about-text">
+        <p class="section-tag reveal-hidden">Wer wir sind</p>
+        <h2 class="section-title reveal-hidden">Zwei Fernweh-Süchtige<br>auf <em>Abenteuer-Tour</em></h2>
         <p class="about-text reveal-hidden">
-          Rauszeit ist kein Hochglanz-Reisemagazin. Es sind meine persönlichen
-          Routen, meine Learnings und meine ehrlichen Eindrücke aus über einem
-          Jahrzehnt Individualreisen — von Backpacking in Vietnam bis Camping
-          mit dem Geländewagen durch Namibia.
+          Wir sind Katharina und ihr Mann – zwei Individualreisende, die seit 2011 gemeinsam
+          die Welt entdecken. Von backpackenden Anfängen in Thailand und Kambodscha bis hin zu
+          Camping-Abenteuern in der namibischen Wüste.
         </p>
         <p class="about-text reveal-hidden">
-          Ich glaube daran, dass die besten Reisegeschichten in den Details
-          stecken: im Moment, wenn das Wasserbungalow im Khao-Sok-See im
-          Morgengrauen auf dem Wasser schwimmt. Im Geruch von frisch gemahlenen
-          Gewürzen auf einem Markt in Hoi An. Im Schweigen vor den Dünen des
-          Sossusvlei.
+          Auf diesem Blog teilen wir unsere echten Routen, die Hotels, die wir tatsächlich
+          gebucht haben, und die Erlebnisse, die uns nachhaltig begeistert haben – damit euer
+          nächstes Abenteuer noch etwas besser geplant startet als unseres.
         </p>
-        <a href="#timeline" class="btn-outline reveal-hidden" style="margin-top:8px; display:inline-flex;">
-          Alle Reisen ansehen
-          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <a href="ueber-uns.html" class="btn-outline-dark reveal-hidden" style="display:inline-flex;margin-top:8px;">
+          Mehr über uns
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
-
-      <div class="about-image-wrap parallax-layer" data-parallax="0.15">
-        <!-- BILDHINWEIS: Hier ein schönes Portrait-Foto von dir auf Reisen einsetzen.
-             Ideal: du mit Rucksack oder in einem besonderen Moment (z.B. Sossusvlei, Ella Rock,
-             oder auf dem Boot bei der Halong-Bucht). Format: hochformat, 4:5. -->
+      <div class="about-img-wrap reveal-hidden">
+        <!-- BILDHINWEIS: Portrait-/Reisefoto von euch beiden. Ideal: gemeinsames Foto
+             mit tollem Hintergrund (z.B. vor Dünen in Namibia, auf einem Boot in Thailand,
+             oder mit Rucksack irgendwo in Asien). Hochformat 4:5, warm und natürlich. -->
         <div class="about-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color: var(--gold); opacity:0.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          Portrait-Foto
-          <span class="placeholder-hint">Empfehlung: Authentisches Reisefoto, z.B. bei Sossusvlei oder Ella Rock. Hochformat 4:5.</span>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--teal-light)"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          Foto von euch beiden
+          <span style="font-size:.75rem;color:var(--text-muted);max-width:180px;text-align:center">
+            Gemeinsames Reisefoto – Hochformat 4:5, z.B. Namibia oder Asien
+          </span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     FEATURED DESTINATIONS
-═══════════════════════════════════════════════════════════ -->
-<section id="destinations" aria-label="Reiseziele">
+<!-- ══════ FEATURED DESTINATIONS ═════════════════════════ -->
+<section id="destinations" class="section-pad bg-cream">
   <div class="section-inner">
     <div class="section-header">
-      <p class="section-tag reveal-hidden" style="justify-content:center;">Highlights</p>
+      <p class="section-tag reveal-hidden">Unsere Reisen</p>
       <h2 class="section-title reveal-hidden">Reiseziele &amp; <em>Abenteuer</em></h2>
-      <p class="about-text reveal-hidden" style="max-width:540px;margin:0 auto;">
-        Vom Inselhopping auf den Philippinen bis zur Wüste Namibias —
-        jede Reise hat ihre eigene Geschichte.
+      <p class="section-lead reveal-hidden">
+        Von Asien bis Afrika, von Städtetrips bis Wilderness-Camping –
+        hier sind alle unsere Reisen auf einen Blick.
       </p>
     </div>
 
-    <div class="dest-grid">
+    <!-- Aktuell / Highlight -->
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;">Aktuell &amp; Upcoming</h3>
+    <div class="dest-grid" style="margin-bottom:48px">
 
-      <!-- Namibia 2024 -->
+      <!-- Thailand 2026 – gerade gewesen -->
       <div class="dest-card reveal-hidden">
-        <div class="dest-img-placeholder">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <!-- BILDHINWEIS: Sossusvlei / Dead Vlei Wüstenlandschaft oder Elefant in Etosha.
-               Empfehlung: einer der Namibia-Bilder aus dem Ordner "Namibia 2024" -->
-          Weite Wüste · roter Sand<br>
-          <small>Foto aus Namibia 2024 einsetzen</small>
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder">
+            <!-- BILDHINWEIS: Koh Lipe türkises Wasser, Koh Phayam Strand oder Khao Sok Stausee -->
+            Thailand 2026 · Koh Lipe, Khao Sok, Bangkok
+          </div>
         </div>
         <div class="dest-info">
-          <div class="dest-region">Afrika · Camping-Abenteuer</div>
-          <div class="dest-name">Namibia Roadtrip</div>
-          <div class="dest-year">April – Mai 2024 · 23 Nächte</div>
+          <div class="dest-region">Südostasien</div>
+          <div class="dest-name">Thailand Inselrunde</div>
+          <div class="dest-year">Januar 2026 · 19 Nächte</div>
         </div>
-        <div class="dest-badge">Highlight</div>
+        <a href="reise-thailand-2026.html" class="dest-link">
+          Zur Route
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <div class="dest-badge recent">Gerade zurück</div>
       </div>
 
-      <!-- Philippinen 2025 -->
+      <!-- Paris 2026 – upcoming -->
       <div class="dest-card reveal-hidden">
-        <div class="dest-img-placeholder">
-          <!-- BILDHINWEIS: Türkises Wasser El Nido / Coron, Palawan.
-               Typ: Panorama-Inselblick oder Bootsfahrt durch Kalkfelsen. -->
-          Philippinen · El Nido<br>
-          <small>Traumhafte Karstfelsen-Landschaft</small>
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder">
+            <!-- BILDHINWEIS: Paris – Eiffelturm, Montmartre oder Seine-Ufer im Abendlicht -->
+            Paris im September · Städtetrip
+          </div>
         </div>
         <div class="dest-info">
-          <div class="dest-region">Südostasien · Inselhopping</div>
-          <div class="dest-name">Philippinen</div>
-          <div class="dest-year">Januar – Februar 2025 · 15 Nächte</div>
+          <div class="dest-region">Europa · Frankreich</div>
+          <div class="dest-name">Paris</div>
+          <div class="dest-year">September 2026 · Städtetrip</div>
         </div>
+        <a href="reise-paris-2026.html" class="dest-link">
+          Vorschau
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <div class="dest-badge upcoming">Upcoming</div>
       </div>
 
       <!-- Bali/Lombok 2025 -->
       <div class="dest-card reveal-hidden">
-        <div class="dest-img-placeholder">
-          <!-- BILDHINWEIS: Reisterrassen Ubud / Vulkan Rinjani / Gili-Insel.
-               Bilder aus Ordner "Bali 2017" als Platzhalter verwendbar. -->
-          Bali &amp; Lombok<br>
-          <small>Ubud · Rinjani · Gili Inseln</small>
+        <div class="dest-img-wrap">
+          <img src="Bilder/Bali 2017/IMG_0409.JPG" alt="Bali – Reisterrassen" class="dest-img" loading="lazy">
         </div>
         <div class="dest-info">
-          <div class="dest-region">Indonesien · Natur &amp; Kultur</div>
+          <div class="dest-region">Indonesien</div>
           <div class="dest-name">Bali &amp; Lombok</div>
-          <div class="dest-year">September – Oktober 2025 · 23 Nächte</div>
+          <div class="dest-year">Sep – Okt 2025 · 23 Nächte</div>
         </div>
+        <a href="reise-bali-lombok-2025.html" class="dest-link">
+          Zur Route
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Alle anderen -->
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;">Alle Reisen</h3>
+    <div class="dest-grid">
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <img src="Bilder/Namibia 2024/IMG_7550.jpg" alt="Namibia Wüstenlandschaft" class="dest-img" loading="lazy">
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Afrika</div>
+          <div class="dest-name">Namibia Roadtrip</div>
+          <div class="dest-year">April – Mai 2024 · 23 Nächte</div>
+        </div>
+        <a href="reise-namibia-2024.html" class="dest-link">Zur Route <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
       </div>
 
-      <!-- Sri Lanka 2023 -->
       <div class="dest-card reveal-hidden">
-        <div class="dest-img-placeholder">
-          <!-- BILDHINWEIS: Foto aus Ordner "Sri Lanka 2023", z.B. Ella Rock,
-               9 Arch Bridge oder Sigiriya-Felsen. Landschaftsfoto, Querformat. -->
-          Sri Lanka<br>
-          <small>Ella · Kandy · Sigiriya</small>
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- London Stadtbild: Tower Bridge, Southbank --></div>
         </div>
         <div class="dest-info">
-          <div class="dest-region">Südasien · Tempel &amp; Natur</div>
+          <div class="dest-region">Europa</div>
+          <div class="dest-name">London</div>
+          <div class="dest-year">2024 · Städtetrip</div>
+        </div>
+        <a href="reise-london-2024.html" class="dest-link">Zur Seite <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- Philippinen: El Nido Karstfelsen oder Walhai --></div>
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Südostasien</div>
+          <div class="dest-name">Philippinen</div>
+          <div class="dest-year">Jan – Feb 2025 · 15 Nächte</div>
+        </div>
+        <a href="reise-philippinen-2025.html" class="dest-link">Zur Route <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <img src="Bilder/Sri Lanka 2023/IMG_6320.JPG" alt="Sri Lanka" class="dest-img" loading="lazy">
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Südasien</div>
           <div class="dest-name">Sri Lanka</div>
           <div class="dest-year">April – Mai 2023 · 20 Nächte</div>
         </div>
+        <a href="reise-srilanka-2023.html" class="dest-link">Zur Route <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
       </div>
 
-      <!-- Costa Rica 2022 -->
       <div class="dest-card reveal-hidden">
-        <div class="dest-img-placeholder">
-          <!-- BILDHINWEIS: Fotos aus "Costa Rica 2022" Ordner.
-               Regenwald, Wasserfall, Hängebrücke Monteverde oder Strand Puerto Viejo. -->
-          Costa Rica<br>
-          <small>Santa Teresa · Monteverde · Tortuguero</small>
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- Florida: Miami South Beach oder Keys Kanal --></div>
         </div>
         <div class="dest-info">
-          <div class="dest-region">Mittelamerika · Natur pur</div>
+          <div class="dest-region">Nordamerika</div>
+          <div class="dest-name">Florida &amp; Bahamas</div>
+          <div class="dest-year">Nov – Dez 2023 · 14 Nächte</div>
+        </div>
+        <a href="reise-florida-2023.html" class="dest-link">Zur Route <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <img src="Bilder/Costa Rica 2022/IMG_20220414_110129.jpg" alt="Costa Rica Regenwald" class="dest-img" loading="lazy">
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Mittelamerika</div>
           <div class="dest-name">Costa Rica</div>
           <div class="dest-year">März – April 2022 · 19 Nächte</div>
         </div>
+        <a href="reise-costarica-2022.html" class="dest-link">Zur Route <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
       </div>
 
-      <!-- Thailand 2026 - Upcoming -->
       <div class="dest-card reveal-hidden">
-        <div class="dest-img-placeholder">
-          <!-- BILDHINWEIS: Koh Lipe türkises Wasser / Khao Sok Stausee /
-               Koh Phayam Strand. Stimmungsvolles Abend- oder Morgenlicht. -->
-          Thailand 2026<br>
-          <small>Bangkok · Koh Phayam · Koh Lipe</small>
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- Thailand 2019: Koh Lanta oder Khao Sok Wasserbungalow --></div>
         </div>
         <div class="dest-info">
-          <div class="dest-region">Südostasien · Inseln &amp; Natur</div>
-          <div class="dest-name">Thailand Inseltour</div>
-          <div class="dest-year">Januar 2026 · 19 Nächte</div>
+          <div class="dest-region">Südostasien</div>
+          <div class="dest-name">Thailand</div>
+          <div class="dest-year">Feb – März 2019 · 21 Nächte</div>
         </div>
-        <div class="dest-badge upcoming">Upcoming</div>
+        <a href="reise-thailand-2019.html" class="dest-link">Zur Route <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- Las Vegas: The Strip nachts, Neon-Lichter --></div>
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Nordamerika</div>
+          <div class="dest-name">Las Vegas</div>
+          <div class="dest-year">2019 · Städtetrip</div>
+        </div>
+        <a href="reise-lasvegas-2019.html" class="dest-link">Zur Seite <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- Vietnam: Halong Bucht oder Hoi An Altstadt Laternen --></div>
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Südostasien</div>
+          <div class="dest-name">Vietnam</div>
+          <div class="dest-year">März – April 2018 · 14 Nächte</div>
+        </div>
+        <a href="reise-vietnam-2018.html" class="dest-link">Zur Route <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <img src="Bilder/Bali 2017/DSC_0615.JPG" alt="Bali 2017" class="dest-img" loading="lazy">
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Indonesien</div>
+          <div class="dest-name">Bali</div>
+          <div class="dest-year">2017</div>
+        </div>
+        <a href="reise-bali-2017.html" class="dest-link">Zur Seite <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- New York: Skyline, Brooklyn Bridge oder Central Park --></div>
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Nordamerika</div>
+          <div class="dest-name">New York City</div>
+          <div class="dest-year">2017 · Städtetrip</div>
+        </div>
+        <a href="reise-newyork-2017.html" class="dest-link">Zur Seite <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- USA: Grand Canyon, Route 66 oder New Orleans --></div>
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Nordamerika</div>
+          <div class="dest-name">USA Rundreise</div>
+          <div class="dest-year">2013 · Roadtrip</div>
+        </div>
+        <a href="reise-usa-2013.html" class="dest-link">Zur Seite <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      </div>
+
+      <div class="dest-card reveal-hidden">
+        <div class="dest-img-wrap">
+          <div class="dest-img-placeholder"><!-- Thailand/Kambodscha 2011: Tempel Angkor Wat oder Thai-Strand --></div>
+        </div>
+        <div class="dest-info">
+          <div class="dest-region">Südostasien</div>
+          <div class="dest-name">Thailand &amp; Kambodscha</div>
+          <div class="dest-year">2011 · Erste große Reise</div>
+        </div>
+        <a href="reise-thailand-kambodscha-2011.html" class="dest-link">Zur Seite <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     PHOTO STRIP (Parallax)
-═══════════════════════════════════════════════════════════ -->
-<div id="photo-strip" aria-label="Reisefotos" class="parallax-section">
-  <div class="strip-track" id="strip-track">
-    <!-- Namibia Bilder aus vorhandenen Dateien -->
-    <img src="Bilder/Namibia 2024/IMG_7044.jpg" alt="Namibia Landschaft – orangeroter Sand unter weitem Himmel" class="strip-img" loading="lazy">
-    <img src="Bilder/Namibia 2024/IMG_7254.jpg" alt="Namibia – Tierwelt im Nationalpark" class="strip-img" loading="lazy">
-    <img src="Bilder/Namibia 2024/IMG_7470.jpg" alt="Namibia Sossusvlei – Dead Vlei" class="strip-img" loading="lazy">
-    <img src="Bilder/Namibia 2024/IMG_7550.jpg" alt="Namibia – Abendstimmung in der Wüste" class="strip-img" loading="lazy">
-    <img src="Bilder/Namibia 2024/IMG_7702.jpg" alt="Namibia – Landschaft und Tier" class="strip-img" loading="lazy">
-    <img src="Bilder/Sri Lanka 2023/IMG_20230420_135632.jpg" alt="Sri Lanka – tropische Natur" class="strip-img" loading="lazy">
-    <img src="Bilder/Sri Lanka 2023/IMG_20230421_070737.jpg" alt="Sri Lanka – Morgenstimmung" class="strip-img" loading="lazy">
-    <img src="Bilder/Sri Lanka 2023/IMG_6320.JPG" alt="Sri Lanka – Landschaft" class="strip-img" loading="lazy">
-    <img src="Bilder/Bali 2017/IMG_0409.JPG" alt="Bali – Reisterrassen oder Tempel" class="strip-img" loading="lazy">
-    <img src="Bilder/Bali 2017/P9120242.JPG" alt="Bali – Tropische Vegetation" class="strip-img" loading="lazy">
-    <img src="Bilder/Costa Rica 2022/IMG_20220408_132150.jpg" alt="Costa Rica – Regenwald" class="strip-img" loading="lazy">
-    <img src="Bilder/Costa Rica 2022/IMG_20220414_110129.jpg" alt="Costa Rica – Naturlandschaft" class="strip-img" loading="lazy">
-    <!-- Platzhalter für fehlende Bilder -->
-    <div class="strip-placeholder">
-      <!-- Bali 2025: Foto aus Ubud Reisterrassen oder Rinjani Trekking -->
-      Bali/Lombok 2025<br><small>Füge hier Fotos vom Rinjani-Trekking oder Ubud ein</small>
-    </div>
-    <div class="strip-placeholder">
-      <!-- Philippinen: El Nido Karstfelsen oder Walhai Donsol -->
-      Philippinen 2025<br><small>El Nido Panorama oder Walhai-Erlebnis in Donsol</small>
+<!-- ══════ PHOTO STRIP ════════════════════════════════════ -->
+<div id="photo-strip" aria-label="Reisefotos">
+  <div class="strip-overflow">
+    <div class="strip-track" id="strip-track">
+      <img src="Bilder/Namibia 2024/IMG_7044.jpg"      alt="Namibia – Savanne" class="strip-img" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7254.jpg"      alt="Namibia – Natur" class="strip-img" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7470.jpg"      alt="Namibia – Sossusvlei" class="strip-img" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7550.jpg"      alt="Namibia – Abendstimmung" class="strip-img" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7702.jpg"      alt="Namibia – Sonnenuntergang" class="strip-img" loading="lazy">
+      <img src="Bilder/Sri Lanka 2023/IMG_6320.JPG"    alt="Sri Lanka – Landschaft" class="strip-img" loading="lazy">
+      <img src="Bilder/Sri Lanka 2023/IMG_20230420_135632.jpg" alt="Sri Lanka – Natur" class="strip-img" loading="lazy">
+      <img src="Bilder/Sri Lanka 2023/IMG_20230421_070737.jpg" alt="Sri Lanka – Morgen" class="strip-img" loading="lazy">
+      <img src="Bilder/Bali 2017/IMG_0409.JPG"         alt="Bali – Tempel" class="strip-img" loading="lazy">
+      <img src="Bilder/Bali 2017/P9120242.JPG"         alt="Bali – Reisterrassen" class="strip-img" loading="lazy">
+      <img src="Bilder/Costa Rica 2022/IMG_20220408_132150.jpg" alt="Costa Rica – Regenwald" class="strip-img" loading="lazy">
+      <img src="Bilder/Costa Rica 2022/IMG_20220414_110129.jpg" alt="Costa Rica – Natur" class="strip-img" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7920.jpg"      alt="Namibia – Wüste" class="strip-img" loading="lazy">
+      <img src="Bilder/Sri Lanka 2023/IMG_6339.JPG"    alt="Sri Lanka – Highlights" class="strip-img" loading="lazy">
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     TIMELINE
-═══════════════════════════════════════════════════════════ -->
-<section id="timeline" aria-label="Reise-Zeitstrahl">
+<!-- ══════ TIMELINE ═══════════════════════════════════════ -->
+<section id="timeline" class="section-pad">
   <div class="section-inner">
     <div class="section-header">
-      <p class="section-tag reveal-hidden" style="justify-content:center;">Meine Reisen</p>
-      <h2 class="section-title reveal-hidden">13 Jahre <em>Fernweh</em></h2>
+      <p class="section-tag reveal-hidden">Zeitreise</p>
+      <h2 class="section-title reveal-hidden">15 Jahre <em>gemeinsam unterwegs</em></h2>
     </div>
 
     <div class="timeline-wrap">
       <div class="timeline-line" aria-hidden="true"></div>
 
-      <!-- 2013 -->
+      <!-- 2026 Thailand – aktuell -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-content">
-          <div class="tl-year">2013</div>
-          <div class="tl-title">USA Rundreise</div>
-          <div class="tl-desc">Der Anfang vom Reisevirus. Klassische amerikanische Roadtrip-Erfahrung durch mehrere Staaten – von der Ostküste in den Wilden Westen.</div>
+          <div class="tl-year">2026 · Zurück!</div>
+          <div class="tl-title">Thailand Inselrunde</div>
+          <div class="tl-desc">19 Nächte durch den Süden – Bangkok, Koh Phayam, Khao Sok, Koh Lipe.</div>
           <div class="tl-stations">
-            <span class="tl-station">New York</span>
-            <span class="tl-station">Washington D.C.</span>
-            <span class="tl-station">Nashville</span>
-            <span class="tl-station">New Orleans</span>
-            <span class="tl-station">Las Vegas</span>
-            <span class="tl-station">Grand Canyon</span>
-            <span class="tl-station">Los Angeles</span>
+            <span class="tl-station">Bangkok</span><span class="tl-station">Koh Phayam</span>
+            <span class="tl-station">Khao Sok</span><span class="tl-station">Koh Lanta</span>
+            <span class="tl-station">Koh Lipe</span>
           </div>
-          <a href="#trip-usa-2013" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <a href="reise-thailand-2026.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-empty"></div>
       </div>
 
-      <!-- 2017 Bali -->
+      <!-- 2025 Philippinen -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-empty"></div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-content">
-          <div class="tl-year">2017</div>
-          <div class="tl-title">Bali</div>
-          <div class="tl-desc">Erste Begegnung mit Südostasien. Reisterrassen, Tempel, Ubud und natürlich die Südküste mit ihrem ikonischen Sonnenuntergang.</div>
+          <div class="tl-year">2025</div>
+          <div class="tl-title">Philippinen</div>
+          <div class="tl-desc">15 Nächte auf Palawan – Inselhopping, Walhaie und das türkiseste Wasser der Welt.</div>
           <div class="tl-stations">
-            <span class="tl-station">Denpasar</span>
-            <span class="tl-station">Ubud</span>
-            <span class="tl-station">Seminyak</span>
-            <span class="tl-station">Uluwatu</span>
+            <span class="tl-station">Manila</span><span class="tl-station">El Nido</span>
+            <span class="tl-station">Coron</span><span class="tl-station">Donsol</span>
           </div>
-          <a href="#trip-bali-2017" class="tl-link">Bilder ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <a href="reise-philippinen-2025.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
       </div>
 
-      <!-- 2017 New York -->
+      <!-- 2025 Bali/Lombok -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-content">
-          <div class="tl-year">2017</div>
-          <div class="tl-title">New York Städtetrip</div>
-          <div class="tl-desc">Die Stadt, die niemals schläft. Ein langer Städtewochenend-Trips in die Metropole schlechthin.</div>
+          <div class="tl-year">2025</div>
+          <div class="tl-title">Bali &amp; Lombok</div>
+          <div class="tl-desc">Ubud, Rinjani-Trekking, Gili-Inseln und Canggu – 23 Nächte Indonesien.</div>
           <div class="tl-stations">
-            <span class="tl-station">Manhattan</span>
-            <span class="tl-station">Brooklyn</span>
-            <span class="tl-station">Central Park</span>
-            <span class="tl-station">High Line</span>
+            <span class="tl-station">Ubud</span><span class="tl-station">Rinjani</span>
+            <span class="tl-station">Gili Asahan</span><span class="tl-station">Canggu</span>
           </div>
-          <a href="#trip-nyc-2017" class="tl-link">Tipps lesen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <a href="reise-bali-lombok-2025.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-empty"></div>
       </div>
 
-      <!-- 2018 Vietnam -->
+      <!-- 2024 Namibia -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-empty"></div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-content">
-          <div class="tl-year">2018</div>
-          <div class="tl-title">Vietnam</div>
-          <div class="tl-desc">Von der Metropole Saigon über die Altstädte Hoi Ans bis zu den Reisterrassen in Sapa — Vietnam in 2 Wochen von Süd nach Nord.</div>
+          <div class="tl-year">2024</div>
+          <div class="tl-title">Namibia Camping-Roadtrip</div>
+          <div class="tl-desc">23 Nächte mit dem Camper – Wüste, Wildnis und absolute Stille.</div>
           <div class="tl-stations">
-            <span class="tl-station">Ho Chi Minh</span>
-            <span class="tl-station">Hoi An</span>
-            <span class="tl-station">Hue</span>
-            <span class="tl-station">Sapa</span>
-            <span class="tl-station">Hanoi</span>
-            <span class="tl-station">Halong Bucht</span>
+            <span class="tl-station">Etosha</span><span class="tl-station">Spitzkoppe</span>
+            <span class="tl-station">Sossusvlei</span><span class="tl-station">Fish River Canyon</span>
           </div>
-          <a href="#trip-vietnam-2018" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <a href="reise-namibia-2024.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
       </div>
 
-      <!-- 2019 Thailand + Vegas -->
+      <!-- 2024 London -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-content">
-          <div class="tl-year">2019</div>
-          <div class="tl-title">Thailand &amp; Las Vegas</div>
-          <div class="tl-desc">21 Nächte Inseln, Dschungel, Tauchen — und ein Abstecher in die verrückteste Stadt der Welt.</div>
+          <div class="tl-year">2024</div>
+          <div class="tl-title">London</div>
+          <div class="tl-desc">Kurztrip in die britische Hauptstadt – Märkte, Southbank und Pubs.</div>
+          <a href="reise-london-2024.html" class="tl-link">Tipps lesen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+
+      <!-- 2023 Sri Lanka -->
+      <div class="timeline-entry reveal-hidden">
+        <div class="tl-empty"></div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-content">
+          <div class="tl-year">2023</div>
+          <div class="tl-title">Sri Lanka</div>
+          <div class="tl-desc">20 Nächte durch die Tränen-Insel – Elefanten, Zugfahrten, Tempel und Strand.</div>
           <div class="tl-stations">
-            <span class="tl-station">Chiang Mai</span>
-            <span class="tl-station">Khao Sok</span>
-            <span class="tl-station">Krabi</span>
-            <span class="tl-station">Koh Lanta</span>
-            <span class="tl-station">Koh Mook</span>
-            <span class="tl-station">Bangkok</span>
-            <span class="tl-station">Las Vegas</span>
+            <span class="tl-station">Ella</span><span class="tl-station">Kandy</span>
+            <span class="tl-station">Sigiriya</span><span class="tl-station">Trincomalee</span>
           </div>
-          <a href="#trip-thailand-2019" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <a href="reise-srilanka-2023.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+        </div>
+      </div>
+
+      <!-- 2023 Florida -->
+      <div class="timeline-entry reveal-hidden">
+        <div class="tl-content">
+          <div class="tl-year">2023</div>
+          <div class="tl-title">Florida &amp; Bahamas</div>
+          <div class="tl-desc">Miami, Keys, Everglades und eine Kreuzfahrt zu den Bahamas.</div>
+          <a href="reise-florida-2023.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-empty"></div>
@@ -434,1064 +578,142 @@
         <div class="tl-content">
           <div class="tl-year">2022</div>
           <div class="tl-title">Costa Rica</div>
-          <div class="tl-desc">Pura Vida! Surfen, Regenwald, Vulkane und Karibikküste in 19 Tagen.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Santa Teresa</span>
-            <span class="tl-station">Monteverde</span>
-            <span class="tl-station">Rio Celeste</span>
-            <span class="tl-station">La Fortuna</span>
-            <span class="tl-station">Tortuguero</span>
-            <span class="tl-station">Puerto Viejo</span>
-          </div>
-          <a href="#trip-costarica-2022" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="tl-desc">Pura Vida! 19 Nächte – Surfen, Regenwald, Vulkane und Karibikküste.</div>
+          <a href="reise-costarica-2022.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
       </div>
 
-      <!-- 2023 Sri Lanka -->
+      <!-- 2019 Thailand -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-content">
-          <div class="tl-year">2023</div>
-          <div class="tl-title">Sri Lanka</div>
-          <div class="tl-desc">20 Tage durch die Tränen-Insel: Elefanten, Zugfahrten durchs Hochland und die entspannteste Küste Asiens.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Unawatuna</span>
-            <span class="tl-station">Uda Walawe</span>
-            <span class="tl-station">Ella</span>
-            <span class="tl-station">Kandy</span>
-            <span class="tl-station">Sigiriya</span>
-            <span class="tl-station">Trincomalee</span>
-          </div>
-          <a href="#trip-srilanka-2023" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="tl-year">2019</div>
+          <div class="tl-title">Thailand</div>
+          <div class="tl-desc">Chiang Mai, Khao Sok, Inseln – 21 Nächte durch den Süden.</div>
+          <a href="reise-thailand-2019.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-empty"></div>
       </div>
 
-      <!-- 2023 Florida -->
+      <!-- 2019 Las Vegas -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-empty"></div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-content">
-          <div class="tl-year">2023</div>
-          <div class="tl-title">Florida &amp; Bahamas</div>
-          <div class="tl-desc">Roadtrip durch den Sunshine State: Miami, Keys, Everglades und eine Kreuzfahrt zu den Bahamas.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Miami</span>
-            <span class="tl-station">Key West</span>
-            <span class="tl-station">Key Largo</span>
-            <span class="tl-station">Naples</span>
-            <span class="tl-station">Anna Maria Island</span>
-            <span class="tl-station">Bahamas</span>
-          </div>
-          <a href="#trip-florida-2023" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="tl-year">2019</div>
+          <div class="tl-title">Las Vegas</div>
+          <div class="tl-desc">Die verrückteste Stadt der Welt – einmal muss man einfach hin.</div>
+          <a href="reise-lasvegas-2019.html" class="tl-link">Tipps lesen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
       </div>
 
-      <!-- 2024 Namibia -->
+      <!-- 2018 Vietnam -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-content">
-          <div class="tl-year">2024</div>
-          <div class="tl-title">Namibia Camping-Roadtrip</div>
-          <div class="tl-desc">23 Nächte mit dem Camper durch eines der wildesten Länder Afrikas — Wüste, Wildnis, Stille.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Windhoek</span>
-            <span class="tl-station">Etosha</span>
-            <span class="tl-station">Twyfelfontein</span>
-            <span class="tl-station">Spitzkoppe</span>
-            <span class="tl-station">Sossusvlei</span>
-            <span class="tl-station">Fish River Canyon</span>
-            <span class="tl-station">Kalahari</span>
-          </div>
-          <a href="#trip-namibia-2024" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="tl-year">2018</div>
+          <div class="tl-title">Vietnam</div>
+          <div class="tl-desc">Von Saigon bis Halong – Vietnam von Süd nach Nord in 14 Tagen.</div>
+          <a href="reise-vietnam-2018.html" class="tl-link">Route ansehen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-empty"></div>
       </div>
 
-      <!-- 2024 London -->
+      <!-- 2017 Bali -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-empty"></div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-content">
-          <div class="tl-year">2024</div>
-          <div class="tl-title">London Städtetrip</div>
-          <div class="tl-desc">Ein verlängertes Wochenende in der britischen Hauptstadt — Museen, Märkte, Pubs und Stadtspaziergang.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Shoreditch</span>
-            <span class="tl-station">Borough Market</span>
-            <span class="tl-station">Southbank</span>
-            <span class="tl-station">Notting Hill</span>
-          </div>
-          <a href="#trip-london-2024" class="tl-link">Tipps lesen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="tl-year">2017</div>
+          <div class="tl-title">Bali</div>
+          <div class="tl-desc">Erste Begegnung mit Indonesien – Reisterrassen, Tempel und Sonnenuntergänge.</div>
+          <a href="reise-bali-2017.html" class="tl-link">Zur Seite <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
       </div>
 
-      <!-- 2025 Philippinen -->
+      <!-- 2017 New York -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-content">
-          <div class="tl-year">2025</div>
-          <div class="tl-title">Philippinen</div>
-          <div class="tl-desc">15 Nächte auf Palawan und den Visayas — Inselhopping, Walhaie schnorcheln und das türkiseste Wasser der Welt.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Manila</span>
-            <span class="tl-station">Port Barton</span>
-            <span class="tl-station">El Nido</span>
-            <span class="tl-station">Coron</span>
-            <span class="tl-station">Donsol</span>
-          </div>
-          <a href="#trip-philippinen-2025" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="tl-year">2017</div>
+          <div class="tl-title">New York City</div>
+          <div class="tl-desc">Die Stadt, die niemals schläft – unser erster Städtetrip nach New York.</div>
+          <a href="reise-newyork-2017.html" class="tl-link">Tipps lesen <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-empty"></div>
       </div>
 
-      <!-- 2025 Bali/Lombok -->
+      <!-- 2013 USA -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-empty"></div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
         <div class="tl-content">
-          <div class="tl-year">2025</div>
-          <div class="tl-title">Bali &amp; Lombok</div>
-          <div class="tl-desc">Vom Ubud-Morgenritual über den Vulkan Rinjani bis zu den Gili-Inseln und zurück nach Canggu.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Ubud</span>
-            <span class="tl-station">Senaru/Rinjani</span>
-            <span class="tl-station">Tetebatu</span>
-            <span class="tl-station">Kuta Lombok</span>
-            <span class="tl-station">Gili Asahan</span>
-            <span class="tl-station">Canggu</span>
-          </div>
-          <a href="#trip-bali-lombok-2025" class="tl-link">Route ansehen
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="tl-year">2013</div>
+          <div class="tl-title">USA Rundreise</div>
+          <div class="tl-desc">Ost nach West – der klassische Roadtrip durchs Land der unbegrenzten Möglichkeiten.</div>
+          <a href="reise-usa-2013.html" class="tl-link">Zur Seite <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
       </div>
 
-      <!-- 2026 Thailand - Upcoming -->
+      <!-- 2011 Thailand & Kambodscha -->
       <div class="timeline-entry reveal-hidden">
         <div class="tl-content">
-          <div class="tl-year" style="color:var(--text-muted)">2026 · Upcoming</div>
-          <div class="tl-title">Thailand Inselrunde</div>
-          <div class="tl-desc">19 Nächte Bangkok, Koh Phayam, Khao Sok, Koh Lanta, Koh Bulon Leh und Koh Lipe — geplant, gebucht, fast da.</div>
-          <div class="tl-stations">
-            <span class="tl-station">Bangkok</span>
-            <span class="tl-station">Koh Phayam</span>
-            <span class="tl-station">Khao Sok</span>
-            <span class="tl-station">Koh Lanta</span>
-            <span class="tl-station">Koh Bulon Le</span>
-            <span class="tl-station">Koh Lipe</span>
-          </div>
-          <span class="tl-link" style="opacity:0.5; cursor:default;">In Planung</span>
+          <div class="tl-year">2011 · Der Anfang</div>
+          <div class="tl-title">Thailand &amp; Kambodscha</div>
+          <div class="tl-desc">Unsere allererste große Reise zu zweit – der Moment, der alles begann.</div>
+          <a href="reise-thailand-kambodscha-2011.html" class="tl-link">Zur Seite <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
         </div>
-        <div class="tl-dot"><div class="tl-dot-inner" style="border-color:var(--text-muted)"></div></div>
+        <div class="tl-dot"><div class="tl-dot-inner" style="border-color:var(--tan)"></div></div>
         <div class="tl-empty"></div>
       </div>
 
-    </div><!-- /timeline-wrap -->
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════
-     TRIP DETAIL CARDS — ROUTEN
-═══════════════════════════════════════════════════════════ -->
-<section id="trips" aria-label="Detaillierte Reiserouten">
-  <div class="section-inner">
-
-    <div class="section-header" style="margin-bottom:80px">
-      <p class="section-tag reveal-hidden" style="justify-content:center;">Routen</p>
-      <h2 class="section-title reveal-hidden">Stationen &amp; <em>Details</em></h2>
     </div>
-
-    <div class="trips-section-wrap">
-
-      <!-- ─── NAMIBIA 2024 ─────────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-namibia-2024">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">April – Mai 2024</div>
-            <h3 class="trip-title">Namibia Camping-Roadtrip</h3>
-          </div>
-          <div class="trip-nights">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-            23 Nächte · Camper-Roadtrip
-          </div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Windhoek / Düsternbrook</div>
-            <div class="station-hotel">🏕 Düsternbrook Guesthouse</div>
-            <div class="station-date">26. April · 1 Nacht</div>
-            <div class="station-activities">Ankunft, Camper abholen, Einkaufen. Morgens reiten.</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Waterberg</div>
-            <div class="station-hotel">🏕 Waterberg Wilderness</div>
-            <div class="station-date">27.–29. April · 2 Nächte</div>
-            <div class="station-activities">Rhino Trekking</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03–05</div>
-            <div class="station-name">Etosha Nationalpark</div>
-            <div class="station-hotel">🏕 Namutoni · Okakuejo · Olifantsrus</div>
-            <div class="station-date">29. Apr – 2. Mai · 3 Nächte</div>
-            <div class="station-activities">Game drives, Wildtierbeobachtung am Wasserloch</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 06</div>
-            <div class="station-name">Twyfelfontein</div>
-            <div class="station-hotel">🏕 Mowani Campsite</div>
-            <div class="station-date">2.–4. Mai · 2 Nächte</div>
-            <div class="station-activities">Felsmalereien (nur mit Guide), Dancing Kudu Route, Lion Man Route</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 07</div>
-            <div class="station-name">Spitzkoppe</div>
-            <div class="station-hotel">🏕 Spitzkoppe Camp Site</div>
-            <div class="station-date">4.–5. Mai · 1 Nacht</div>
-            <div class="station-activities">Rock Arch, Bushmans Paradies (mit Guide), Sonnenauf-/untergang</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 08</div>
-            <div class="station-name">Swakopmund</div>
-            <div class="station-hotel">🏕 Alte Brücke Campsite</div>
-            <div class="station-date">5.–7. Mai · 2 Nächte</div>
-            <div class="station-activities">Little 5 Tour, Walvis Bay, Quad-Tour</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 09</div>
-            <div class="station-name">Sesriem / Sossusvlei</div>
-            <div class="station-hotel">🏕 Sesriem Oshana</div>
-            <div class="station-date">7.–9. Mai · 2 Nächte</div>
-            <div class="station-activities">Düne 45, Dead Vlei, Big Daddy Dune, Sesriem Canyon</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 10</div>
-            <div class="station-name">Namib Wüste</div>
-            <div class="station-hotel">🏕 Little Hunters Rest</div>
-            <div class="station-date">9.–11. Mai · 2 Nächte</div>
-            <div class="station-activities">Panoramastraße D707</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 11</div>
-            <div class="station-name">Lüderitz &amp; Kolmanskuppe</div>
-            <div class="station-hotel">🏕 Shark Island Campsite</div>
-            <div class="station-date">11.–12. Mai · 1 Nacht</div>
-            <div class="station-activities">Geisterstadt Kolmanskuppe (Führung, Fotopermit möglich)</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 12</div>
-            <div class="station-name">Fish River Canyon</div>
-            <div class="station-hotel">🏕 Canyon Roadhouse Camping</div>
-            <div class="station-date">12.–14. Mai · 2 Nächte</div>
-            <div class="station-activities">Sunset Point, Hikers Viewpoint, Eagle Rock, Helis Bend</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 13</div>
-            <div class="station-name">Kalahari</div>
-            <div class="station-hotel">🏕 Bagatelle Kalahari Lodge</div>
-            <div class="station-date">14.–16. Mai · 2 Nächte</div>
-            <div class="station-activities">Köcherbaumwald, Giant's Playground, Game Drives, Sundowner, Reiten</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Finale</div>
-            <div class="station-name">Windhoek / Otjisazu Lodge</div>
-            <div class="station-hotel">🏕 Bryans View + Otjisazu Lodge</div>
-            <div class="station-date">16.–19. Mai</div>
-            <div class="station-activities">Camper abgeben, Lodgeaufenthalt inkl. Transfers und Vollpension</div>
-          </div>
-        </div>
-
-        <div class="trip-images">
-          <img src="Bilder/Namibia 2024/IMG_7044.jpg" alt="Namibia – Weite Savanne" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Namibia 2024/IMG_7119.jpg" alt="Namibia – Tierwelt" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Namibia 2024/IMG_7254.jpg" alt="Namibia – Landschaft" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Namibia 2024/IMG_7470.jpg" alt="Namibia – Wüste" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Namibia 2024/DSC04526.jpg" alt="Namibia – Campingplatz" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Namibia 2024/IMG_7550.jpg" alt="Namibia – Abendstimmung" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Namibia 2024/IMG_7702.jpg" alt="Namibia – Sonnenuntergang" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Namibia 2024/IMG_7920.jpg" alt="Namibia – Sossusvlei" class="trip-thumb" loading="lazy">
-        </div>
-      </div>
-
-      <!-- ─── PHILIPPINEN 2025 ──────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-philippinen-2025">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">Januar – Februar 2025</div>
-            <h3 class="trip-title">Philippinen</h3>
-          </div>
-          <div class="trip-nights">15 Nächte · Palawan &amp; Visayas</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Start</div>
-            <div class="station-name">Manila</div>
-            <div class="station-hotel">🏨 NomadsMNL Hostel</div>
-            <div class="station-date">17.–18. Jan · 1 Nacht</div>
-            <div class="station-activities">Ankunft 21:30, Zwischenübernachtung</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Port Barton</div>
-            <div class="station-hotel">🏨 Rubin Resort</div>
-            <div class="station-date">18.–20. Jan · 2 Nächte</div>
-            <div class="station-activities">Transfer Puerto Princesa → Port Barton, Entspannung am Strand</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Darocoton</div>
-            <div class="station-hotel">🏕 Ecocamp Dos Playa</div>
-            <div class="station-date">20.–22. Jan · 2 Nächte</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">El Nido</div>
-            <div class="station-hotel">🏨 Rosanna's Pension</div>
-            <div class="station-date">22.–25. Jan · 3 Nächte</div>
-            <div class="station-activities">Kochkurs (El Kusina), Surfen Duli Beach, Inselhopping</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">Bootstour El Nido → Coron</div>
-            <div class="station-hotel">⛵ 3 Tage / 2 Nächte Liveaboard</div>
-            <div class="station-date">25.–27. Jan · 2 Nächte</div>
-            <div class="station-activities">Traumhafte Karstfelsen-Lagune, Schnorcheln, Strände</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Coron</div>
-            <div class="station-hotel">🏨 SunTourist Inn</div>
-            <div class="station-date">27.–29. Jan · 2 Nächte</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 06</div>
-            <div class="station-name">Donsol</div>
-            <div class="station-hotel">🏨 Elysia Beach Resort</div>
-            <div class="station-date">29.–31. Jan · 2 Nächte</div>
-            <div class="station-activities">Schnorcheln mit Walhaien — ein einzigartiges Erlebnis!</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Finale</div>
-            <div class="station-name">Manila</div>
-            <div class="station-hotel">🏨 NomadsMNL Hostel</div>
-            <div class="station-date">31. Jan – 1. Feb · 1 Nacht</div>
-            <div class="station-activities">Rückflug 07:15 Uhr</div>
-          </div>
-        </div>
-
-        <div class="trip-images">
-          <div class="img-placeholder-sm">
-            <!-- BILDHINWEIS: El Nido Karstfelsen-Lagune, türkisblaues Wasser.
-                 Typ: Panorama von oben oder Bootsperspektive. Querformat. -->
-            El Nido Karstfelsen<br><small>Lagune-Panorama oder Karstfelsen-Blick einsetzen</small>
-          </div>
-          <div class="img-placeholder-sm">
-            <!-- BILDHINWEIS: Walhai-Foto aus Donsol. Taucherbrille-Perspektive oder Walhai von oben. -->
-            Walhai Donsol<br><small>Schnorcheln mit Walhaien – Unterwasserfoto</small>
-          </div>
-          <div class="img-placeholder-sm">
-            <!-- BILDHINWEIS: Bootstour zwischen Coron und El Nido. Boot vor Karstfelsen. -->
-            Bootstour El Nido–Coron<br><small>Boot zwischen Kalkfelsen, Liveaboard-Atmosphäre</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─── BALI / LOMBOK 2025 ────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-bali-lombok-2025">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">September – Oktober 2025</div>
-            <h3 class="trip-title">Bali &amp; Lombok</h3>
-          </div>
-          <div class="trip-nights">23 Nächte · Indonesien</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Ubud, Bali</div>
-            <div class="station-hotel">🏨 Sumantra House</div>
-            <div class="station-date">25.–30. Sep · 5 Nächte</div>
-            <div class="station-activities">Ausflugstag, Rollertour, Yoga, Priester Reading (27.9)</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Senaru / Rinjani-Trekking</div>
-            <div class="station-hotel">🏕 Zelt beim Touranbieter</div>
-            <div class="station-date">30. Sep – 2. Okt · 2 Nächte</div>
-            <div class="station-activities">Vulkantrekking Rinjani (NP-Ticket angezahlt)</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">Tetebatu</div>
-            <div class="station-hotel">🏨 Aulia Bungalows</div>
-            <div class="station-date">2.–4. Okt · 2 Nächte</div>
-            <div class="station-activities">Monkey Forest, Wasserfälle, Kochkurs im Hotel</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">Senggigi</div>
-            <div class="station-hotel">🏨 Cafe Wayan Cottages</div>
-            <div class="station-date">4.–6. Okt · 2 Nächte</div>
-            <div class="station-activities">Rollertour entlang der Küste</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Kuta, Lombok</div>
-            <div class="station-hotel">🏨 Rawa Lombok</div>
-            <div class="station-date">6.–9. Okt · 3 Nächte</div>
-            <div class="station-activities">Surfen, Strände erkunden</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 06</div>
-            <div class="station-name">Sekotong</div>
-            <div class="station-hotel">🏨 Krisna Bungalows</div>
-            <div class="station-date">9.–11. Okt · 2 Nächte</div>
-            <div class="station-activities">Island Hopping Tour zu den Gili-Inseln</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 07</div>
-            <div class="station-name">Gili Asahan</div>
-            <div class="station-hotel">🏨 Amahelia Resort</div>
-            <div class="station-date">11.–14. Okt · 3 Nächte</div>
-            <div class="station-activities">Entspannen auf einer der kleinsten Gili-Inseln</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Finale</div>
-            <div class="station-name">Canggu, Bali</div>
-            <div class="station-hotel">🏨 Surf Lodge Canggu</div>
-            <div class="station-date">14.–18. Okt · 4 Nächte</div>
-            <div class="station-activities">Ausflug nach Sanur zum Eiscafé, Surfen, Abschlussabende</div>
-          </div>
-        </div>
-
-        <div class="trip-images">
-          <img src="Bilder/Bali 2017/IMG_0409.JPG" alt="Bali – Tempelanlage oder Reisterrassen" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/P9120242.JPG" alt="Bali – Tropische Vegetation" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/DSC_0615.JPG" alt="Bali – Landschaft" class="trip-thumb" loading="lazy">
-          <div class="img-placeholder-sm">
-            <!-- BILDHINWEIS: Rinjani Vulkankrater oder Campsite bei Sonnenaufgang.
-                 Stimmungsvolles Bergpanorama, Nebel im Tal. -->
-            Rinjani Trekking<br><small>Vulkankrater oder Campsite-Sonnenaufgang einsetzen</small>
-          </div>
-          <div class="img-placeholder-sm">
-            <!-- BILDHINWEIS: Gili Asahan – türkises Wasser, unberührter Strand. -->
-            Gili Asahan<br><small>Türkisblaues Wasser, kleiner einsamer Strand</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─── SRI LANKA 2023 ────────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-srilanka-2023">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">April – Mai 2023</div>
-            <h3 class="trip-title">Sri Lanka</h3>
-          </div>
-          <div class="trip-nights">20 Nächte · Rundreise</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Unawatuna</div>
-            <div class="station-hotel">🏨 Unawatuna Backpacker Lodge</div>
-            <div class="station-date">18.–20. Apr · 2 Nächte</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Uda Walawe</div>
-            <div class="station-hotel">🌿 Eco Tree house in Green Park</div>
-            <div class="station-date">20.–21. Apr · 1 Nacht</div>
-            <div class="station-activities">Elephant Transit Home, Safari (05:45 – 14:00 Uhr)</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">Ella</div>
-            <div class="station-hotel">🏨 Ella Moon Rock</div>
-            <div class="station-date">21.–24. Apr · 3 Nächte</div>
-            <div class="station-activities">Ella Rock, Little Adams Peak, 9 Arch Bridge. Zugfahrt 24.4 um 05:45</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">Kandy</div>
-            <div class="station-hotel">🏨 Kandy Tower Inn</div>
-            <div class="station-date">24.–25. Apr · 1 Nacht</div>
-            <div class="station-activities">Zahntempel, Markt</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Dambulla</div>
-            <div class="station-hotel">🌿 Green Village Dambulla</div>
-            <div class="station-date">25.–27. Apr · 2 Nächte</div>
-            <div class="station-activities">Höhlentempel, via Polonnaruwa nach Sigiriya</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 06</div>
-            <div class="station-name">Sigiriya</div>
-            <div class="station-hotel">🏨 Sigiriya Paradise Inn</div>
-            <div class="station-date">27.–29. Apr · 2 Nächte</div>
-            <div class="station-activities">Sigiriya-Felsen (Löwenfelsen), Pinnawala</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 07</div>
-            <div class="station-name">Anuradhapura</div>
-            <div class="station-hotel">🏨 Rajarata Reach Resort</div>
-            <div class="station-date">29. Apr – 1. Mai · 2 Nächte</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 08</div>
-            <div class="station-name">Trincomalee</div>
-            <div class="station-hotel">🏨 Pragash Beach Hotel</div>
-            <div class="station-date">1.–6. Mai · 5 Nächte</div>
-            <div class="station-activities">Strandzeit an der Ostküste</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Finale</div>
-            <div class="station-name">Negombo</div>
-            <div class="station-hotel">🏨 Leighton Resort</div>
-            <div class="station-date">6.–8. Mai · 2 Nächte</div>
-            <div class="station-activities">Kostenloser Airport-Shuttle inkludiert</div>
-          </div>
-        </div>
-
-        <div class="trip-images">
-          <img src="Bilder/Sri Lanka 2023/IMG_20230420_135632.jpg" alt="Sri Lanka – Natur und Landschaft" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Sri Lanka 2023/IMG_20230421_070737.jpg" alt="Sri Lanka – Morgenstimmung" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Sri Lanka 2023/IMG_20230421_101042.jpg" alt="Sri Lanka – Naturreservat" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Sri Lanka 2023/IMG20230422152910.jpg" alt="Sri Lanka – Landschaft" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Sri Lanka 2023/IMG_6320.JPG" alt="Sri Lanka – Highlight" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Sri Lanka 2023/IMG_6339.JPG" alt="Sri Lanka – Szene" class="trip-thumb" loading="lazy">
-        </div>
-      </div>
-
-      <!-- ─── FLORIDA 2023 ──────────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-florida-2023">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">November – Dezember 2023</div>
-            <h3 class="trip-title">Florida &amp; Bahamas</h3>
-          </div>
-          <div class="trip-nights">14 Nächte · Roadtrip + Kreuzfahrt</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Miami</div>
-            <div class="station-hotel">🏨 Henrosa South Beach</div>
-            <div class="station-date">27.–29. Nov · 2 Nächte</div>
-            <div class="station-activities">South Beach, Art Déco District, Ocean Drive</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Key West</div>
-            <div class="station-hotel">🏨 Wicker Guesthouse</div>
-            <div class="station-date">29. Nov – 1. Dez · 2 Nächte</div>
-            <div class="station-activities">Mietwagen ab Miami, Fahrt über den Overseas Highway</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">Key Largo</div>
-            <div class="station-hotel">🏨 Bayside Inn Key Largo</div>
-            <div class="station-date">1. Dez · 1 Nacht</div>
-            <div class="station-activities">John Pennekamp Coral Reef State Park</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">Naples</div>
-            <div class="station-hotel">🏨 Naples Park Central Hotel</div>
-            <div class="station-date">2.–4. Dez · 2 Nächte</div>
-            <div class="station-activities">Everglades Airboat Tour (Buffalo Tiger), Loop Road, Ritz Carlton Sunset</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Anna Maria Island</div>
-            <div class="station-hotel">🏨 Silver Surf Beach Resort</div>
-            <div class="station-date">4.–6. Dez · 2 Nächte</div>
-            <div class="station-activities">Siesta Key Beach, Sarasota</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 06</div>
-            <div class="station-name">Fort Lauderdale</div>
-            <div class="station-hotel">🏨 Snooze</div>
-            <div class="station-date">6.–8. Dez · 2 Nächte</div>
-            <div class="station-activities">Shark Valley, Mietwagen-Rückgabe am Flughafen</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Finale</div>
-            <div class="station-name">Kreuzfahrt Bahamas</div>
-            <div class="station-hotel">🚢 MSC/Royal Caribbean</div>
-            <div class="station-date">8.–11. Dez · 3 Nächte</div>
-            <div class="station-activities">Karibik-Kreuzfahrt ab Fort Lauderdale zu den Bahamas</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─── COSTA RICA 2022 ───────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-costarica-2022">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">März – April 2022</div>
-            <h3 class="trip-title">Costa Rica · Pura Vida</h3>
-          </div>
-          <div class="trip-nights">19 Nächte · Mietwagen-Rundreise</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Santa Teresa</div>
-            <div class="station-hotel">🌴 Funky Monkey Lodge</div>
-            <div class="station-date">29. März – 2. Apr · 4 Nächte</div>
-            <div class="station-activities">Surfen</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Monteverde (Santa Elena)</div>
-            <div class="station-hotel">🏨 Cabinas Eddy B&amp;B</div>
-            <div class="station-date">2.–5. Apr · 3 Nächte</div>
-            <div class="station-activities">Sunset-Reittour, Kochkurs, Santurio Ecológico, Ficus Tree, Wandern im Biolog. Reservat</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">Rio Celeste</div>
-            <div class="station-hotel">🌿 La Pina</div>
-            <div class="station-date">5.–6. Apr · 1 Nacht</div>
-            <div class="station-activities">Rio Celeste Wanderung zum türkisen Wasserfall</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">La Fortuna / Arenal</div>
-            <div class="station-hotel">🏨 Fortuna Downtown Boutique</div>
-            <div class="station-date">6.–9. Apr · 3 Nächte</div>
-            <div class="station-activities">Arenal Vulkan, Hängebrücken, Thermalquellen</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Tortuguero</div>
-            <div class="station-hotel">🌿 Casa Turtle Bogue</div>
-            <div class="station-date">9.–11. Apr · 2 Nächte</div>
-            <div class="station-activities">Kanu-Tour durch die Kanäle (Ernesto, 09.04 17:30 Uhr), Schildkröten-Nationalpark</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 06</div>
-            <div class="station-name">Puerto Viejo</div>
-            <div class="station-hotel">🌴 La Boheme</div>
-            <div class="station-date">11.–16. Apr · 5 Nächte</div>
-            <div class="station-activities">Karibikstrand, Faultiere, Chocolate Tour, Gandoca-Manzanillo</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Finale</div>
-            <div class="station-name">Alajuela / Flughafen</div>
-            <div class="station-hotel">🏨 Melrose Airport B&amp;B</div>
-            <div class="station-date">16.–17. Apr · 1 Nacht</div>
-          </div>
-        </div>
-
-        <div class="trip-images">
-          <img src="Bilder/Costa Rica 2022/IMG_20220406_090451.jpg" alt="Costa Rica – Natur" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Costa Rica 2022/IMG_20220408_132150.jpg" alt="Costa Rica – Regenwald" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Costa Rica 2022/IMG_20220414_110129.jpg" alt="Costa Rica – Nationalpark" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Costa Rica 2022/IMG_20220414_124258.jpg" alt="Costa Rica – Landschaft" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Costa Rica 2022/IMG_20220415_120339.jpg" alt="Costa Rica – Küste" class="trip-thumb" loading="lazy">
-        </div>
-      </div>
-
-      <!-- ─── THAILAND 2019 ────────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-thailand-2019">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">Februar – März 2019</div>
-            <h3 class="trip-title">Thailand &amp; Las Vegas</h3>
-          </div>
-          <div class="trip-nights">21 Nächte · Inseln, Dschungel &amp; Wüste</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Chiang Mai</div>
-            <div class="station-hotel">🏨 Commonroom</div>
-            <div class="station-date">23.–28. Feb · 5 Nächte</div>
-            <div class="station-activities">Kochkurs (Lanna Smile), Elefantencamp, Yoga, Trekking (TMT), Altstadt</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Khao Sok NP</div>
-            <div class="station-hotel">🏕 Baan Khao Sok + Wasserbungalow Smiley</div>
-            <div class="station-date">28. Feb – 3. Mär · 3 Nächte</div>
-            <div class="station-activities">Wasserbungalow auf dem Stausee, Dschungelwanderung</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">Krabi</div>
-            <div class="station-hotel">🏨 Sleep Whale Express</div>
-            <div class="station-date">3.–5. Mär · 2 Nächte</div>
-            <div class="station-activities">Nachtmarkt, 7 Inseln Tour</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">Koh Lanta</div>
-            <div class="station-hotel">🏝 Lanta New Coconut</div>
-            <div class="station-date">5.–9. Mär · 4 Nächte</div>
-            <div class="station-activities">Tauch-Schnupperkurs (Blue Planet Divers), Insel erkunden, Schnorcheltour</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Koh Mook</div>
-            <div class="station-hotel">🏝 Mook Ing Lay</div>
-            <div class="station-date">9.–12. Mär · 3 Nächte</div>
-            <div class="station-activities">Emerald Cave, Inseltour, Schnorcheln</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 06</div>
-            <div class="station-name">Bangkok</div>
-            <div class="station-hotel">🏨 At Smile</div>
-            <div class="station-date">12.–16. Mär · 4 Nächte</div>
-            <div class="station-activities">Stadtbesichtigung, Märkte, Grand Palace, Floating Market</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Bonus</div>
-            <div class="station-name">Las Vegas</div>
-            <div class="station-hotel">🎰 The Strip</div>
-            <div class="station-date">2019</div>
-            <div class="station-activities">Die verrückteste Stadt der Welt – ein Must-See fürs Leben</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─── VIETNAM 2018 ──────────────────────────────── -->
-      <div class="trip-block reveal-hidden" id="trip-vietnam-2018">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">März – April 2018</div>
-            <h3 class="trip-title">Vietnam</h3>
-          </div>
-          <div class="trip-nights">14 Nächte · Von Süd nach Nord</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Ho Chi Minh Stadt (Saigon)</div>
-            <div class="station-hotel">🏨 Saigon Inn</div>
-            <div class="station-date">27.–30. März · 3 Nächte</div>
-            <div class="station-activities">Mekong-Delta Tour, Cú Chi Tunnel</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Hoi An</div>
-            <div class="station-hotel">🏨 Flamingo Villa</div>
-            <div class="station-date">30. März – 2. Apr · 3 Nächte</div>
-            <div class="station-activities">Laternenfest, Kochkurs (Thuan Thin), Laternen basteln, Altstadt</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">Hue</div>
-            <div class="station-hotel">🏨 La Perle</div>
-            <div class="station-date">2.–3. Apr · 1 Nacht</div>
-            <div class="station-activities">Easy Rider Motorradtour Hoi An → Hue (Hai Van Pass)</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">Sapa</div>
-            <div class="station-hotel">🏕 Trekking with Sue</div>
-            <div class="station-date">3.–5. Apr · Overnight Trek</div>
-            <div class="station-activities">Trekking durch Reisterrassen, Übernachtung im Dorf</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Hanoi</div>
-            <div class="station-hotel">🏨 Amorita Boutique + Paradise Boutique</div>
-            <div class="station-date">5.–9. Apr · 3 Nächte</div>
-            <div class="station-activities">Altstadt, Hoan-Kiem-See, Tempel, Streetfood-Tour</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Highlight</div>
-            <div class="station-name">Halong Bucht</div>
-            <div class="station-hotel">⛵ Get your Guide · 2D/1N Tour</div>
-            <div class="station-date">6.–7. Apr · 1 Nacht</div>
-            <div class="station-activities">Kajak zwischen Kalkfelsen, Höhlenbesichtigung, Sonnenuntergang auf dem Schiff</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─── STÄDTETRIPS ────────────────────────────────── -->
-      <!-- New York 2017 -->
-      <div class="trip-block reveal-hidden" id="trip-nyc-2017">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">2017 · Städtetrip</div>
-            <h3 class="trip-title">New York City</h3>
-          </div>
-          <div class="trip-nights">Kurztrip · 4–5 Tage</div>
-        </div>
-
-        <div class="city-trip-card">
-          <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:24px;">
-            New York in einem verlängerten Wochenende — zu kurz, aber nie genug. Die Stadt
-            überwältigt sofort und lässt einen nicht mehr los. Meine persönlichen Highlights:
-          </p>
-          <div class="city-highlights">
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              <div class="city-hl-title">Central Park &amp; The High Line</div>
-              <div class="city-hl-text">Morgens frühstücken im Park, nachmittags über die High Line durch Chelsea flanieren.</div>
-            </div>
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-              <div class="city-hl-title">Brooklyn Bridge &amp; DUMBO</div>
-              <div class="city-hl-text">Zu Fuß über die Brücke, Blick auf Manhattan vom Brooklyn Bridge Park.</div>
-            </div>
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              <div class="city-hl-title">Chelsea Market &amp; SoHo Shopping</div>
-              <div class="city-hl-text">Food-Halle im Chelsea Market, dann durch SoHo bummeln.</div>
-            </div>
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
-              <div class="city-hl-title">Times Square &amp; Broadway</div>
-              <div class="city-hl-text">Einmal muss man rein — am besten abends für die volle Neon-Wirkung.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- London 2024 -->
-      <div class="trip-block reveal-hidden" id="trip-london-2024">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">2024 · Städtetrip</div>
-            <h3 class="trip-title">London</h3>
-          </div>
-          <div class="trip-nights">Kurztrip · 4–5 Tage</div>
-        </div>
-
-        <div class="city-trip-card">
-          <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:24px;">
-            London ist immer eine gute Idee — egal wie oft man schon da war. Meine Empfehlungen
-            für einen kompakten Städtetrip:
-          </p>
-          <div class="city-highlights">
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              <div class="city-hl-title">Shoreditch &amp; Brick Lane</div>
-              <div class="city-hl-text">Street Art, coole Cafés und der beste Sonntagsmarkt der Stadt.</div>
-            </div>
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              <div class="city-hl-title">Borough Market</div>
-              <div class="city-hl-text">Londons ältester und bester Lebensmittelmarkt — Frühstück pflicht!</div>
-            </div>
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-              <div class="city-hl-title">Tate Modern &amp; Southbank</div>
-              <div class="city-hl-text">Kunst, Themse-Spaziergang und Blick auf die Tower Bridge vom Südufer.</div>
-            </div>
-            <div class="city-highlight-item">
-              <svg class="city-hl-icon icon-svg" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
-              <div class="city-hl-title">Notting Hill &amp; Portobello Market</div>
-              <div class="city-hl-text">Pastellfarbene Häuser, Antiquitäten und der bekannteste Flohmarkt Londons.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- USA 2013 -->
-      <div class="trip-block reveal-hidden" id="trip-usa-2013">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">2013 · Rundreise</div>
-            <h3 class="trip-title">USA Rundreise</h3>
-          </div>
-          <div class="trip-nights">Der Anfang von allem</div>
-        </div>
-
-        <div class="city-trip-card">
-          <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:24px;">
-            Die Reise, die alles begonnen hat. Der klassische amerikanische Roadtrip —
-            von der Ostküste durch den Süden in den Westen und zurück. Hier ein Vorschlag
-            für die Darstellung dieser Route:
-          </p>
-          <div class="city-highlights">
-            <div class="city-highlight-item">
-              <div class="city-hl-title">New York City</div>
-              <div class="city-hl-text">Ankunft, erstes Staunen vor dem Skyline-Panorama</div>
-            </div>
-            <div class="city-highlight-item">
-              <div class="city-hl-title">Washington D.C.</div>
-              <div class="city-hl-text">Mall, Smithsonian, Capitol — kostenlose Museen bis zum Umfallen</div>
-            </div>
-            <div class="city-highlight-item">
-              <div class="city-hl-title">Nashville &amp; New Orleans</div>
-              <div class="city-hl-text">Country Music, Bourbon Street, Live-Musik und Southern Food</div>
-            </div>
-            <div class="city-highlight-item">
-              <div class="city-hl-title">Las Vegas &amp; Grand Canyon</div>
-              <div class="city-hl-text">Vom Glanz des Strip in die Stille des mächtigsten Canyons der Welt</div>
-            </div>
-            <div class="city-highlight-item">
-              <div class="city-hl-title">Los Angeles</div>
-              <div class="city-hl-text">Hollywood, Venice Beach, In-N-Out Burger — Abschluss am Pazifik</div>
-            </div>
-          </div>
-          <p style="color:var(--text-muted); font-size:.8rem; margin-top:20px; font-style:italic;">
-            Hinweis: Detailroute für 2013 wird noch ergänzt — schreib mir, wenn du Fragen hast!
-          </p>
-        </div>
-      </div>
-
-      <!-- Bali 2017 -->
-      <div class="trip-block reveal-hidden" id="trip-bali-2017">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">2017 · Rundreise</div>
-            <h3 class="trip-title">Bali</h3>
-          </div>
-          <div class="trip-nights">Erste Begegnung mit Indonesien</div>
-        </div>
-        <div class="trip-images">
-          <img src="Bilder/Bali 2017/IMG_0409.JPG"                alt="Bali – Tempel oder Reisterrassen" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/IMG_0541.JPG"                alt="Bali – Landschaft" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/P9120242.JPG"                alt="Bali – Vegetation" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/DSC_0615.JPG"                alt="Bali – Szene" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/IMG_20170920_182518.jpg"      alt="Bali – Abendstimmung" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/2017_0924_093055_014.JPG"     alt="Bali – Morgenstimmung" class="trip-thumb" loading="lazy">
-          <img src="Bilder/Bali 2017/P9250302.JPG"                 alt="Bali – Highlight" class="trip-thumb" loading="lazy">
-        </div>
-      </div>
-
-      <!-- Thailand 2026 -->
-      <div class="trip-block reveal-hidden" id="trip-thailand-2026">
-        <div class="trip-header">
-          <div class="trip-meta">
-            <div class="trip-period">Januar 2026 · Upcoming</div>
-            <h3 class="trip-title">Thailand Inselrunde</h3>
-          </div>
-          <div class="trip-nights">19 Nächte · Geplant &amp; gebucht</div>
-        </div>
-
-        <div class="route-stations">
-          <div class="station-card">
-            <div class="station-order">Stop 01</div>
-            <div class="station-name">Bangkok</div>
-            <div class="station-hotel">🏨 Boutique Poo-Yai Lee</div>
-            <div class="station-date">2.–4. Jan · 2 Nächte</div>
-            <div class="station-activities">Weekend Market, Stadtbummel</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 02</div>
-            <div class="station-name">Koh Phayam</div>
-            <div class="station-hotel">🏝 Nitiporn Resort</div>
-            <div class="station-date">4.–7. Jan · 3 Nächte</div>
-            <div class="station-activities">Entspannen auf der ruhigsten Insel Südthailands</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 03</div>
-            <div class="station-name">Khao Sok NP</div>
-            <div class="station-hotel">🌿 Our Jungle House</div>
-            <div class="station-date">7.–8. Jan · 1 Nacht</div>
-            <div class="station-activities">Dschungel, Urwald, Nachtgeräusche</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Highlight</div>
-            <div class="station-name">Cheow Lan Lake</div>
-            <div class="station-hotel">⛵ Smiley Lake Tour</div>
-            <div class="station-date">8.–9. Jan · 1 Nacht</div>
-            <div class="station-activities">Übernachtung auf dem Stausee, Kajakfahren zwischen Kalkfelsen</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 04</div>
-            <div class="station-name">Koh Lanta</div>
-            <div class="station-hotel">🏝 Lanta Emerald Bungalow</div>
-            <div class="station-date">9.–12. Jan · 3 Nächte</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Stop 05</div>
-            <div class="station-name">Koh Bulon Le</div>
-            <div class="station-hotel">🏝 Bulone Resort</div>
-            <div class="station-date">12.–14. Jan · 2 Nächte</div>
-            <div class="station-activities">Eine der unberührtesten Inseln Thailands</div>
-          </div>
-          <div class="station-card">
-            <div class="station-order">Finale</div>
-            <div class="station-name">Koh Lipe</div>
-            <div class="station-hotel">🏝 Bayview Sunset</div>
-            <div class="station-date">14.–18. Jan · 4 Nächte</div>
-            <div class="station-activities">Türkisblaues Wasser, Korallen, Sonnenuntergänge — das große Finale</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /trips-section-wrap -->
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     FOOTER
-═══════════════════════════════════════════════════════════ -->
-<footer id="footer" role="contentinfo">
+<!-- ══════ FOOTER ═════════════════════════════════════════ -->
+<footer id="footer">
   <div class="footer-inner">
     <div class="footer-top">
-
       <div class="footer-brand">
-        <span class="nav-logo">Rauszeit</span>
-        <p>Echte Routen, ehrliche Erlebnisse und Inspiration für alle, die raus wollen aus dem Alltag. Kein Hochglanz, kein Sponsoring — nur Reiseerfahrungen aus erster Hand.</p>
+        <img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer">
+        <p>Unsere echten Routen, ehrlichen Erlebnisse und Inspiration für alle, die raus wollen – seit 2011 auf Abenteuer-Tour zu zweit.</p>
       </div>
-
       <div>
-        <div class="footer-col-title">Reisen</div>
+        <div class="footer-col-title">Reiseziele</div>
         <ul class="footer-links">
-          <li><a href="#trip-namibia-2024">Namibia 2024</a></li>
-          <li><a href="#trip-philippinen-2025">Philippinen 2025</a></li>
-          <li><a href="#trip-bali-lombok-2025">Bali &amp; Lombok 2025</a></li>
-          <li><a href="#trip-srilanka-2023">Sri Lanka 2023</a></li>
-          <li><a href="#trip-costarica-2022">Costa Rica 2022</a></li>
-          <li><a href="#trip-thailand-2026">Thailand 2026</a></li>
+          <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+          <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+          <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+          <li><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a></li>
+          <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+          <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
         </ul>
       </div>
-
       <div>
-        <div class="footer-col-title">Navigation</div>
+        <div class="footer-col-title">Mehr</div>
         <ul class="footer-links">
-          <li><a href="#hero">Start</a></li>
-          <li><a href="#about">Über den Blog</a></li>
-          <li><a href="#destinations">Reiseziele</a></li>
-          <li><a href="#timeline">Zeitstrahl</a></li>
-          <li><a href="#trips">Alle Routen</a></li>
+          <li><a href="reisetipps.html">Reisetipps</a></li>
+          <li><a href="ueber-uns.html">Über Uns</a></li>
+          <li><a href="#timeline">Alle Reisen</a></li>
         </ul>
       </div>
-
+      <div>
+        <div class="footer-col-title">Reisetipps</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html#planung">Wie wir planen</a></li>
+          <li><a href="reisetipps.html#packliste">Packliste</a></li>
+          <li><a href="reisetipps.html#hotels">Hotels finden</a></li>
+          <li><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a></li>
+        </ul>
+      </div>
     </div>
-
     <div class="footer-bottom">
-      <p class="footer-copy">
-        © 2025 <span>Rauszeit</span> · Alle Rechte vorbehalten
-      </p>
-      <p class="footer-copy" style="font-style:italic; opacity:.6;">
-        Made with Fernweh &amp; zu viel Koffein
-      </p>
+      <p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span> · Alle Rechte vorbehalten</p>
+      <p class="footer-copy" style="font-style:italic">Made with Fernweh &amp; Kaffee ☕</p>
     </div>
   </div>
 </footer>
 
-<script src="main.js"></script>
 </body>
 </html>

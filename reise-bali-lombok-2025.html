@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Bali Lombok 2025 – Ubud, Rinjani-Trekking, Gili Inseln, Canggu. 23 Nächte Indonesien.">
+  <title>Bali &amp; Lombok 2025 – 30 Tage Abenteuer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script>window.TRIP_ROUTE=[{lat:-8.51,lng:115.26,name:"Ubud",hotel:"Sumantra House"},{lat:-8.41,lng:116.47,name:"Senaru/Rinjani",hotel:"Zelt"},{lat:-8.56,lng:116.54,name:"Tetebatu",hotel:"Aulia Bungalows"},{lat:-8.49,lng:116.04,name:"Senggigi",hotel:"Cafe Wayan Cottages"},{lat:-8.90,lng:116.29,name:"Kuta Lombok",hotel:"Rawa Lombok"},{lat:-8.77,lng:115.83,name:"Sekotong"},{lat:-8.69,lng:115.77,name:"Gili Asahan",hotel:"Amahelia Resort"},{lat:-8.66,lng:115.14,name:"Canggu",hotel:"Surf Lodge"}];</script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
+      <div class="dropdown wide">
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
+          <a href="reise-bali-2017.html">Bali 2017</a>
+          <a href="reise-vietnam-2018.html">Vietnam 2018</a>
+          <a href="reise-thailand-2019.html">Thailand 2019</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
+          <a href="reise-philippinen-2025.html">Philippinen 2025</a>
+          <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
+          <a href="reise-thailand-2026.html">Thailand 2026</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Amerika</span>
+          <a href="reise-usa-2013.html">USA Rundreise 2013</a>
+          <a href="reise-newyork-2017.html">New York 2017</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas 2019</a>
+          <a href="reise-costarica-2022.html">Costa Rica 2022</a>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
+          <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia 2024</a>
+          <span class="dropdown-heading" style="margin-top:14px">Europa</span>
+          <a href="reise-london-2024.html">London 2024</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="index.html#timeline">Zeitreise</a></li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta">Alle Reisen</a>
+</header>
+<div class="trip-hero" style="margin-top:var(--nav-h)">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#5A8A78,#3D6E60)"></div>
+  <div class="trip-hero-overlay"></div>
+  <div class="trip-hero-content">
+    <p class="section-tag">Indonesien · Bali &amp; Lombok</p>
+    <h1 class="trip-hero-title">Bali &amp; Lombok 2025</h1>
+    <div class="trip-hero-meta"><span>📅 Sep – Okt 2025</span><span>🌙 23 Nächte</span><span>🌋 Rinjani-Trekking</span></div>
+  </div>
+</div>
+<div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Bali &amp; Lombok 2025</span></div>
+<section class="section-pad-sm map-section"><div class="section-inner">
+  <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
+  <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+</div></section>
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>
+  <div class="info-grid"><div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">24. Sep – 18. Okt 2025</div></div><div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">23 Nächte</div></div><div class="info-card"><div class="info-card-label">Länder</div><div class="info-card-value">Indonesien (Bali + Lombok)</div></div><div class="info-card"><div class="info-card-label">Highlight</div><div class="info-card-value">Rinjani-Trekking</div></div></div>
+  <div style="max-width:720px;margin-top:40px"><div class="placeholder-text">✏️ Platzhalter: Wie war die Reise von Bali nach Lombok? Wie schwer war das Rinjani-Trekking wirklich? Was empfehlt ihr anderen?</div><p class="trip-text">Ubud als Basis für die Bali-Erkundung, dann mit der Fähre nach Lombok – und sofort zum Rinjani-Vulkan. Das Trekking war anspruchsvoll, aber der Blick vom Kraterrand war jeden Schmerz wert.</p><div class="placeholder-text">✏️ Platzhalter: Eure Tipps zu Gili Asahan – wie kommt man hin, wie ist die Infrastruktur, lohnt es sich?</div></div>
+</div></section>
+<section class="section-pad"><div class="section-inner">
+  <p class="section-tag">Stationen</p><h2 class="section-title">Stationen &amp; <em>Details</em></h2>
+  <div class="station-grid" style="margin-top:32px"><div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Ubud, Bali</div><div class="station-hotel">🏨 Sumantra House</div><div class="station-date">25.–30. Sep · 5 Nächte</div><div class="station-activities">Rollertour, Yoga, Ausflüge, Priester-Reading am 27.9</div></div><div class="station-card"><div class="station-order">Stop 02 ⭐</div><div class="station-name">Senaru / Rinjani</div><div class="station-hotel">🏕 Zelt (Touranbieter)</div><div class="station-date">30. Sep – 2. Okt · 2 Nächte</div><div class="station-activities">Vulkantrekking Rinjani – bis auf 3.726m!</div></div><div class="station-card"><div class="station-order">Stop 03</div><div class="station-name">Tetebatu</div><div class="station-hotel">🏨 Aulia Bungalows</div><div class="station-date">2.–4. Okt · 2 Nächte</div><div class="station-activities">Monkey Forest, Wasserfälle, Kochkurs</div></div><div class="station-card"><div class="station-order">Stop 04</div><div class="station-name">Senggigi</div><div class="station-hotel">🏨 Cafe Wayan Cottages</div><div class="station-date">4.–6. Okt · 2 Nächte</div><div class="station-activities">Rollertour an der Küste</div></div><div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Kuta, Lombok</div><div class="station-hotel">🏝 Rawa Lombok</div><div class="station-date">6.–9. Okt · 3 Nächte</div><div class="station-activities">Surfen, Strände erkunden</div></div><div class="station-card"><div class="station-order">Stop 06</div><div class="station-name">Sekotong</div><div class="station-hotel">🏨 Krisna Bungalows</div><div class="station-date">9.–11. Okt · 2 Nächte</div><div class="station-activities">Island Hopping Tour zu den Gili-Inseln</div></div><div class="station-card"><div class="station-order">Stop 07</div><div class="station-name">Gili Asahan</div><div class="station-hotel">🏖 Amahelia Resort</div><div class="station-date">11.–14. Okt · 3 Nächte</div><div class="station-activities">Entspannen auf einer der kleinsten Gili-Inseln</div></div><div class="station-card"><div class="station-order">Finale</div><div class="station-name">Canggu, Bali</div><div class="station-hotel">🏄 Surf Lodge Canggu</div><div class="station-date">14.–18. Okt · 4 Nächte</div><div class="station-activities">Surfen, Sanur-Ausflug, Abschlussabende</div></div></div>
+</div></section>
+<section class="section-pad-sm bg-off"><div class="section-inner">
+  <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
+  <div class="photo-gallery"><img src="Bilder/Bali 2017/IMG_0409.JPG" alt="Bali Reisterrassen" loading="lazy"><img src="Bilder/Bali 2017/DSC_0615.JPG" alt="Bali" loading="lazy"><div class="photo-placeholder-sm">Rinjani Krater<br><small>Sonnenaufgang am Vulkankrater</small></div><div class="photo-placeholder-sm">Gili Asahan<br><small>Türkises Wasser, einsamer Strand</small></div><div class="photo-placeholder-sm">Ubud Reisterrassen<br><small>Tegallalang bei Sonnenaufgang</small></div></div>
+</div></section>
+<div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <a href="reise-philippinen-2025.html" class="btn-outline-dark">← Philippinen 2025</a>
+  <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+  <a href="reise-namibia-2024.html" class="btn-outline-dark">Namibia 2024 →</a>
+</div></div>
+<footer id="footer"><div class="footer-inner">
+  <div class="footer-top">
+    <div class="footer-brand"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"><p>Unsere echten Routen – seit 2011 auf Abenteuer-Tour zu zweit.</p></div>
+    <div><div class="footer-col-title">Reiseziele</div><ul class="footer-links">
+      <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+      <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+      <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+      <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+    </ul></div>
+    <div><div class="footer-col-title">Blog</div><ul class="footer-links">
+      <li><a href="reisetipps.html">Reisetipps</a></li>
+      <li><a href="ueber-uns.html">Über Uns</a></li>
+      <li><a href="index.html">Startseite</a></li>
+    </ul></div>
+    <div></div>
+  </div>
+  <div class="footer-bottom"><p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span></p></div>
+</div></footer>
+</body></html>

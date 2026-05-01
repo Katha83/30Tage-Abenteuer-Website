@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>  <meta name="description" content="Philippinen 2025 – Palawan, El Nido, Coron, Donsol. 15 Nächte Inselhopping.">
+  <title>Philippinen 2025 – 30 Tage Abenteuer</title>
+  <script>window.TRIP_ROUTE=[
+    {lat:14.59,lng:120.98,name:"Manila",hotel:"NomadsMNL Hostel"},
+    {lat:10.76,lng:119.52,name:"Port Barton",hotel:"Rubin Resort"},
+    {lat:11.12,lng:119.21,name:"Darocoton"},
+    {lat:11.18,lng:119.41,name:"El Nido",hotel:"Rosanna's Pension"},
+    {lat:12.00,lng:120.20,name:"Coron",hotel:"SunTourist Inn"},
+    {lat:12.92,lng:123.99,name:"Donsol",hotel:"Elysia Beach Resort"},
+    {lat:14.59,lng:120.98,name:"Manila"}
+  ];</script>
+  <script src="main.js" defer></script>
+</head><body><div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
+      <div class="dropdown wide">
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
+          <a href="reise-bali-2017.html">Bali 2017</a>
+          <a href="reise-vietnam-2018.html">Vietnam 2018</a>
+          <a href="reise-thailand-2019.html">Thailand 2019</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
+          <a href="reise-philippinen-2025.html">Philippinen 2025</a>
+          <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
+          <a href="reise-thailand-2026.html">Thailand 2026</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Amerika</span>
+          <a href="reise-usa-2013.html">USA Rundreise 2013</a>
+          <a href="reise-newyork-2017.html">New York 2017</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas 2019</a>
+          <a href="reise-costarica-2022.html">Costa Rica 2022</a>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
+          <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia 2024</a>
+          <span class="dropdown-heading" style="margin-top:14px">Europa</span>
+          <a href="reise-london-2024.html">London 2024</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="index.html#timeline">Zeitreise</a></li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta">Alle Reisen</a>
+</header><div class="trip-hero" style="margin-top:var(--nav-h)">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#3D6E60,#4F8070)"></div>
+  <div class="trip-hero-overlay"></div>
+  <div class="trip-hero-content">
+    <p class="section-tag">Südostasien · Inselhopping</p>
+    <h1 class="trip-hero-title">Philippinen 2025</h1>
+    <div class="trip-hero-meta"><span>📅 Jan – Feb 2025</span><span>🌙 15 Nächte</span><span>🐋 Walhaie schnorcheln</span></div>
+  </div>
+</div>
+<div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Philippinen 2025</span></div>
+<section class="section-pad-sm map-section"><div class="section-inner">
+  <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
+  <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+</div></section>
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">16. Jan – 1. Feb 2025</div></div>
+    <div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">15 Nächte</div></div>
+    <div class="info-card"><div class="info-card-label">Region</div><div class="info-card-value">Palawan + Visayas</div></div>
+    <div class="info-card"><div class="info-card-label">Highlight</div><div class="info-card-value">Walhaie in Donsol</div></div>
+  </div>
+  <div style="max-width:720px;margin-top:40px">
+    <div class="placeholder-text">✏️ Platzhalter: Was hat euch an den Philippinen am meisten beeindruckt? War die Bootstour El Nido–Coron das Highlight? Wie war das Schnorcheln mit den Walhaien?</div>
+    <p class="trip-text">Die Philippinen übertrafen alle Erwartungen. El Nido mit seinen Kalkfelsen-Lagunen ist wie aus einem Traum – und die dreitägige Bootstour nach Coron zählt zu den schönsten Reiseerlebnissen überhaupt.</p>
+    <div class="placeholder-text">✏️ Platzhalter: Praktische Tipps – Inlandsflüge buchen, beste Reisezeit, was kostet die Bootstour wirklich?</div>
+  </div>
+</div></section>
+<section class="section-pad"><div class="section-inner">
+  <p class="section-tag">Stationen</p><h2 class="section-title">7 Stationen · <em>15 Nächte</em></h2>
+  <div class="station-grid" style="margin-top:32px">
+    <div class="station-card"><div class="station-order">Start</div><div class="station-name">Manila</div><div class="station-hotel">🏨 NomadsMNL Hostel</div><div class="station-date">17.–18. Jan · 1 Nacht</div><div class="station-activities">Ankunft 21:30 Uhr, Zwischenübernachtung</div></div>
+    <div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Port Barton</div><div class="station-hotel">🏖 Rubin Resort</div><div class="station-date">18.–20. Jan · 2 Nächte</div><div class="station-activities">Transfer Puerto Princesa, Strand und Entspannung</div></div>
+    <div class="station-card"><div class="station-order">Stop 02</div><div class="station-name">Darocoton</div><div class="station-hotel">🏕 Ecocamp Dos Playa</div><div class="station-date">20.–22. Jan · 2 Nächte</div></div>
+    <div class="station-card"><div class="station-order">Stop 03 ⭐</div><div class="station-name">El Nido</div><div class="station-hotel">🏨 Rosanna's Pension</div><div class="station-date">22.–25. Jan · 3 Nächte</div><div class="station-activities">Kochkurs El Kusina, Surfen Duli Beach, Inselhopping</div></div>
+    <div class="station-card"><div class="station-order">Stop 04 ⭐</div><div class="station-name">Bootstour El Nido → Coron</div><div class="station-hotel">⛵ 3 Tage / 2 Nächte Liveaboard</div><div class="station-date">25.–27. Jan · 2 Nächte</div><div class="station-activities">Kalkfelsen-Lagunen, Schnorcheln, einsame Strände</div></div>
+    <div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Coron</div><div class="station-hotel">🏨 SunTourist Inn</div><div class="station-date">27.–29. Jan · 2 Nächte</div></div>
+    <div class="station-card"><div class="station-order">Stop 06 ⭐</div><div class="station-name">Donsol</div><div class="station-hotel">🏖 Elysia Beach Resort</div><div class="station-date">29.–31. Jan · 2 Nächte</div><div class="station-activities">Schnorcheln mit Walhaien – das unvergesslichste Erlebnis der Reise!</div></div>
+    <div class="station-card"><div class="station-order">Finale</div><div class="station-name">Manila</div><div class="station-hotel">🏨 NomadsMNL Hostel</div><div class="station-date">31. Jan – 1. Feb · 1 Nacht</div><div class="station-activities">Rückflug 07:15 Uhr</div></div>
+  </div>
+</div></section>
+<div class="section-pad-sm bg-off"><div class="section-inner">
+  <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
+  <div class="photo-gallery">
+    <div class="photo-placeholder-sm">El Nido Karstfelsen<br><small>Lagune-Panorama einsetzen</small></div>
+    <div class="photo-placeholder-sm">Walhai Donsol<br><small>Unterwasserfoto</small></div>
+    <div class="photo-placeholder-sm">Bootstour El Nido–Coron<br><small>Boot vor Kalkfelsen</small></div>
+    <div class="photo-placeholder-sm">Ecocamp Darocotan<br><small>Einfaches Beachcamp</small></div>
+    <div class="photo-placeholder-sm">Coron Seen<br><small>Kayangan Lake</small></div>
+    <div class="photo-placeholder-sm">Sonnenuntergang Philippinen<br><small>Warmes Abendlicht</small></div>
+  </div>
+</div></div>
+<div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <a href="reise-thailand-2026.html" class="btn-outline-dark">← Thailand 2026</a>
+  <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+  <a href="reise-bali-lombok-2025.html" class="btn-outline-dark">Bali &amp; Lombok 2025 →</a>
+</div></div><footer id="footer"><div class="footer-inner">
+  <div class="footer-top">
+    <div class="footer-brand"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"><p>Unsere echten Routen und ehrlichen Erlebnisse – seit 2011 auf Abenteuer-Tour zu zweit.</p></div>
+    <div><div class="footer-col-title">Reiseziele</div><ul class="footer-links">
+      <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+      <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+      <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+      <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+      <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
+    </ul></div>
+    <div><div class="footer-col-title">Blog</div><ul class="footer-links">
+      <li><a href="reisetipps.html">Reisetipps</a></li>
+      <li><a href="ueber-uns.html">Über Uns</a></li>
+      <li><a href="index.html">Startseite</a></li>
+    </ul></div>
+    <div></div>
+  </div>
+  <div class="footer-bottom"><p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span></p></div>
+</div></footer></body></html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Namibia Camping-Roadtrip 2024 – 23 Nächte mit dem Camper durch Etosha, Sossusvlei, Fish River Canyon und Kalahari.">
+  <title>Namibia 2024 – 30 Tage Abenteuer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script>
+    window.TRIP_ROUTE = [
+      { lat: -22.56, lng: 17.08, name: "Windhoek / Düsternbrook", hotel: "Düsternbrook Guesthouse" },
+      { lat: -20.43, lng: 17.18, name: "Waterberg", hotel: "Waterberg Wilderness" },
+      { lat: -18.82, lng: 16.93, name: "Etosha / Namutoni", hotel: "Namutoni Campsite" },
+      { lat: -18.85, lng: 15.91, name: "Etosha / Okakuejo", hotel: "Okakuejo" },
+      { lat: -18.96, lng: 14.96, name: "Etosha / Olifantsrus", hotel: "Olifantsrus" },
+      { lat: -20.58, lng: 14.36, name: "Twyfelfontein", hotel: "Mowani Campsite" },
+      { lat: -21.81, lng: 15.77, name: "Spitzkoppe", hotel: "Spitzkoppe Camp Site" },
+      { lat: -22.68, lng: 14.53, name: "Swakopmund", hotel: "Alte Brücke Campsite" },
+      { lat: -24.56, lng: 15.54, name: "Sesriem / Sossusvlei", hotel: "Sesriem Oshana" },
+      { lat: -25.54, lng: 16.28, name: "Namib Wüste", hotel: "Little Hunters Rest" },
+      { lat: -26.65, lng: 15.16, name: "Lüderitz / Kolmanskuppe", hotel: "Shark Island Campsite" },
+      { lat: -27.65, lng: 17.57, name: "Fish River Canyon", hotel: "Canyon Roadhouse Camping" },
+      { lat: -25.00, lng: 19.90, name: "Kalahari", hotel: "Bagatelle Kalahari Lodge" },
+      { lat: -22.56, lng: 17.08, name: "Windhoek", hotel: "Bryans View / Otjisazu Lodge" }
+    ];
+  </script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
+      <div class="dropdown wide">
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
+          <a href="reise-bali-2017.html">Bali 2017</a>
+          <a href="reise-vietnam-2018.html">Vietnam 2018</a>
+          <a href="reise-thailand-2019.html">Thailand 2019</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
+          <a href="reise-philippinen-2025.html">Philippinen 2025</a>
+          <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
+          <a href="reise-thailand-2026.html">Thailand 2026</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Amerika</span>
+          <a href="reise-usa-2013.html">USA Rundreise 2013</a>
+          <a href="reise-newyork-2017.html">New York 2017</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas 2019</a>
+          <a href="reise-costarica-2022.html">Costa Rica 2022</a>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
+          <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia 2024</a>
+          <span class="dropdown-heading" style="margin-top:14px">Europa</span>
+          <a href="reise-london-2024.html">London 2024</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="index.html#timeline">Zeitreise</a></li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta">Alle Reisen</a>
+</header>
+
+<!-- HERO -->
+<div class="trip-hero" style="margin-top:var(--nav-h)">
+  <!-- BILDHINWEIS: Sossusvlei Dead Vlei mit den schwarzen Bäumen vor orangeroten Dünen.
+       Alternativ: Etosha Elefant am Wasserloch oder Fish River Canyon Panorama.
+       Empfehlung: eines der Bilder aus dem Ordner "Namibia 2024". Querformat. -->
+  <img src="Bilder/Namibia 2024/IMG_7470.jpg" alt="Sossusvlei – Namibia" class="trip-hero-img">
+  <div class="trip-hero-overlay"></div>
+  <div class="trip-hero-content">
+    <p class="section-tag">Afrika · Camping-Roadtrip</p>
+    <h1 class="trip-hero-title">Namibia 2024</h1>
+    <div class="trip-hero-meta">
+      <span>📅 April – Mai 2024</span>
+      <span>🌙 23 Nächte</span>
+      <span>🚗 Camper-Rundreise</span>
+      <span>🗺 14 Stationen</span>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="trip-breadcrumb">
+  <a href="index.html">Start</a><span class="sep">/</span>
+  <a href="index.html#destinations">Reiseziele</a><span class="sep">/</span>
+  <span>Namibia 2024</span>
+</div>
+
+<!-- KARTE -->
+<section class="section-pad-sm map-section">
+  <div class="section-inner">
+    <p class="section-tag">Unsere Route</p>
+    <h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
+    <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+  </div>
+</section>
+
+<!-- ALLGEMEINES -->
+<section class="section-pad bg-cream">
+  <div class="section-inner">
+    <p class="section-tag">Allgemeines</p>
+    <h2 class="section-title">Was uns <em>erwartet hat</em></h2>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">25. April – 19. Mai 2024</div></div>
+      <div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">23 Nächte</div></div>
+      <div class="info-card"><div class="info-card-label">Fortbewegung</div><div class="info-card-value">Camper (4×4)</div></div>
+      <div class="info-card"><div class="info-card-label">Unterkunftstyp</div><div class="info-card-value">Camping / Lodge</div></div>
+    </div>
+    <div style="max-width:720px;margin-top:40px">
+      <div class="placeholder-text">
+        ✏️ Platzhalter: Hier könnt ihr eure Eindrücke zu Namibia schreiben – wie ihr auf die Idee gekommen seid, warum Namibia, was euch überrascht hat und was ihr jedem empfehlen würdet.
+      </div>
+      <p class="trip-text">Namibia war eine Reise, die wir so schnell nicht vergessen werden. Das Land beeindruckt durch seine schiere Größe, die Weite der Landschaften und eine Stille, die es kaum noch irgendwo gibt. 23 Nächte mit dem Camper – von der Hauptstadt Windhoek über den Etosha-Nationalpark bis zum Fish River Canyon.</p>
+      <div class="placeholder-text">
+        ✏️ Platzhalter: Was waren eure persönlichen Highlights? Das Wasserloch in Okakuejo nachts? Der Sonnenaufgang über Dead Vlei? Schreibt hier eure Geschichte.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATIONEN -->
+<section class="section-pad">
+  <div class="section-inner">
+    <p class="section-tag">Stationen</p>
+    <h2 class="section-title">14 Stationen · <em>23 Nächte</em></h2>
+    <div class="station-grid" style="margin-top:32px">
+      <div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Windhoek / Düsternbrook</div><div class="station-hotel">🏕 Düsternbrook Guesthouse</div><div class="station-date">26. April · 1 Nacht</div><div class="station-activities">Ankunft 07:10, Camper abholen, einkaufen. Morgens reiten.</div></div>
+      <div class="station-card"><div class="station-order">Stop 02</div><div class="station-name">Waterberg</div><div class="station-hotel">🏕 Waterberg Wilderness</div><div class="station-date">27.–29. April · 2 Nächte</div><div class="station-activities">Rhino Trekking – unvergesslich!</div></div>
+      <div class="station-card"><div class="station-order">Stop 03</div><div class="station-name">Etosha / Namutoni</div><div class="station-hotel">🏕 Namutoni Campsite</div><div class="station-date">29.–30. Apr · 1 Nacht</div><div class="station-activities">Game Drives, Wildtierbeobachtung</div></div>
+      <div class="station-card"><div class="station-order">Stop 04</div><div class="station-name">Etosha / Okakuejo</div><div class="station-hotel">🏕 Okakuejo</div><div class="station-date">30. Apr – 1. Mai · 1 Nacht</div><div class="station-activities">Das beleuchtete Wasserloch nachts – Elefanten, Nashörner, Löwen</div></div>
+      <div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Etosha / Olifantsrus</div><div class="station-hotel">🏕 Olifantsrus</div><div class="station-date">1.–2. Mai · 1 Nacht</div><div class="station-activities">Ruhigerer Campsite im Westen des Parks</div></div>
+      <div class="station-card"><div class="station-order">Stop 06</div><div class="station-name">Twyfelfontein</div><div class="station-hotel">🏕 Mowani Campsite</div><div class="station-date">2.–4. Mai · 2 Nächte</div><div class="station-activities">Felsmalereien (nur mit Guide), Dancing Kudu Route, Lion Man Route</div></div>
+      <div class="station-card"><div class="station-order">Stop 07</div><div class="station-name">Spitzkoppe</div><div class="station-hotel">🏕 Spitzkoppe Camp Site</div><div class="station-date">4.–5. Mai · 1 Nacht</div><div class="station-activities">Rock Arch, Bushmans Paradies (Guide), Sonnenaufgang von Camp Site 11</div></div>
+      <div class="station-card"><div class="station-order">Stop 08</div><div class="station-name">Swakopmund</div><div class="station-hotel">🏕 Alte Brücke Campsite</div><div class="station-date">5.–7. Mai · 2 Nächte</div><div class="station-activities">Little 5 Tour, Walvis Bay, Quad-Tour in den Dünen</div></div>
+      <div class="station-card"><div class="station-order">Stop 09 ⭐</div><div class="station-name">Sesriem / Sossusvlei</div><div class="station-hotel">🏕 Sesriem Oshana</div><div class="station-date">7.–9. Mai · 2 Nächte</div><div class="station-activities">Düne 45 bei Sonnenaufgang, Dead Vlei, Big Daddy Dune, Sesriem Canyon</div></div>
+      <div class="station-card"><div class="station-order">Stop 10</div><div class="station-name">Namib Wüste</div><div class="station-hotel">🏕 Little Hunters Rest</div><div class="station-date">9.–11. Mai · 2 Nächte</div><div class="station-activities">Panoramastraße D707 – eine der schönsten Schotterstraßen Namibias</div></div>
+      <div class="station-card"><div class="station-order">Stop 11</div><div class="station-name">Lüderitz &amp; Kolmanskuppe</div><div class="station-hotel">🏕 Shark Island Campsite</div><div class="station-date">11.–12. Mai · 1 Nacht</div><div class="station-activities">Geisterstadt Kolmanskuppe, Fotopermit für frühes Eintreten empfohlen</div></div>
+      <div class="station-card"><div class="station-order">Stop 12</div><div class="station-name">Fish River Canyon</div><div class="station-hotel">🏕 Canyon Roadhouse Camping</div><div class="station-date">12.–14. Mai · 2 Nächte</div><div class="station-activities">Sunset Point, Hikers Viewpoint, Eagle Rock Viewpoint</div></div>
+      <div class="station-card"><div class="station-order">Stop 13</div><div class="station-name">Kalahari</div><div class="station-hotel">🏕 Bagatelle Kalahari Lodge</div><div class="station-date">14.–16. Mai · 2 Nächte</div><div class="station-activities">Köcherbaumwald, Giant's Playground, Game Drives, Reiten, Sundowner</div></div>
+      <div class="station-card"><div class="station-order">Finale</div><div class="station-name">Windhoek / Otjisazu</div><div class="station-hotel">🏕 Bryans View + Otjisazu Lodge</div><div class="station-date">16.–19. Mai · 3 Nächte</div><div class="station-activities">Camper abgeben, Lodge-Aufenthalt inkl. Transfers und Vollpension</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOTOS -->
+<section class="section-pad-sm bg-off">
+  <div class="section-inner">
+    <p class="section-tag">Impressionen</p>
+    <h2 class="section-title">Unsere <em>Bilder</em></h2>
+    <div class="photo-gallery">
+      <img src="Bilder/Namibia 2024/IMG_7044.jpg" alt="Namibia – Savanne" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7119.jpg" alt="Namibia – Tierwelt" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7254.jpg" alt="Namibia – Landschaft" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7470.jpg" alt="Namibia – Sossusvlei" loading="lazy">
+      <img src="Bilder/Namibia 2024/DSC04526.jpg" alt="Namibia – Campingplatz" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7550.jpg" alt="Namibia – Abendstimmung" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7700.jpg" alt="Namibia – Wüste" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7702.jpg" alt="Namibia – Sonnenuntergang" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7734.jpg" alt="Namibia – Kalahari" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7799.jpg" alt="Namibia – Wildlife" loading="lazy">
+      <img src="Bilder/Namibia 2024/IMG_7920.jpg" alt="Namibia – Dünen" loading="lazy">
+      <img src="Bilder/Namibia 2024/DSC04925.jpg" alt="Namibia – Fotomoment" loading="lazy">
+      <div class="photo-placeholder-sm">+ Weitere Fotos folgen ✏️</div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV NEXT/PREV -->
+<div class="section-pad-sm bg-cream">
+  <div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+    <a href="reise-srilanka-2023.html" class="btn-outline-dark">← Sri Lanka 2023</a>
+    <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+    <a href="reise-philippinen-2025.html" class="btn-outline-dark">Philippinen 2025 →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer"><div class="footer-inner">
+  <div class="footer-top">
+    <div class="footer-brand"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"><p>Unsere echten Routen und ehrlichen Erlebnisse – seit 2011 auf Abenteuer-Tour zu zweit.</p></div>
+    <div><div class="footer-col-title">Reiseziele</div><ul class="footer-links">
+      <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+      <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+      <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+      <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+    </ul></div>
+    <div><div class="footer-col-title">Blog</div><ul class="footer-links">
+      <li><a href="reisetipps.html">Reisetipps</a></li>
+      <li><a href="ueber-uns.html">Über Uns</a></li>
+      <li><a href="index.html">Startseite</a></li>
+    </ul></div>
+    <div></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span></p>
+  </div>
+</div></footer>
+</body></html>
