@@ -269,45 +269,6 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
 .nav-open .nav-hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Mobile menu panel */
-@media(max-width:900px) {
-  .nav-links {
-    display: flex !important;
-    flex-direction: column;
-    position: fixed; top: var(--nav-h); left: 0; right: 0;
-    background: var(--cream);
-    padding: 24px clamp(16px, 4vw, 56px) 32px;
-    border-top: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
-    max-height: calc(100vh - var(--nav-h));
-    overflow-y: auto;
-    transform: translateY(-110%);
-    transition: transform .35s var(--ease-expo);
-    z-index: 999;
-  }
-  .nav-open .nav-links { transform: translateY(0); }
-  .nav-links > li { border-bottom: 1px solid var(--border); padding: 4px 0; }
-  .nav-links > li:last-child { border-bottom: none; }
-  .nav-links > li > a { display: block; padding: 12px 0; font-size: 1.05rem; }
-
-  /* Mobile dropdowns – always visible stacked */
-  .nav-links > li.has-dropdown .dropdown {
-    position: static !important;
-    display: none;
-    box-shadow: none;
-    border: none;
-    padding: 0 0 12px 12px;
-    min-width: unset;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-  .nav-links > li.has-dropdown.open .dropdown { display: block; }
-  .nav-links > li.has-dropdown > a { display: flex; justify-content: space-between; align-items: center; }
-  .dropdown.wide { flex-direction: column; }
-  .dropdown-col { padding: 0; }
-  .dropdown a { padding: 8px 0; font-size: .95rem; }
-}
-
 /* ── Hero (Image-based) ─────────────────────────────────── */
 #hero {
   position: relative;
@@ -868,6 +829,42 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   .nav-hamburger { display: flex; }
   .stats-inner   { grid-template-columns: repeat(2,1fr); }
   .stat-item:nth-child(2) { border-right: none; }
+
+  /* Mobile menu open state */
+  .nav-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed; top: var(--nav-h); left: 0; right: 0;
+    background: var(--cream);
+    padding: 16px clamp(16px, 4vw, 56px) 32px;
+    border-top: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+    z-index: 999;
+    gap: 0;
+  }
+  .nav-open .nav-cta { display: none; }
+  .nav-open .nav-links > li { border-bottom: 1px solid var(--border); padding: 0; }
+  .nav-open .nav-links > li:last-child { border-bottom: none; }
+  .nav-open .nav-links > li > a { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; font-size: 1rem; }
+
+  /* Mobile dropdowns */
+  .nav-open .nav-links > li.has-dropdown .dropdown {
+    position: static;
+    display: none;
+    opacity: 1; visibility: visible; pointer-events: auto;
+    box-shadow: none; border: none;
+    padding: 0 0 12px 12px;
+    min-width: unset;
+    transform: none;
+    flex-direction: column;
+  }
+  .nav-open .nav-links > li.has-dropdown .dropdown.wide { flex-direction: column; }
+  .nav-open .nav-links > li.has-dropdown.open .dropdown { display: flex; }
+  .nav-open .dropdown-col { padding: 0; }
+  .nav-open .dropdown a { padding: 8px 0; font-size: .9rem; display: block; }
+  .nav-open .dropdown-heading { margin-top: 10px; }
 }
 @media(max-width:680px) {
   .dest-grid    { grid-template-columns: 1fr; }
