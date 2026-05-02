@@ -134,7 +134,7 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   display: flex; align-items: center; gap: 10px;
   margin-right: auto; flex-shrink: 0;
 }
-.nav-logo img { height: 100px; width: auto; margin-top: 20px; }
+.nav-logo img { height: 100px; width: auto; }
 .nav-logo-text {
   font-family: 'Playfair Display', serif;
   font-size: 1rem; font-weight: 700;
