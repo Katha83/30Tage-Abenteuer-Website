@@ -611,6 +611,15 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
 }
 .footer-brand img { height: 120px; width: auto; margin-bottom: 18px; filter: brightness(0) invert(1) opacity(.85); }
 .footer-brand p { color: rgba(255,255,255,0.5); font-size: .9rem; line-height: 1.8; max-width: 280px; }
+.footer-instagram {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 16px;
+  color: rgba(255,255,255,0.7);
+  font-family: 'Montserrat', sans-serif;
+  font-size: .85rem; font-weight: 600; letter-spacing: .04em;
+  transition: color .2s;
+}
+.footer-instagram:hover { color: var(--tan-light); }
 .footer-col-title {
   font-family: 'Montserrat', sans-serif;
   font-size: .68rem; font-weight: 700; letter-spacing: .18em;
