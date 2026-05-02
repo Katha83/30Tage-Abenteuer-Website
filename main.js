@@ -105,14 +105,57 @@
       .to('#scroll-indicator', { opacity: 1, duration: .4 }, '-=.2');
   }
 
-  /* ── 6. NAV ON SCROLL ────────────────────────────────── */
+  /* ── 6. NAV ON SCROLL + MOBILE HAMBURGER ────────────── */
   function initNav() {
-    const nav = qs('#nav');
+    const nav       = qs('#nav');
+    const hamburger = qs('.nav-hamburger');
     if (!nav) return;
+
+    // Scroll state
     ScrollTrigger.create({
       start: 'top -50px',
       onEnter:     () => nav.classList.add('scrolled'),
       onLeaveBack: () => nav.classList.remove('scrolled'),
+    });
+
+    // Hamburger toggle
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('nav-open');
+        hamburger.setAttribute('aria-label', isOpen ? 'Menü schließen' : 'Menü öffnen');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+    }
+
+    // Mobile dropdown toggles (tap on parent link)
+    qsa('.nav-links > li.has-dropdown > a').forEach(link => {
+      link.addEventListener('click', e => {
+        if (window.innerWidth > 900) return; // desktop: hover handles it
+        e.preventDefault();
+        const li = link.parentElement;
+        const wasOpen = li.classList.contains('open');
+        qsa('.nav-links > li.has-dropdown').forEach(el => el.classList.remove('open'));
+        if (!wasOpen) li.classList.add('open');
+      });
+    });
+
+    // Close menu when a leaf link is tapped
+    qsa('.nav-links a:not(.has-dropdown > a)').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('nav-open');
+        document.body.style.overflow = '';
+        if (hamburger) hamburger.setAttribute('aria-label', 'Menü öffnen');
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', e => {
+      if (nav.classList.contains('nav-open') && !nav.contains(e.target)) {
+        nav.classList.remove('nav-open');
+        document.body.style.overflow = '';
+        if (hamburger) hamburger.setAttribute('aria-label', 'Menü öffnen');
+      }
     });
   }
 
