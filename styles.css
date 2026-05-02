@@ -33,7 +33,7 @@
   --shadow-lg:    0 20px 60px rgba(44, 58, 53, 0.15);
 
   /* Layout */
-  --nav-h:        104px;
+  --nav-h:        76px;
   --max-w:        1200px;
   --radius-sm:    8px;
   --radius:       14px;
@@ -134,7 +134,7 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   display: flex; align-items: center; gap: 10px;
   margin-right: auto; flex-shrink: 0;
 }
-.nav-logo img { height: 100px; width: auto; }
+.nav-logo img { height: 60px; width: auto; }
 .nav-logo-text {
   font-family: 'Playfair Display', serif;
   font-size: 1rem; font-weight: 700;
