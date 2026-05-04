@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -40,36 +40,42 @@
       <li><a href="index.html">Start</a></li>
 
       <!-- Reiseziele Dropdown -->
-      <li class="has-dropdown">
-        <a href="#">Reiseziele</a>
-        <div class="dropdown wide">
-          <div class="dropdown-col">
-            <span class="dropdown-heading">Asien</span>
-            <a href="reise-bali-2017.html">Bali</a>
-            <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok</a>
-            <a href="reise-philippinen-2025.html">Philippinen</a>
-            <a href="reise-srilanka-2023.html">Sri Lanka</a>
-            <a href="reise-thailand-2019.html">Thailand</a>
-            <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha</a>
-            <a href="reise-thailand-2026.html">Thailand Inselrunde</a>
-            <a href="reise-vietnam-2018.html">Vietnam</a>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
+      <div class="dropdown wide">
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
+            <a href="reise-bali-lombok-2025.html">Lombok</a>
           </div>
-          <div class="dropdown-col">
-            <span class="dropdown-heading">Nordamerika</span>
-            <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
-            <a href="reise-lasvegas-2019.html">Las Vegas</a>
-            <a href="reise-newyork-2017.html">New York</a>
-            <a href="reise-usa-2013.html">USA Rundreise</a>
-            <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
-            <a href="reise-costarica-2022.html">Costa Rica</a>
-            <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
-            <a href="reise-namibia-2024.html">Namibia</a>
-            <span class="dropdown-heading" style="margin-top:10px">Europa</span>
-            <a href="reise-london-2024.html">London</a>
-            <a href="reise-paris-2026.html" class="upcoming-link">Paris ✦ Upcoming</a>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
           </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
         </div>
-      </li>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris &#10022; Upcoming</a>
+        </div>
+      </div>
+    </li>
 
       <!-- Reisetipps Dropdown -->
       <li class="has-dropdown">

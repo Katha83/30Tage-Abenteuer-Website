@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -13,6 +13,108 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <script>window.TRIP_ROUTE=[{lat:-8.51,lng:115.26,name:"Ubud",hotel:"Sumantra House"},{lat:-8.41,lng:116.47,name:"Senaru/Rinjani",hotel:"Zelt"},{lat:-8.56,lng:116.54,name:"Tetebatu",hotel:"Aulia Bungalows"},{lat:-8.49,lng:116.04,name:"Senggigi",hotel:"Cafe Wayan Cottages"},{lat:-8.90,lng:116.29,name:"Kuta Lombok",hotel:"Rawa Lombok"},{lat:-8.77,lng:115.83,name:"Sekotong"},{lat:-8.69,lng:115.77,name:"Gili Asahan",hotel:"Amahelia Resort"},{lat:-8.66,lng:115.14,name:"Canggu",hotel:"Surf Lodge"}];</script>
   <script src="main.js" defer></script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Station card overrides */
+    .station-card { background: #A8BFA3; }
+    .station-card .station-hotel,
+    .station-card .station-date,
+    .station-card .station-activities { color: var(--teal-dark); }
+
+    .station-card-img {
+      margin: -18px -18px 14px;
+      overflow: hidden;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      height: 130px;
+    }
+    .station-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .station-card:hover .station-card-img img { transform: scale(1.06); }
+    .station-card-img-placeholder {
+      height: 130px;
+      margin: -18px -18px 14px;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal-dark));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; opacity: 0.85;
+    }
+    .station-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .station-link:hover { border-color: var(--teal); opacity: 0.8; }
+    .station-link::after { content: ' ↓'; }
+
+    /* Stop detail sections */
+    .stop-section { scroll-margin-top: var(--nav-h, 80px); }
+    .stop-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .stop-title-main {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.1;
+      margin: 0 0 14px; color: var(--text-dark);
+    }
+    .stop-title-main em { font-style: italic; color: var(--teal); }
+    .stop-meta-row {
+      display: flex; flex-wrap: wrap; gap: 16px 28px;
+      font-size: 0.875rem; color: #666;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .stop-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: start;
+    }
+    @media (max-width: 800px) { .stop-body { grid-template-columns: 1fr; } }
+    .stop-text p { font-size: 1.02rem; line-height: 1.9; margin-bottom: 22px; color: var(--text-mid); }
+    .stop-text p:last-child { margin-bottom: 0; }
+    .stop-text a { color: var(--teal); }
+    .stop-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stop-photo { margin: 0; }
+    .stop-photo img {
+      width: 100%; height: 185px;
+      object-fit: cover; border-radius: 8px; display: block;
+    }
+    .stop-photo.wide { grid-column: 1 / -1; }
+    .stop-photo.wide img { height: 250px; }
+    .stop-photo figcaption { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
+    .stop-practical {
+      margin-top: 40px; padding-top: 28px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .stop-info-pill {
+      background: var(--off-white);
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 0.875rem; line-height: 1.5;
+    }
+    .stop-info-pill strong {
+      display: block; font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999; margin-bottom: 2px;
+    }
+    .stop-coming {
+      padding: 44px 32px; background: var(--off-white);
+      border-radius: 12px; text-align: center;
+    }
+    .stop-coming strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-mid); }
+    .stop-coming span { font-size: 0.875rem; color: var(--text-muted); }
+  </style>
 </head>
 <body>
 <div id="cursor-dot" aria-hidden="true"></div>
@@ -25,27 +127,35 @@
       <div class="dropdown wide">
         <div class="dropdown-col">
           <span class="dropdown-heading">Asien</span>
-          <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
-          <a href="reise-bali-2017.html">Bali 2017</a>
-          <a href="reise-vietnam-2018.html">Vietnam 2018</a>
-          <a href="reise-thailand-2019.html">Thailand 2019</a>
-          <a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
-          <a href="reise-philippinen-2025.html">Philippinen 2025</a>
-          <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
-          <a href="reise-thailand-2026.html">Thailand 2026</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
+            <a href="reise-bali-lombok-2025.html">Lombok</a>
+          </div>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
+          </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
         </div>
         <div class="dropdown-col">
-          <span class="dropdown-heading">Amerika</span>
-          <a href="reise-usa-2013.html">USA Rundreise 2013</a>
-          <a href="reise-newyork-2017.html">New York 2017</a>
-          <a href="reise-lasvegas-2019.html">Las Vegas 2019</a>
-          <a href="reise-costarica-2022.html">Costa Rica 2022</a>
-          <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
-          <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
-          <a href="reise-namibia-2024.html">Namibia 2024</a>
-          <span class="dropdown-heading" style="margin-top:14px">Europa</span>
-          <a href="reise-london-2024.html">London 2024</a>
-          <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a>
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris &#10022; Upcoming</a>
         </div>
       </div>
     </li>
@@ -60,8 +170,10 @@
     </li>
     <li><a href="ueber-uns.html">Über Uns</a></li>
   </ul></nav>
-  <a href="index.html#destinations" class="nav-cta">Alle Reisen</a>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
 </header>
+
 <div class="trip-hero" style="margin-top:var(--nav-h)">
   <div style="position:absolute;inset:0;background:linear-gradient(135deg,#5A8A78,#3D6E60)"></div>
   <div class="trip-hero-overlay"></div>
@@ -72,28 +184,190 @@
   </div>
 </div>
 <div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Bali &amp; Lombok 2025</span></div>
+
 <section class="section-pad-sm map-section"><div class="section-inner">
   <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
   <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
 </div></section>
+
 <section class="section-pad bg-cream"><div class="section-inner">
   <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>
-  <div class="info-grid"><div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">24. Sep – 18. Okt 2025</div></div><div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">23 Nächte</div></div><div class="info-card"><div class="info-card-label">Länder</div><div class="info-card-value">Indonesien (Bali + Lombok)</div></div><div class="info-card"><div class="info-card-label">Highlight</div><div class="info-card-value">Rinjani-Trekking</div></div></div>
-  <div style="max-width:720px;margin-top:40px"><div class="placeholder-text">✏️ Platzhalter: Wie war die Reise von Bali nach Lombok? Wie schwer war das Rinjani-Trekking wirklich? Was empfehlt ihr anderen?</div><p class="trip-text">Ubud als Basis für die Bali-Erkundung, dann mit der Fähre nach Lombok – und sofort zum Rinjani-Vulkan. Das Trekking war anspruchsvoll, aber der Blick vom Kraterrand war jeden Schmerz wert.</p><div class="placeholder-text">✏️ Platzhalter: Eure Tipps zu Gili Asahan – wie kommt man hin, wie ist die Infrastruktur, lohnt es sich?</div></div>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">24. Sep – 18. Okt 2025</div></div>
+    <div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">23 Nächte</div></div>
+    <div class="info-card"><div class="info-card-label">Länder</div><div class="info-card-value">Indonesien (Bali + Lombok)</div></div>
+    <div class="info-card"><div class="info-card-label">Highlight</div><div class="info-card-value">Rinjani-Trekking</div></div>
+  </div>
+  <div style="max-width:720px;margin-top:40px">
+    <div class="placeholder-text">✏️ Platzhalter: Wie war die Reise von Bali nach Lombok? Wie schwer war das Rinjani-Trekking wirklich? Was empfehlt ihr anderen?</div>
+    <p class="trip-text">Ubud als Basis für die Bali-Erkundung, dann mit der Fähre nach Lombok – und sofort zum Rinjani-Vulkan. Das Trekking war anspruchsvoll, aber der Blick vom Kraterrand war jeden Schmerz wert.</p>
+    <div class="placeholder-text">✏️ Platzhalter: Eure Tipps zu Gili Asahan – wie kommt man hin, wie ist die Infrastruktur, lohnt es sich?</div>
+  </div>
 </div></section>
+
 <section class="section-pad"><div class="section-inner">
-  <p class="section-tag">Stationen</p><h2 class="section-title">Stationen &amp; <em>Details</em></h2>
-  <div class="station-grid" style="margin-top:32px"><div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Ubud, Bali</div><div class="station-hotel">🏨 Sumantra House</div><div class="station-date">25.–30. Sep · 5 Nächte</div><div class="station-activities">Rollertour, Yoga, Ausflüge, Priester-Reading am 27.9</div></div><div class="station-card"><div class="station-order">Stop 02 ⭐</div><div class="station-name">Senaru / Rinjani</div><div class="station-hotel">🏕 Zelt (Touranbieter)</div><div class="station-date">30. Sep – 2. Okt · 2 Nächte</div><div class="station-activities">Vulkantrekking Rinjani – bis auf 3.726m!</div></div><div class="station-card"><div class="station-order">Stop 03</div><div class="station-name">Tetebatu</div><div class="station-hotel">🏨 Aulia Bungalows</div><div class="station-date">2.–4. Okt · 2 Nächte</div><div class="station-activities">Monkey Forest, Wasserfälle, Kochkurs</div></div><div class="station-card"><div class="station-order">Stop 04</div><div class="station-name">Senggigi</div><div class="station-hotel">🏨 Cafe Wayan Cottages</div><div class="station-date">4.–6. Okt · 2 Nächte</div><div class="station-activities">Rollertour an der Küste</div></div><div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Kuta, Lombok</div><div class="station-hotel">🏝 Rawa Lombok</div><div class="station-date">6.–9. Okt · 3 Nächte</div><div class="station-activities">Surfen, Strände erkunden</div></div><div class="station-card"><div class="station-order">Stop 06</div><div class="station-name">Sekotong</div><div class="station-hotel">🏨 Krisna Bungalows</div><div class="station-date">9.–11. Okt · 2 Nächte</div><div class="station-activities">Island Hopping Tour zu den Gili-Inseln</div></div><div class="station-card"><div class="station-order">Stop 07</div><div class="station-name">Gili Asahan</div><div class="station-hotel">🏖 Amahelia Resort</div><div class="station-date">11.–14. Okt · 3 Nächte</div><div class="station-activities">Entspannen auf einer der kleinsten Gili-Inseln</div></div><div class="station-card"><div class="station-order">Finale</div><div class="station-name">Canggu, Bali</div><div class="station-hotel">🏄 Surf Lodge Canggu</div><div class="station-date">14.–18. Okt · 4 Nächte</div><div class="station-activities">Surfen, Sanur-Ausflug, Abschlussabende</div></div></div>
+  <p class="section-tag">Stationen</p><h2 class="section-title">8 Stationen · <em>23 Nächte</em></h2>
+  <div class="station-grid" style="margin-top:32px">
+    <div class="station-card"><div class="station-card-img"><img src="Bilder/Bali 2017/IMG_0409.JPG" alt="Ubud Bali" loading="lazy"></div><div class="station-order">Stop 01</div><div class="station-name">Ubud, Bali</div><div class="station-hotel">🏨 Sumantra House</div><div class="station-date">25.–30. Sep · 5 Nächte</div><div class="station-activities">Rollertour, Yoga, Ausflüge, Priester-Reading am 27.9</div><a href="#stop-ubud" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🌋</div><div class="station-order">Stop 02 ⭐</div><div class="station-name">Senaru / Rinjani</div><div class="station-hotel">🏕 Zelt (Touranbieter)</div><div class="station-date">30. Sep – 2. Okt · 2 Nächte</div><div class="station-activities">Vulkantrekking Rinjani – bis auf 3.726m!</div><a href="#stop-rinjani" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🌿</div><div class="station-order">Stop 03</div><div class="station-name">Tetebatu</div><div class="station-hotel">🏨 Aulia Bungalows</div><div class="station-date">2.–4. Okt · 2 Nächte</div><div class="station-activities">Monkey Forest, Wasserfälle, Kochkurs</div><a href="#stop-tetebatu" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🚗</div><div class="station-order">Stop 04</div><div class="station-name">Senggigi</div><div class="station-hotel">🏨 Cafe Wayan Cottages</div><div class="station-date">4.–6. Okt · 2 Nächte</div><div class="station-activities">Rollertour an der Küste</div><a href="#stop-senggigi" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏄</div><div class="station-order">Stop 05</div><div class="station-name">Kuta, Lombok</div><div class="station-hotel">🏝 Rawa Lombok</div><div class="station-date">6.–9. Okt · 3 Nächte</div><div class="station-activities">Surfen, Strände erkunden</div><a href="#stop-kuta-lombok" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">⛵</div><div class="station-order">Stop 06</div><div class="station-name">Sekotong</div><div class="station-hotel">🏨 Krisna Bungalows</div><div class="station-date">9.–11. Okt · 2 Nächte</div><div class="station-activities">Island Hopping Tour zu den Gili-Inseln</div><a href="#stop-sekotong" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏖</div><div class="station-order">Stop 07</div><div class="station-name">Gili Asahan</div><div class="station-hotel">🏖 Amahelia Resort</div><div class="station-date">11.–14. Okt · 3 Nächte</div><div class="station-activities">Entspannen auf einer der kleinsten Gili-Inseln</div><a href="#stop-gili-asahan" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏄</div><div class="station-order">Finale</div><div class="station-name">Canggu, Bali</div><div class="station-hotel">🏄 Surf Lodge Canggu</div><div class="station-date">14.–18. Okt · 4 Nächte</div><div class="station-activities">Surfen, Sanur-Ausflug, Abschlussabende</div><a href="#stop-canggu" class="station-link">Zum Bericht</a></div>
+  </div>
 </div></section>
+
+<!-- ═══ REISE IM DETAIL ═══ -->
+<section class="stop-section section-pad bg-cream" id="stop-ubud">
+  <div class="section-inner" style="margin-bottom:40px">
+    <h2 class="section-title">Reise im <em>Detail</em></h2>
+  </div>
+  <div class="section-inner">
+    <span class="stop-badge">Stop 01</span>
+    <h3 class="stop-title-main">Ubud, <em>Bali</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 25.–30. September 2025</span>
+      <span>🌙 5 Nächte</span>
+      <span>🏨 Sumantra House</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Ubud kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-rinjani">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 02 · Highlight</span>
+    <h3 class="stop-title-main">Rinjani <em>Trekking</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 30. Sep – 2. Okt 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏕 Zelt (Touranbieter)</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Das Vulkantrekking auf 3.726m – kommt in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-tetebatu">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 03</span>
+    <h3 class="stop-title-main"><em>Tetebatu</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 2.–4. Oktober 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏨 Aulia Bungalows</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Tetebatu kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-senggigi">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 04</span>
+    <h3 class="stop-title-main"><em>Senggigi</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 4.–6. Oktober 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏨 Cafe Wayan Cottages</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Senggigi kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-kuta-lombok">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 05</span>
+    <h3 class="stop-title-main">Kuta, <em>Lombok</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 6.–9. Oktober 2025</span>
+      <span>🌙 3 Nächte</span>
+      <span>🏝 Rawa Lombok</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Kuta Lombok kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-sekotong">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 06</span>
+    <h3 class="stop-title-main"><em>Sekotong</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 9.–11. Oktober 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏨 Krisna Bungalows</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Sekotong kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-gili-asahan">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 07</span>
+    <h3 class="stop-title-main">Gili <em>Asahan</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 11.–14. Oktober 2025</span>
+      <span>🌙 3 Nächte</span>
+      <span>🏖 Amahelia Resort</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Gili Asahan kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-canggu">
+  <div class="section-inner">
+    <span class="stop-badge">Finale</span>
+    <h3 class="stop-title-main">Canggu, <em>Bali</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 14.–18. Oktober 2025</span>
+      <span>🌙 4 Nächte</span>
+      <span>🏄 Surf Lodge Canggu</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Canggu kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
 <section class="section-pad-sm bg-off"><div class="section-inner">
   <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
-  <div class="photo-gallery"><img src="Bilder/Bali 2017/IMG_0409.JPG" alt="Bali Reisterrassen" loading="lazy"><img src="Bilder/Bali 2017/DSC_0615.JPG" alt="Bali" loading="lazy"><div class="photo-placeholder-sm">Rinjani Krater<br><small>Sonnenaufgang am Vulkankrater</small></div><div class="photo-placeholder-sm">Gili Asahan<br><small>Türkises Wasser, einsamer Strand</small></div><div class="photo-placeholder-sm">Ubud Reisterrassen<br><small>Tegallalang bei Sonnenaufgang</small></div></div>
+  <div class="photo-gallery">
+    <img src="Bilder/Bali 2017/IMG_0409.JPG" alt="Bali Reisterrassen" loading="lazy">
+    <img src="Bilder/Bali 2017/DSC_0615.JPG" alt="Bali" loading="lazy">
+    <div class="photo-placeholder-sm">Rinjani Krater<br><small>Sonnenaufgang am Vulkankrater</small></div>
+    <div class="photo-placeholder-sm">Gili Asahan<br><small>Türkises Wasser, einsamer Strand</small></div>
+    <div class="photo-placeholder-sm">Ubud Reisterrassen<br><small>Tegallalang bei Sonnenaufgang</small></div>
+  </div>
 </div></section>
+
 <div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
   <a href="reise-philippinen-2025.html" class="btn-outline-dark">← Philippinen 2025</a>
   <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
   <a href="reise-namibia-2024.html" class="btn-outline-dark">Namibia 2024 →</a>
 </div></div>
+
 <footer id="footer"><div class="footer-inner">
   <div class="footer-top">
     <div class="footer-brand"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"><p>Unsere echten Routen – seit 2011 auf Abenteuer-Tour zu zweit.</p></div>
@@ -112,4 +386,13 @@
   </div>
   <div class="footer-bottom"><p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span></p></div>
 </div></footer>
+<script>
+function toggleNavSub(btn, id) {
+  var group = document.getElementById(id);
+  var isOpen = group.classList.contains('open');
+  document.querySelectorAll('.dropdown-sub-group').forEach(function(g) { g.classList.remove('open'); });
+  document.querySelectorAll('.dropdown-toggle').forEach(function(b) { b.classList.remove('active'); });
+  if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
+}
+</script>
 </body></html>

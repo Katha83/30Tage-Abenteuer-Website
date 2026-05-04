@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -10,31 +10,152 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-  <script>window.TRIP_ROUTE=[{lat:6.01,lng:80.21,name:"Unawatuna"},{lat:6.44,lng:80.90,name:"Uda Walawe"},{lat:6.87,lng:81.05,name:"Ella"},{lat:7.30,lng:80.64,name:"Kandy"},{lat:7.86,lng:80.65,name:"Dambulla"},{lat:7.96,lng:80.76,name:"Sigiriya"},{lat:8.33,lng:80.41,name:"Anuradhapura"},{lat:8.57,lng:81.22,name:"Trincomalee"},{lat:7.21,lng:79.84,name:"Negombo"}];</script><script src="main.js" defer></script>
-</head><body>
-<div id="cursor-dot" aria-hidden="true"></div><div id="cursor-ring" aria-hidden="true"></div>
+  <script>window.TRIP_ROUTE=[{lat:6.01,lng:80.21,name:"Unawatuna"},{lat:6.44,lng:80.90,name:"Uda Walawe"},{lat:6.87,lng:81.05,name:"Ella"},{lat:7.30,lng:80.64,name:"Kandy"},{lat:7.86,lng:80.65,name:"Dambulla"},{lat:7.96,lng:80.76,name:"Sigiriya"},{lat:8.33,lng:80.41,name:"Anuradhapura"},{lat:8.57,lng:81.22,name:"Trincomalee"},{lat:7.21,lng:79.84,name:"Negombo"}];</script>
+  <script src="main.js" defer></script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Station card overrides */
+    .station-card { background: #A8BFA3; }
+    .station-card .station-hotel,
+    .station-card .station-date,
+    .station-card .station-activities { color: var(--teal-dark); }
+
+    .station-card-img {
+      margin: -18px -18px 14px;
+      overflow: hidden;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      height: 130px;
+    }
+    .station-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .station-card:hover .station-card-img img { transform: scale(1.06); }
+    .station-card-img-placeholder {
+      height: 130px;
+      margin: -18px -18px 14px;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal-dark));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; opacity: 0.85;
+    }
+    .station-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .station-link:hover { border-color: var(--teal); opacity: 0.8; }
+    .station-link::after { content: ' ↓'; }
+
+    /* Stop detail sections */
+    .stop-section { scroll-margin-top: var(--nav-h, 80px); }
+    .stop-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .stop-title-main {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.1;
+      margin: 0 0 14px; color: var(--text-dark);
+    }
+    .stop-title-main em { font-style: italic; color: var(--teal); }
+    .stop-meta-row {
+      display: flex; flex-wrap: wrap; gap: 16px 28px;
+      font-size: 0.875rem; color: #666;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .stop-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: start;
+    }
+    @media (max-width: 800px) { .stop-body { grid-template-columns: 1fr; } }
+    .stop-text p { font-size: 1.02rem; line-height: 1.9; margin-bottom: 22px; color: var(--text-mid); }
+    .stop-text p:last-child { margin-bottom: 0; }
+    .stop-text a { color: var(--teal); }
+    .stop-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stop-photo { margin: 0; }
+    .stop-photo img {
+      width: 100%; height: 185px;
+      object-fit: cover; border-radius: 8px; display: block;
+    }
+    .stop-photo.wide { grid-column: 1 / -1; }
+    .stop-photo.wide img { height: 250px; }
+    .stop-photo figcaption { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
+    .stop-practical {
+      margin-top: 40px; padding-top: 28px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .stop-info-pill {
+      background: var(--off-white);
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 0.875rem; line-height: 1.5;
+    }
+    .stop-info-pill strong {
+      display: block; font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999; margin-bottom: 2px;
+    }
+    .stop-coming {
+      padding: 44px 32px; background: var(--off-white);
+      border-radius: 12px; text-align: center;
+    }
+    .stop-coming strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-mid); }
+    .stop-coming span { font-size: 0.875rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
 <header id="nav" role="banner">
   <a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a>
   <nav><ul class="nav-links">
     <li><a href="index.html">Start</a></li>
     <li class="has-dropdown"><a href="#">Reiseziele</a>
       <div class="dropdown wide">
-        <div class="dropdown-col"><span class="dropdown-heading">Asien</span>
-          <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
-          <a href="reise-bali-2017.html">Bali 2017</a><a href="reise-vietnam-2018.html">Vietnam 2018</a>
-          <a href="reise-thailand-2019.html">Thailand 2019</a><a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
-          <a href="reise-philippinen-2025.html">Philippinen 2025</a>
-          <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
-          <a href="reise-thailand-2026.html">Thailand 2026</a></div>
-        <div class="dropdown-col"><span class="dropdown-heading">Amerika</span>
-          <a href="reise-usa-2013.html">USA Rundreise 2013</a><a href="reise-newyork-2017.html">New York 2017</a>
-          <a href="reise-lasvegas-2019.html">Las Vegas 2019</a><a href="reise-costarica-2022.html">Costa Rica 2022</a>
-          <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
-          <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
-          <a href="reise-namibia-2024.html">Namibia 2024</a>
-          <span class="dropdown-heading" style="margin-top:14px">Europa</span>
-          <a href="reise-london-2024.html">London 2024</a>
-          <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a></div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
+            <a href="reise-bali-lombok-2025.html">Lombok</a>
+          </div>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
+          </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris &#10022; Upcoming</a>
+        </div>
       </div>
     </li>
     <li><a href="index.html#timeline">Zeitreise</a></li>
@@ -46,10 +167,13 @@
     </li>
     <li><a href="ueber-uns.html">Über Uns</a></li>
   </ul></nav>
-  <a href="index.html#destinations" class="nav-cta">Alle Reisen</a>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
 </header>
+
 <div class="trip-hero" style="margin-top:var(--nav-h)">
-  <img src="Bilder/Sri Lanka 2023/IMG_6320.JPG" alt="Sri Lanka 2023" class="trip-hero-img"><div class="trip-hero-overlay"></div>
+  <img src="Bilder/Sri Lanka 2023/IMG_6320.JPG" alt="Sri Lanka 2023" class="trip-hero-img">
+  <div class="trip-hero-overlay"></div>
   <div class="trip-hero-content">
     <p class="section-tag">Südasien · Rundreise</p>
     <h1 class="trip-hero-title">Sri Lanka 2023</h1>
@@ -57,10 +181,12 @@
   </div>
 </div>
 <div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Sri Lanka 2023</span></div>
+
 <section class="section-pad-sm map-section"><div class="section-inner">
   <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
   <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
 </div></section>
+
 <section class="section-pad bg-cream"><div class="section-inner">
   <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>
   <div class="info-grid">
@@ -69,19 +195,195 @@
     <div class="info-card"><div class="info-card-label">Reiseart</div><div class="info-card-value">Mietwagen-Rundreise</div></div>
     <div class="info-card"><div class="info-card-label">Highlight</div><div class="info-card-value">Ella Rock &amp; Zugfahrt</div></div>
   </div>
-  <div style="max-width:720px;margin-top:40px"><div class="placeholder-text">✏️ Platzhalter: Wie war die Zugfahrt von Ella nach Kandy? War das wirklich so schön wie auf den Fotos?</div><p class="trip-text">Sri Lanka überraschte uns mit seiner Vielfalt – vom Elefantenwaisenhaus in Uda Walawe über die Tempel Kandys bis zu den Traumstränden in Trincomalee. Die Zugfahrt durchs Hochland bei Sonnenaufgang war einer der schönsten Momente der gesamten Reise.</p><div class="placeholder-text">✏️ Platzhalter: Budgettipps und Mietwagenempfehlungen für Sri Lanka. Eure Erfahrungen mit der Infrastruktur.</div></div>
+  <div style="max-width:720px;margin-top:40px">
+    <div class="placeholder-text">✏️ Platzhalter: Wie war die Zugfahrt von Ella nach Kandy? War das wirklich so schön wie auf den Fotos?</div>
+    <p class="trip-text">Sri Lanka überraschte uns mit seiner Vielfalt – vom Elefantenwaisenhaus in Uda Walawe über die Tempel Kandys bis zu den Traumstränden in Trincomalee. Die Zugfahrt durchs Hochland bei Sonnenaufgang war einer der schönsten Momente der gesamten Reise.</p>
+    <div class="placeholder-text">✏️ Platzhalter: Budgettipps und Mietwagenempfehlungen für Sri Lanka. Eure Erfahrungen mit der Infrastruktur.</div>
+  </div>
 </div></section>
+
 <section class="section-pad"><div class="section-inner">
-  <p class="section-tag">Stationen</p><h2 class="section-title">Stationen &amp; <em>Details</em></h2>
-  <div class="station-grid" style="margin-top:32px"><div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Unawatuna</div><div class="station-hotel">🏖 Unawatuna Backpacker Lodge</div><div class="station-date">18.–20. Apr · 2 Nächte</div></div><div class="station-card"><div class="station-order">Stop 02</div><div class="station-name">Uda Walawe</div><div class="station-hotel">🌿 Eco Tree House</div><div class="station-date">20.–21. Apr · 1 Nacht</div><div class="station-activities">Elephant Transit Home, Safari 05:45–14:00 Uhr</div></div><div class="station-card"><div class="station-order">Stop 03 ⭐</div><div class="station-name">Ella</div><div class="station-hotel">🏨 Ella Moon Rock</div><div class="station-date">21.–24. Apr · 3 Nächte</div><div class="station-activities">Ella Rock, Little Adams Peak, 9 Arch Bridge, Zugfahrt 24.4 um 05:45</div></div><div class="station-card"><div class="station-order">Stop 04</div><div class="station-name">Kandy</div><div class="station-hotel">🏨 Kandy Tower Inn</div><div class="station-date">24.–25. Apr · 1 Nacht</div><div class="station-activities">Zahntempel, Markt</div></div><div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Dambulla</div><div class="station-hotel">🌿 Green Village Dambulla</div><div class="station-date">25.–27. Apr · 2 Nächte</div><div class="station-activities">Höhlentempel, via Polonnaruwa nach Sigiriya</div></div><div class="station-card"><div class="station-order">Stop 06</div><div class="station-name">Sigiriya</div><div class="station-hotel">🏨 Sigiriya Paradise Inn</div><div class="station-date">27.–29. Apr · 2 Nächte</div><div class="station-activities">Sigiriya-Felsen (Löwenfelsen), Pinnawala</div></div><div class="station-card"><div class="station-order">Stop 07</div><div class="station-name">Anuradhapura</div><div class="station-hotel">🏨 Rajarata Reach Resort</div><div class="station-date">29. Apr – 1. Mai · 2 Nächte</div></div><div class="station-card"><div class="station-order">Stop 08</div><div class="station-name">Trincomalee</div><div class="station-hotel">🏖 Pragash Beach Hotel</div><div class="station-date">1.–6. Mai · 5 Nächte</div><div class="station-activities">Strandzeit, Schnorcheln an der Ostküste</div></div><div class="station-card"><div class="station-order">Finale</div><div class="station-name">Negombo</div><div class="station-hotel">🏨 Leighton Resort</div><div class="station-date">6.–8. Mai · 2 Nächte</div><div class="station-activities">Kostenloser Airport-Shuttle inkludiert</div></div></div>
+  <p class="section-tag">Stationen</p><h2 class="section-title">9 Stationen · <em>20 Nächte</em></h2>
+  <div class="station-grid" style="margin-top:32px">
+    <div class="station-card"><div class="station-card-img-placeholder">🏖</div><div class="station-order">Stop 01</div><div class="station-name">Unawatuna</div><div class="station-hotel">🏖 Unawatuna Backpacker Lodge</div><div class="station-date">18.–20. Apr · 2 Nächte</div><a href="#stop-unawatuna" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🐘</div><div class="station-order">Stop 02</div><div class="station-name">Uda Walawe</div><div class="station-hotel">🌿 Eco Tree House</div><div class="station-date">20.–21. Apr · 1 Nacht</div><div class="station-activities">Elephant Transit Home, Safari 05:45–14:00 Uhr</div><a href="#stop-uda-walawe" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏔</div><div class="station-order">Stop 03 ⭐</div><div class="station-name">Ella</div><div class="station-hotel">🏨 Ella Moon Rock</div><div class="station-date">21.–24. Apr · 3 Nächte</div><div class="station-activities">Ella Rock, Little Adams Peak, 9 Arch Bridge, Zugfahrt 24.4 um 05:45</div><a href="#stop-ella" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🛕</div><div class="station-order">Stop 04</div><div class="station-name">Kandy</div><div class="station-hotel">🏨 Kandy Tower Inn</div><div class="station-date">24.–25. Apr · 1 Nacht</div><div class="station-activities">Zahntempel, Markt</div><a href="#stop-kandy" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🗿</div><div class="station-order">Stop 05</div><div class="station-name">Dambulla</div><div class="station-hotel">🌿 Green Village Dambulla</div><div class="station-date">25.–27. Apr · 2 Nächte</div><div class="station-activities">Höhlentempel, via Polonnaruwa nach Sigiriya</div><a href="#stop-dambulla" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏰</div><div class="station-order">Stop 06</div><div class="station-name">Sigiriya</div><div class="station-hotel">🏨 Sigiriya Paradise Inn</div><div class="station-date">27.–29. Apr · 2 Nächte</div><div class="station-activities">Sigiriya-Felsen (Löwenfelsen), Pinnawala</div><a href="#stop-sigiriya" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🛕</div><div class="station-order">Stop 07</div><div class="station-name">Anuradhapura</div><div class="station-hotel">🏨 Rajarata Reach Resort</div><div class="station-date">29. Apr – 1. Mai · 2 Nächte</div><a href="#stop-anuradhapura" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏖</div><div class="station-order">Stop 08</div><div class="station-name">Trincomalee</div><div class="station-hotel">🏖 Pragash Beach Hotel</div><div class="station-date">1.–6. Mai · 5 Nächte</div><div class="station-activities">Strandzeit, Schnorcheln an der Ostküste</div><a href="#stop-trincomalee" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">✈️</div><div class="station-order">Finale</div><div class="station-name">Negombo</div><div class="station-hotel">🏨 Leighton Resort</div><div class="station-date">6.–8. Mai · 2 Nächte</div><div class="station-activities">Kostenloser Airport-Shuttle inkludiert</div><a href="#stop-negombo" class="station-link">Zum Bericht</a></div>
+  </div>
 </div></section>
+
+<!-- ═══ REISE IM DETAIL ═══ -->
+<section class="stop-section section-pad bg-cream" id="stop-unawatuna">
+  <div class="section-inner" style="margin-bottom:40px">
+    <h2 class="section-title">Reise im <em>Detail</em></h2>
+  </div>
+  <div class="section-inner">
+    <span class="stop-badge">Stop 01</span>
+    <h3 class="stop-title-main"><em>Unawatuna</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 18.–20. April 2023</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏖 Unawatuna Backpacker Lodge</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Unawatuna kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-uda-walawe">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 02</span>
+    <h3 class="stop-title-main">Uda <em>Walawe</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 20.–21. April 2023</span>
+      <span>🌙 1 Nacht</span>
+      <span>🌿 Eco Tree House</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Elephant Transit Home und Safari – kommt in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-ella">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 03 · Highlight</span>
+    <h3 class="stop-title-main"><em>Ella</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 21.–24. April 2023</span>
+      <span>🌙 3 Nächte</span>
+      <span>🏨 Ella Moon Rock</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Ella Rock, Little Adams Peak, 9 Arch Bridge und Zugfahrt – kommt in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-kandy">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 04</span>
+    <h3 class="stop-title-main"><em>Kandy</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 24.–25. April 2023</span>
+      <span>🌙 1 Nacht</span>
+      <span>🏨 Kandy Tower Inn</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Kandy kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-dambulla">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 05</span>
+    <h3 class="stop-title-main"><em>Dambulla</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 25.–27. April 2023</span>
+      <span>🌙 2 Nächte</span>
+      <span>🌿 Green Village Dambulla</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Dambulla kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-sigiriya">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 06</span>
+    <h3 class="stop-title-main"><em>Sigiriya</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 27.–29. April 2023</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏨 Sigiriya Paradise Inn</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Sigiriya-Felsen und Pinnawala – kommt in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-anuradhapura">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 07</span>
+    <h3 class="stop-title-main"><em>Anuradhapura</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 29. Apr – 1. Mai 2023</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏨 Rajarata Reach Resort</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Anuradhapura kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-trincomalee">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 08</span>
+    <h3 class="stop-title-main"><em>Trincomalee</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 1.–6. Mai 2023</span>
+      <span>🌙 5 Nächte</span>
+      <span>🏖 Pragash Beach Hotel</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Strandzeit und Schnorcheln an der Ostküste – kommt in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-negombo">
+  <div class="section-inner">
+    <span class="stop-badge">Finale</span>
+    <h3 class="stop-title-main"><em>Negombo</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 6.–8. Mai 2023</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏨 Leighton Resort</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Negombo kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
 <section class="section-pad-sm bg-off"><div class="section-inner">
   <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
-  <div class="photo-gallery"><img src="Bilder/Sri Lanka 2023/IMG_20230420_135632.jpg" alt="Sri Lanka" loading="lazy"><img src="Bilder/Sri Lanka 2023/IMG_20230421_070737.jpg" alt="Sri Lanka" loading="lazy"><img src="Bilder/Sri Lanka 2023/IMG_20230421_101042.jpg" alt="Sri Lanka" loading="lazy"><img src="Bilder/Sri Lanka 2023/IMG20230422152910.jpg" alt="Sri Lanka" loading="lazy"><img src="Bilder/Sri Lanka 2023/IMG_6320.JPG" alt="Sri Lanka" loading="lazy"><img src="Bilder/Sri Lanka 2023/IMG_6339.JPG" alt="Sri Lanka" loading="lazy"><img src="Bilder/Sri Lanka 2023/IMG-20230822-WA0013.jpg" alt="Sri Lanka" loading="lazy"></div>
+  <div class="photo-gallery">
+    <img src="Bilder/Sri Lanka 2023/IMG_20230420_135632.jpg" alt="Sri Lanka" loading="lazy">
+    <img src="Bilder/Sri Lanka 2023/IMG_20230421_070737.jpg" alt="Sri Lanka" loading="lazy">
+    <img src="Bilder/Sri Lanka 2023/IMG_20230421_101042.jpg" alt="Sri Lanka" loading="lazy">
+    <img src="Bilder/Sri Lanka 2023/IMG20230422152910.jpg" alt="Sri Lanka" loading="lazy">
+    <img src="Bilder/Sri Lanka 2023/IMG_6320.JPG" alt="Sri Lanka" loading="lazy">
+    <img src="Bilder/Sri Lanka 2023/IMG_6339.JPG" alt="Sri Lanka" loading="lazy">
+    <img src="Bilder/Sri Lanka 2023/IMG-20230822-WA0013.jpg" alt="Sri Lanka" loading="lazy">
+  </div>
 </div></section>
+
 <div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
-  <a href="reise-florida-2023.html" class="btn-outline-dark">← Florida 2023</a><a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a><a href="reise-london-2024.html" class="btn-outline-dark">London 2024 →</a>
+  <a href="reise-florida-2023.html" class="btn-outline-dark">← Florida 2023</a>
+  <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+  <a href="reise-london-2024.html" class="btn-outline-dark">London 2024 →</a>
 </div></div>
+
 <footer id="footer"><div class="footer-inner">
   <div class="footer-top">
     <div class="footer-brand"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"><p>Seit 2011 auf Abenteuer-Tour zu zweit.</p></div>
@@ -95,4 +397,13 @@
   </div>
   <div class="footer-bottom"><p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span></p></div>
 </div></footer>
+<script>
+function toggleNavSub(btn, id) {
+  var group = document.getElementById(id);
+  var isOpen = group.classList.contains('open');
+  document.querySelectorAll('.dropdown-sub-group').forEach(function(g) { g.classList.remove('open'); });
+  document.querySelectorAll('.dropdown-toggle').forEach(function(b) { b.classList.remove('active'); });
+  if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
+}
+</script>
 </body></html>

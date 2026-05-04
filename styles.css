@@ -235,6 +235,28 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
 }
 .dropdown a.upcoming-link { color: var(--tan); font-style: italic; }
 
+/* Country sub-grouping within wide dropdown */
+.dropdown-country {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: .03em;
+  padding: 8px 8px 2px;
+  margin-top: 4px;
+  cursor: default;
+  user-select: none;
+}
+.dropdown a.dropdown-sublink { padding-left: 20px; }
+
+/* Collapsible nav sub-groups */
+.dropdown-sub-group { display: none; }
+.dropdown-sub-group.open { display: block; }
+.dropdown-toggle { width: 100%; text-align: left; display: flex; align-items: center; justify-content: space-between; padding-right: 4px; }
+.drop-chevron { font-size: 0.65rem; opacity: 0.55; transition: transform 0.2s; display: inline-block; }
+.dropdown-toggle.active .drop-chevron { transform: rotate(180deg); }
+
 /* Simple dropdown (Reisetipps) */
 .dropdown.simple { grid-template-columns: 1fr; min-width: 220px; }
 

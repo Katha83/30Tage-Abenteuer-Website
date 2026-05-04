@@ -2,6 +2,97 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="description" content="Thailand 2019 – Chiang Mai, Khao Sok, Krabi, Koh Lanta, Koh Mook, Bangkok. 21 Nächte."><title>Thailand 2019 – 30 Tage Abenteuer</title>
 <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+    html { scroll-behavior: smooth; }
+    .station-card { background: #A8BFA3; }
+    .station-card .station-hotel,
+    .station-card .station-date,
+    .station-card .station-activities { color: var(--teal-dark); }
+    .station-card-img {
+      margin: -18px -18px 14px;
+      overflow: hidden;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      height: 130px;
+    }
+    .station-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .station-card:hover .station-card-img img { transform: scale(1.06); }
+    .station-card-img-placeholder {
+      height: 130px;
+      margin: -18px -18px 14px;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal-dark));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; opacity: 0.85;
+    }
+    .station-link {
+      display: inline-block; margin-top: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .station-link:hover { border-color: var(--teal); opacity: 0.8; }
+    .station-link::after { content: ' ↓'; }
+    .stop-section { scroll-margin-top: var(--nav-h, 80px); }
+    .stop-badge {
+      display: inline-block; background: var(--teal);
+      color: #fff; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .stop-title-main {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.1;
+      margin: 0 0 14px; color: var(--text-dark);
+    }
+    .stop-title-main em { font-style: italic; color: var(--teal); }
+    .stop-meta-row {
+      display: flex; flex-wrap: wrap; gap: 16px 28px;
+      font-size: 0.875rem; color: #666;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .stop-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: start;
+    }
+    @media (max-width: 800px) { .stop-body { grid-template-columns: 1fr; } }
+    .stop-text p { font-size: 1.02rem; line-height: 1.9; margin-bottom: 22px; color: var(--text-mid); }
+    .stop-text p:last-child { margin-bottom: 0; }
+    .stop-text a { color: var(--teal); }
+    .stop-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stop-photo { margin: 0; }
+    .stop-photo img { width: 100%; height: 185px; object-fit: cover; border-radius: 8px; display: block; }
+    .stop-photo.wide { grid-column: 1 / -1; }
+    .stop-photo.wide img { height: 250px; }
+    .stop-photo figcaption { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
+    .stop-practical {
+      margin-top: 40px; padding-top: 28px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .stop-info-pill {
+      background: var(--off-white); border-radius: 8px;
+      padding: 12px 18px; font-size: 0.875rem; line-height: 1.5;
+    }
+    .stop-info-pill strong {
+      display: block; font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999; margin-bottom: 2px;
+    }
+    .stop-coming {
+      padding: 44px 32px; background: var(--off-white);
+      border-radius: 12px; text-align: center;
+    }
+    .stop-coming strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-mid); }
+    .stop-coming span { font-size: 0.875rem; color: var(--text-muted); }
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -13,20 +104,42 @@
 <header id="nav" role="banner">
 <a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a>
 <nav><ul class="nav-links"><li><a href="index.html">Start</a></li>
-<li class="has-dropdown"><a href="#">Reiseziele</a><div class="dropdown wide">
-<div class="dropdown-col"><span class="dropdown-heading">Asien</span>
-<a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
-<a href="reise-bali-2017.html">Bali 2017</a><a href="reise-vietnam-2018.html">Vietnam 2018</a>
-<a href="reise-thailand-2019.html">Thailand 2019</a><a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
-<a href="reise-philippinen-2025.html">Philippinen 2025</a><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
-<a href="reise-thailand-2026.html">Thailand 2026</a></div>
-<div class="dropdown-col"><span class="dropdown-heading">Amerika</span>
-<a href="reise-usa-2013.html">USA Rundreise 2013</a><a href="reise-newyork-2017.html">New York 2017</a>
-<a href="reise-lasvegas-2019.html">Las Vegas 2019</a><a href="reise-costarica-2022.html">Costa Rica 2022</a>
-<a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
-<span class="dropdown-heading" style="margin-top:14px">Afrika</span><a href="reise-namibia-2024.html">Namibia 2024</a>
-<span class="dropdown-heading" style="margin-top:14px">Europa</span><a href="reise-london-2024.html">London 2024</a>
-<a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a></div></div></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
+      <div class="dropdown wide">
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
+            <a href="reise-bali-lombok-2025.html">Lombok</a>
+          </div>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
+          </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris &#10022; Upcoming</a>
+        </div>
+      </div>
+    </li>
 <li><a href="index.html#timeline">Zeitreise</a></li>
 <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple">
 <a href="reisetipps.html#planung">Wie wir planen</a><a href="reisetipps.html#packliste">Packliste</a>
@@ -46,9 +159,104 @@
 <div class="info-card"><div class="info-card-label">Reiseart</div><div class="info-card-value">Rundreise</div></div>
 <div class="info-card"><div class="info-card-label">Highlight</div><div class="info-card-value">Wasserbungalow Khao Sok</div></div></div>
 <div style="max-width:720px;margin-top:40px"><div class="placeholder-text">✏️ Platzhalter: Wie war der Tauch-Schnupperkurs in Koh Lanta? Lohnt sich der Umweg über Koh Mook mit der Emerald Cave?</div><p class="trip-text">Thailand 2019 war unsere Entdeckungsreise in den Norden und auf die Inseln des Südens. Chiang Mai mit seinem Elefantencamp und Trekking war weit besser als erwartet – und die Wasserbungalows im Khao Sok Stausee zählen zu unseren absoluten Favoriten weltweit.</p><div class="placeholder-text">✏️ Platzhalter: Transportlogistik zwischen Chiang Mai, Khao Sok, Krabi, Koh Lanta und Koh Mook – wie habt ihr das gemacht?</div></div></div></section>
-<section class="section-pad"><div class="section-inner"><p class="section-tag">Stationen</p>
-<h2 class="section-title">Stationen &amp; <em>Details</em></h2>
-<div class="station-grid" style="margin-top:32px"><div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Chiang Mai</div><div class="station-hotel">🏨 Commonroom</div><div class="station-date">23.–28. Feb · 5 Nächte</div><div class="station-activities">Kochkurs (Lanna Smile), Elefantencamp, Yoga, Trekking (TMT), Altstadt, Nachtmarkt</div></div><div class="station-card"><div class="station-order">Stop 02 ⭐</div><div class="station-name">Khao Sok NP</div><div class="station-hotel">🏕 Baan Khao Sok + Wasserbungalow</div><div class="station-date">28. Feb – 3. Mär · 3 Nächte</div><div class="station-activities">Wasserbungalow auf dem Stausee – unvergesslich!</div></div><div class="station-card"><div class="station-order">Stop 03</div><div class="station-name">Krabi</div><div class="station-hotel">🏨 Sleep Whale Express</div><div class="station-date">3.–5. Mär · 2 Nächte</div><div class="station-activities">Nachtmarkt, 7-Inseln-Tour</div></div><div class="station-card"><div class="station-order">Stop 04</div><div class="station-name">Koh Lanta</div><div class="station-hotel">🏝 Lanta New Coconut</div><div class="station-date">5.–9. Mär · 4 Nächte</div><div class="station-activities">Tauch-Schnupperkurs (Blue Planet Divers), Insel erkunden, Schnorcheltour</div></div><div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Koh Mook</div><div class="station-hotel">🏝 Mook Ing Lay</div><div class="station-date">9.–12. Mär · 3 Nächte</div><div class="station-activities">Emerald Cave, Inseltour, Schnorcheln</div></div><div class="station-card"><div class="station-order">Finale</div><div class="station-name">Bangkok</div><div class="station-hotel">🏨 At Smile</div><div class="station-date">12.–16. Mär · 4 Nächte</div><div class="station-activities">Grand Palace, Märkte, Floating Market, Rückflug</div></div></div></div></section>
+<section class="section-pad"><div class="section-inner">
+  <p class="section-tag">Stationen</p><h2 class="section-title">6 Stationen · <em>21 Nächte</em></h2>
+  <div class="station-grid" style="margin-top:32px">
+    <div class="station-card"><div class="station-card-img-placeholder">🐘</div><div class="station-order">Start</div><div class="station-name">Chiang Mai</div><div class="station-hotel">🏨 Commonroom</div><div class="station-date">23.–28. Feb · 5 Nächte</div><div class="station-activities">Kochkurs, Elefantencamp, Yoga, Trekking, Nachtmarkt</div><a href="#stop-chiang-mai" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🌿</div><div class="station-order">Stop 01</div><div class="station-name">Khao Sok NP</div><div class="station-hotel">🏕 Baan Khao Sok + Wasserbungalow</div><div class="station-date">28. Feb – 3. Mär · 3 Nächte</div><div class="station-activities">Wasserbungalow auf dem Stausee – unvergesslich!</div><a href="#stop-khao-sok" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏖</div><div class="station-order">Stop 02</div><div class="station-name">Krabi</div><div class="station-hotel">🏨 Sleep Whale Express</div><div class="station-date">3.–5. Mär · 2 Nächte</div><div class="station-activities">Nachtmarkt, 7-Inseln-Tour</div><a href="#stop-krabi" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🤿</div><div class="station-order">Stop 03</div><div class="station-name">Koh Lanta</div><div class="station-hotel">🏝 Lanta New Coconut</div><div class="station-date">5.–9. Mär · 4 Nächte</div><div class="station-activities">Tauch-Schnupperkurs, Schnorcheltour, Insel erkunden</div><a href="#stop-koh-lanta" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏖</div><div class="station-order">Stop 04</div><div class="station-name">Koh Mook</div><div class="station-hotel">🏝 Mook Ing Lay</div><div class="station-date">9.–12. Mär · 3 Nächte</div><div class="station-activities">Emerald Cave, Inseltour, Schnorcheln</div><a href="#stop-koh-mook" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏙</div><div class="station-order">Finale</div><div class="station-name">Bangkok</div><div class="station-hotel">🏨 At Smile</div><div class="station-date">12.–16. Mär · 4 Nächte</div><div class="station-activities">Grand Palace, Märkte, Floating Market, Rückflug</div><a href="#stop-bangkok" class="station-link">Zum Bericht</a></div>
+  </div>
+</div></section>
+
+<section class="stop-section section-pad bg-cream" id="stop-chiang-mai">
+  <div class="section-inner" style="margin-bottom:40px">
+    <h2 class="section-title">Reise im <em>Detail</em></h2>
+  </div>
+  <div class="section-inner">
+    <span class="stop-badge">Start</span>
+    <h3 class="stop-title-main">Chiang Mai</h3>
+    <div class="stop-meta-row">
+      <span>📅 23.–28. Feb 2019</span><span>🌙 5 Nächte</span><span>🏨 Commonroom</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Chiang Mai kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-khao-sok">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 01</span>
+    <h3 class="stop-title-main">Khao Sok NP</h3>
+    <div class="stop-meta-row">
+      <span>📅 28. Feb – 3. Mär 2019</span><span>🌙 3 Nächte</span><span>🏕 Baan Khao Sok + Wasserbungalow</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus dem Khao Sok NP kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-krabi">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 02</span>
+    <h3 class="stop-title-main">Krabi</h3>
+    <div class="stop-meta-row">
+      <span>📅 3.–5. März 2019</span><span>🌙 2 Nächte</span><span>🏨 Sleep Whale Express</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Krabi kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-koh-lanta">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 03</span>
+    <h3 class="stop-title-main">Koh Lanta</h3>
+    <div class="stop-meta-row">
+      <span>📅 5.–9. März 2019</span><span>🌙 4 Nächte</span><span>🏝 Lanta New Coconut</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Koh Lanta kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-koh-mook">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 04</span>
+    <h3 class="stop-title-main">Koh Mook</h3>
+    <div class="stop-meta-row">
+      <span>📅 9.–12. März 2019</span><span>🌙 3 Nächte</span><span>🏝 Mook Ing Lay</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Koh Mook kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-bangkok">
+  <div class="section-inner">
+    <span class="stop-badge">Finale</span>
+    <h3 class="stop-title-main">Bangkok</h3>
+    <div class="stop-meta-row">
+      <span>📅 12.–16. März 2019</span><span>🌙 4 Nächte</span><span>🏨 At Smile</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Bangkok kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
 <section class="section-pad-sm bg-off"><div class="section-inner"><p class="section-tag">Impressionen</p>
 <h2 class="section-title">Unsere <em>Bilder</em></h2><div class="photo-gallery"><div class="photo-placeholder-sm">Wasserbungalow Khao Sok<br><small>Floating Bungalow auf dem Stausee</small></div><div class="photo-placeholder-sm">Elefantencamp Chiang Mai<br><small>Ethisches Sanctuary</small></div><div class="photo-placeholder-sm">Koh Lanta Strand<br><small>Sonnenuntergang Long Beach</small></div><div class="photo-placeholder-sm">Emerald Cave Koh Mook<br><small>Eingang durch dunkle Höhle</small></div></div></div></section>
 <div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">

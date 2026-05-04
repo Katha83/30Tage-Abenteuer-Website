@@ -12,7 +12,42 @@
 <body>
   <div id="preloader"><div id="preloader-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" style="height:60px"></div><div id="preloader-count">0%</div></div>
   <div id="cursor-dot"></div><div id="cursor-ring"></div>
-  <nav id="nav"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a><button class="nav-burger" aria-label="Menue" aria-expanded="false" id="nav-burger"><span></span><span></span><span></span></button><ul class="nav-links" id="nav-links"><li class="has-dropdown"><a href="index.html#reisen">Reiseziele</a><div class="dropdown wide"><div class="drop-col"><span class="drop-heading">Asien</span><a href="reise-thailand-2026.html">Thailand 2026</a><a href="reise-philippinen-2025.html">Philippinen 2025</a><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a><a href="reise-srilanka-2023.html">Sri Lanka 2023</a><a href="reise-thailand-2019.html">Thailand 2019</a><a href="reise-vietnam-2018.html">Vietnam 2018</a><a href="reise-bali-2017.html">Bali 2017</a><a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a></div><div class="drop-col"><span class="drop-heading">Amerika</span><a href="reise-lasvegas-2019.html">Las Vegas 2019</a><a href="reise-florida-2023.html">Florida 2023</a><a href="reise-costarica-2022.html">Costa Rica 2022</a><a href="reise-newyork-2017.html">New York 2017</a><a href="reise-usa-2013.html">USA Roadtrip 2013</a><span class="drop-heading">Afrika</span><a href="reise-namibia-2024.html">Namibia 2024</a><span class="drop-heading">Europa</span><a href="reise-paris-2026.html">Paris 2026</a><a href="reise-london-2024.html">London 2024</a></div></div></li><li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple"><a href="reisetipps.html#planung">Reiseplanung</a><a href="reisetipps.html#packliste">Packliste</a><a href="reisetipps.html#hotels">Hotels &amp; Unterkuenfte</a><a href="reisetipps.html#kreditkarte">Kreditkarte &amp; Finanzen</a><a href="reisetipps.html#budget">Budget &amp; Kosten</a></div></li><li><a href="ueber-uns.html">Ueber Uns</a></li></ul></div></nav>
+  <nav id="nav"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a><button class="nav-burger" aria-label="Menue" aria-expanded="false" id="nav-burger"><span></span><span></span><span></span></button><ul class="nav-links" id="nav-links"><li class="has-dropdown"><a href="index.html#reisen">Reiseziele</a>
+      <div class="dropdown wide">
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
+            <a href="reise-bali-lombok-2025.html">Lombok</a>
+          </div>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und S&#252;dtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand S&#252;den</a>
+          </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris &#10022; Upcoming</a>
+        </div>
+      </div>
+    </li><li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple"><a href="reisetipps.html#planung">Reiseplanung</a><a href="reisetipps.html#packliste">Packliste</a><a href="reisetipps.html#hotels">Hotels &amp; Unterkuenfte</a><a href="reisetipps.html#kreditkarte">Kreditkarte &amp; Finanzen</a><a href="reisetipps.html#budget">Budget &amp; Kosten</a></div></li><li><a href="ueber-uns.html">Ueber Uns</a></li></ul></div></nav>
   <header class="trip-hero" style="background-image:url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80')"><div class="hero-overlay"></div><div class="trip-hero-content"><div class="trip-breadcrumb"><a href="index.html">Home</a> / <a href="index.html#reisen">Reiseziele</a> / London 2024</div><h1 class="trip-hero-title">London 2024</h1><div class="trip-hero-meta"><span>2024</span><span>5 Naechte</span><span>Staedtetrip</span></div></div></header>
   <section class="section bg-cream"><div class="container"><div class="info-grid reveal-hidden"><div class="info-card"><span class="info-icon">✈️</span><span class="info-label">Kontinent</span><span class="info-value">Europa</span></div><div class="info-card"><span class="info-icon">📍</span><span class="info-label">Laender</span><span class="info-value">Grossbritannien</span></div><div class="info-card"><span class="info-icon">🌡️</span><span class="info-label">Beste Reisezeit</span><span class="info-value">Mai – September</span></div><div class="info-card"><span class="info-icon">🎭</span><span class="info-label">Highlights</span><span class="info-value">Tower Bridge, Borough Market, Notting Hill</span></div></div></div></section>
   <section class="section bg-off"><div class="container"><h2 class="section-title reveal-hidden">Unsere Route</h2><div class="map-wrap reveal-hidden" id="trip-map"></div></div></section>

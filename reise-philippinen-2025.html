@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
@@ -20,52 +21,169 @@
     {lat:14.59,lng:120.98,name:"Manila"}
   ];</script>
   <script src="main.js" defer></script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Station card overrides */
+    .station-card { background: #A8BFA3; }
+    .station-card .station-hotel,
+    .station-card .station-date,
+    .station-card .station-activities { color: var(--teal-dark); }
+
+    /* "Reise im Detail" heading with inline section-tag line */
+    .section-title-with-line { display: flex; align-items: center; gap: 10px; }
+    .section-title-with-line::before { content: ''; flex-shrink: 0; width: 24px; height: 1.5px; background: var(--teal); }
+
+    .station-card-img {
+      margin: -18px -18px 14px;
+      overflow: hidden;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      height: 130px;
+    }
+    .station-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .station-card:hover .station-card-img img { transform: scale(1.06); }
+    .station-card-img-placeholder {
+      height: 130px;
+      margin: -18px -18px 14px;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal-dark));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; opacity: 0.85;
+    }
+    .station-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .station-link:hover { border-color: var(--teal); opacity: 0.8; }
+    .station-link::after { content: ' ↓'; }
+
+    /* Stop detail sections */
+    .stop-section { scroll-margin-top: var(--nav-h, 80px); }
+    .stop-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .stop-title-main {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.1;
+      margin: 0 0 14px; color: var(--text-dark);
+    }
+    .stop-title-main em { font-style: italic; color: var(--teal); }
+    .stop-meta-row {
+      display: flex; flex-wrap: wrap; gap: 16px 28px;
+      font-size: 0.875rem; color: #666;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .stop-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: start;
+    }
+    @media (max-width: 800px) { .stop-body { grid-template-columns: 1fr; } }
+    .stop-text p { font-size: 1.02rem; line-height: 1.9; margin-bottom: 22px; color: var(--text-mid); }
+    .stop-text p:last-child { margin-bottom: 0; }
+    .stop-text a { color: var(--teal); }
+    .stop-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stop-photo { margin: 0; }
+    .stop-photo img {
+      width: 100%; height: 185px;
+      object-fit: cover; border-radius: 8px; display: block;
+    }
+    .stop-photo.wide { grid-column: 1 / -1; }
+    .stop-photo.wide img { height: 250px; }
+    .stop-photo figcaption { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
+    .stop-practical {
+      margin-top: 40px; padding-top: 28px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .stop-info-pill {
+      background: var(--off-white);
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 0.875rem; line-height: 1.5;
+    }
+    .stop-info-pill strong {
+      display: block; font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999; margin-bottom: 2px;
+    }
+    .stop-coming {
+      padding: 44px 32px; background: var(--off-white);
+      border-radius: 12px; text-align: center;
+    }
+    .stop-coming strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-mid); }
+    .stop-coming span { font-size: 0.875rem; color: var(--text-muted); }
+  </style>
 </head><body><div id="cursor-dot" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
 <header id="nav" role="banner">
-  <a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a>
+  <a href="index.html" class="nav-logo" aria-label="30 Tage Abenteuer – Startseite"><img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer"></a>
   <nav aria-label="Hauptnavigation"><ul class="nav-links">
     <li><a href="index.html">Start</a></li>
     <li class="has-dropdown"><a href="#">Reiseziele</a>
       <div class="dropdown wide">
         <div class="dropdown-col">
           <span class="dropdown-heading">Asien</span>
-          <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
-          <a href="reise-bali-2017.html">Bali 2017</a>
-          <a href="reise-vietnam-2018.html">Vietnam 2018</a>
-          <a href="reise-thailand-2019.html">Thailand 2019</a>
-          <a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
-          <a href="reise-philippinen-2025.html">Philippinen 2025</a>
-          <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
-          <a href="reise-thailand-2026.html">Thailand 2026</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">▾</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
+            <a href="reise-bali-lombok-2025.html">Lombok</a>
+          </div>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">▾</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
+          </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
         </div>
         <div class="dropdown-col">
-          <span class="dropdown-heading">Amerika</span>
-          <a href="reise-usa-2013.html">USA Rundreise 2013</a>
-          <a href="reise-newyork-2017.html">New York 2017</a>
-          <a href="reise-lasvegas-2019.html">Las Vegas 2019</a>
-          <a href="reise-costarica-2022.html">Costa Rica 2022</a>
-          <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
-          <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
-          <a href="reise-namibia-2024.html">Namibia 2024</a>
-          <span class="dropdown-heading" style="margin-top:14px">Europa</span>
-          <a href="reise-london-2024.html">London 2024</a>
-          <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a>
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris ✦ Upcoming</a>
         </div>
       </div>
     </li>
-    <li><a href="index.html#timeline">Zeitreise</a></li>
     <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
       <div class="dropdown simple">
         <a href="reisetipps.html#planung">Wie wir planen</a>
         <a href="reisetipps.html#packliste">Packliste</a>
         <a href="reisetipps.html#hotels">Hotels finden</a>
         <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+        <a href="reisetipps.html#budget">Reisebudget</a>
       </div>
     </li>
     <li><a href="ueber-uns.html">Über Uns</a></li>
   </ul></nav>
-  <a href="index.html#destinations" class="nav-cta">Alle Reisen</a>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
 </header><div class="trip-hero" style="margin-top:var(--nav-h)">
   <div style="position:absolute;inset:0;background:linear-gradient(135deg,#3D6E60,#4F8070)"></div>
   <div class="trip-hero-overlay"></div>
@@ -97,16 +215,186 @@
 <section class="section-pad"><div class="section-inner">
   <p class="section-tag">Stationen</p><h2 class="section-title">7 Stationen · <em>15 Nächte</em></h2>
   <div class="station-grid" style="margin-top:32px">
-    <div class="station-card"><div class="station-order">Start</div><div class="station-name">Manila</div><div class="station-hotel">🏨 NomadsMNL Hostel</div><div class="station-date">17.–18. Jan · 1 Nacht</div><div class="station-activities">Ankunft 21:30 Uhr, Zwischenübernachtung</div></div>
-    <div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Port Barton</div><div class="station-hotel">🏖 Rubin Resort</div><div class="station-date">18.–20. Jan · 2 Nächte</div><div class="station-activities">Transfer Puerto Princesa, Strand und Entspannung</div></div>
-    <div class="station-card"><div class="station-order">Stop 02</div><div class="station-name">Darocoton</div><div class="station-hotel">🏕 Ecocamp Dos Playa</div><div class="station-date">20.–22. Jan · 2 Nächte</div></div>
-    <div class="station-card"><div class="station-order">Stop 03 ⭐</div><div class="station-name">El Nido</div><div class="station-hotel">🏨 Rosanna's Pension</div><div class="station-date">22.–25. Jan · 3 Nächte</div><div class="station-activities">Kochkurs El Kusina, Surfen Duli Beach, Inselhopping</div></div>
-    <div class="station-card"><div class="station-order">Stop 04 ⭐</div><div class="station-name">Bootstour El Nido → Coron</div><div class="station-hotel">⛵ 3 Tage / 2 Nächte Liveaboard</div><div class="station-date">25.–27. Jan · 2 Nächte</div><div class="station-activities">Kalkfelsen-Lagunen, Schnorcheln, einsame Strände</div></div>
-    <div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Coron</div><div class="station-hotel">🏨 SunTourist Inn</div><div class="station-date">27.–29. Jan · 2 Nächte</div></div>
-    <div class="station-card"><div class="station-order">Stop 06 ⭐</div><div class="station-name">Donsol</div><div class="station-hotel">🏖 Elysia Beach Resort</div><div class="station-date">29.–31. Jan · 2 Nächte</div><div class="station-activities">Schnorcheln mit Walhaien – das unvergesslichste Erlebnis der Reise!</div></div>
-    <div class="station-card"><div class="station-order">Finale</div><div class="station-name">Manila</div><div class="station-hotel">🏨 NomadsMNL Hostel</div><div class="station-date">31. Jan – 1. Feb · 1 Nacht</div><div class="station-activities">Rückflug 07:15 Uhr</div></div>
+    <div class="station-card"><div class="station-card-img"><img src="Philippinen/Anreise-Manila/Gruppenbild Ankunftsbierchen.jpg" alt="Manila" loading="lazy"></div><div class="station-order">Start</div><div class="station-name">Manila</div><div class="station-hotel">🏨 NomadsMNL Hostel</div><div class="station-date">17.–18. Jan · 1 Nacht</div><div class="station-activities">Ankunft 21:30 Uhr, Zwischenübernachtung</div><a href="#stop-anreise-manila" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏖</div><div class="station-order">Stop 01</div><div class="station-name">Port Barton</div><div class="station-hotel">🏖 Rubin Resort</div><div class="station-date">18.–20. Jan · 2 Nächte</div><div class="station-activities">Transfer Puerto Princesa, Strand und Entspannung</div><a href="#stop-port-barton" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏕</div><div class="station-order">Stop 02</div><div class="station-name">Darocoton</div><div class="station-hotel">🏕 Ecocamp Dos Playa</div><div class="station-date">20.–22. Jan · 2 Nächte</div><a href="#stop-darocoton" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🌊</div><div class="station-order">Stop 03 ⭐</div><div class="station-name">El Nido</div><div class="station-hotel">🏨 Rosanna's Pension</div><div class="station-date">22.–25. Jan · 3 Nächte</div><div class="station-activities">Kochkurs El Kusina, Surfen Duli Beach, Inselhopping</div><a href="#stop-el-nido" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">⛵</div><div class="station-order">Stop 04 ⭐</div><div class="station-name">Bootstour El Nido → Coron</div><div class="station-hotel">⛵ 3 Tage / 2 Nächte Liveaboard</div><div class="station-date">25.–27. Jan · 2 Nächte</div><div class="station-activities">Kalkfelsen-Lagunen, Schnorcheln, einsame Strände</div><a href="#stop-bootstour" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🤿</div><div class="station-order">Stop 05</div><div class="station-name">Coron</div><div class="station-hotel">🏨 SunTourist Inn</div><div class="station-date">27.–29. Jan · 2 Nächte</div><a href="#stop-coron" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🐋</div><div class="station-order">Stop 06 ⭐</div><div class="station-name">Donsol</div><div class="station-hotel">🏖 Elysia Beach Resort</div><div class="station-date">29.–31. Jan · 2 Nächte</div><div class="station-activities">Schnorcheln mit Walhaien – das unvergesslichste Erlebnis der Reise!</div><a href="#stop-donsol" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">✈️</div><div class="station-order">Finale</div><div class="station-name">Manila</div><div class="station-hotel">🏨 NomadsMNL Hostel</div><div class="station-date">31. Jan – 1. Feb · 1 Nacht</div><div class="station-activities">Rückflug 07:15 Uhr</div><a href="#stop-rueckflug-manila" class="station-link">Zum Bericht</a></div>
   </div>
 </div></section>
+<!-- ═══ START: Anreise & Manila ═══ -->
+<section class="stop-section section-pad bg-cream" id="stop-anreise-manila">
+  <div class="section-inner" style="margin-bottom:40px">
+    <h2 class="section-title">Reise im <em>Detail</em></h2>
+  </div>
+  <div class="section-inner">
+    <span class="stop-badge">Start · Anreise</span>
+    <h3 class="stop-title-main">Ankunft in <em>Manila</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 17.–18. Januar 2025</span>
+      <span>🌙 1 Nacht</span>
+      <span>✈️ Oman Air via Muscat</span>
+      <span>🏨 NomadsMNL Airport Hostel</span>
+    </div>
+    <div class="stop-body">
+      <div class="stop-text">
+        <p>Die Philippinen standen eigentlich gar nicht auf unserer Liste der nächsten Ziele, doch unsere 18-jährige Nichte hatte einen klaren Wunsch: einen Urlaub gemeinsam mit uns, weit weg, irgendwo wo noch keiner von uns war. Nach ein paar Vorschlägen fiel die Entscheidung: zwei Wochen Philippinen.</p>
+        <p>Mit offiziell 7.641 Inseln, davon ca. 800 bewohnt, ist die Entscheidung etwas langwieriger als üblich. Die verschiedenen Vor- und Nachteile, Highlights, unterschiedliche Reisezeiten, Erreichbarkeit und Reisewarnungen wurden diskutiert und gegeneinander abgewogen und schlussendlich haben wir uns für Palawan entschieden, mit einem Schlenker rüber nach Luzon. Im Rückblick haben wir Strecken und Reisezeiten deutlich unterschätzt und am Ende schlicht zu viele Stopps eingeplant. Der Enthusiasmus der Mitplanerin hat da sicher ihren Teil beigetragen. :-)</p>
+        <p>Wie fast immer starteten wir in Frankfurt. Das Auto in einem Parkhaus sicher abgestellt (gebucht über <a href="http://ich-parke-billiger.de" target="_blank" rel="noopener">ich-parke-billiger.de</a> – unbeauftragte Erwähnung), und um 20:20 Uhr hob unsere Oman Air Maschine ab. Nach 6:20 Stunden landeten wir um 05:40 Uhr in Muscat. Nach einer kurzen Flughafenerkundung irgendwo hingelegt und ein bisschen Schlaf geholt. Um 09:15 Uhr ging es dann weiter – nochmal 8:15 Stunden bis Manila.</p>
+        <p>Ankunft: 21:30 Uhr. Am Flughafen als Erstes Bargeld am Automaten geholt und anschließend eine SIM-Karte am Schalter. Wir haben uns für eine Karte von Smart entschieden, der Schalter war frei, der Preis war ok und die Netzabdeckung gut. Nach der Freischaltung der SIM suchte ich einen Grab-Transfer. Klingt simpel, in vielen Ländern schon gemacht, hier irgendwie nerviger als gedacht: Die Beschilderung am Flughafen ist denkbar unübersichtlich, wir laufen einige Male auf und ab, hoch und runter und fragen uns durch. Am Ende bekommen wir endlich ein günstiges Grab und sind kurz vor Mitternacht im NomadsMNL Airport Hostel.</p>
+        <p>Wir teilen uns zu dritt ein großzügiges Zimmer. Es ist sauber, die Betten sind bequem, aus dem Kühlschrank noch ein Ankunftsbierchen – besser geht's kaum. Beim ersten Bierchen durchatmen und das kribbelige Gefühl genießen, wenn man weiß, es liegt wieder ein neues Land mit neuen Erlebnissen vor uns. Und am nächsten Morgen geht es auch direkt wieder zum Flughafen um die Tour in Richtung Palawan zu starten.</p>
+      </div>
+      <div class="stop-photo-grid">
+        <figure class="stop-photo">
+          <img src="Philippinen/Anreise-Manila/Flughafen Frankfurt.jpg" alt="Abflug am Flughafen Frankfurt" loading="lazy">
+          <figcaption>Start in Frankfurt, 20:20 Uhr – Oman Air nach Muscat.</figcaption>
+        </figure>
+        <figure class="stop-photo">
+          <img src="Philippinen/Anreise-Manila/Flughafen Muscat Nickerchen.jpg" alt="Nickerchen am Flughafen Muscat" loading="lazy">
+          <figcaption>Muscat Airport, 06:00 Uhr – Schlaf wo man kann.</figcaption>
+        </figure>
+        <figure class="stop-photo wide">
+          <img src="Philippinen/Anreise-Manila/Gruppenbild Ankunftsbierchen.jpg" alt="Ankunftsbierchen im NomadsMNL Hostel" loading="lazy">
+          <figcaption>Angekommen! Das verdiente Ankunftsbierchen kurz vor Mitternacht.</figcaption>
+        </figure>
+        <figure class="stop-photo wide">
+          <img src="Philippinen/Anreise-Manila/Bild Zimmer MNL Hostel.jpg" alt="Zimmer im NomadsMNL Airport Hostel" loading="lazy">
+          <figcaption>Unser Zimmer im NomadsMNL – sauber, funktional, mehr braucht es nicht.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="stop-practical">
+      <div class="stop-info-pill"><strong>Unterkunft</strong>NomadsMNL Airport Hostel · 3 Personen, 1 Zimmer</div>
+      <div class="stop-info-pill"><strong>Kosten</strong>41 € · 1 Nacht</div>
+      <div class="stop-info-pill"><strong>Transfer</strong>Grab (Ride-Hailing App) · günstiger als Taxi</div>
+      <div class="stop-info-pill"><strong>Flug</strong>Oman Air · FRA–MCT–MNL · ca. 14,5 Std. gesamt</div>
+      <div class="stop-info-pill"><strong>Tipp</strong>SIM-Karte direkt am MNL-Flughafen kaufen – günstig und sofort einsatzbereit</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Stop 01: Port Barton ═══ -->
+<section class="stop-section section-pad" id="stop-port-barton">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 01</span>
+    <h3 class="stop-title-main">Port <em>Barton</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 18.–20. Januar 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏖 Rubin Resort</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Port Barton kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Stop 02: Darocoton ═══ -->
+<section class="stop-section section-pad bg-cream" id="stop-darocoton">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 02</span>
+    <h3 class="stop-title-main">Darocoton &amp; <em>Ecocamp</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 20.–22. Januar 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏕 Ecocamp Dos Playa</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Darocoton kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Stop 03: El Nido ═══ -->
+<section class="stop-section section-pad" id="stop-el-nido">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 03 · Highlight</span>
+    <h3 class="stop-title-main">El <em>Nido</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 22.–25. Januar 2025</span>
+      <span>🌙 3 Nächte</span>
+      <span>🏨 Rosanna's Pension</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Kochkurs El Kusina, Surfen am Duli Beach, Inselhopping – kommt bald.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Stop 04: Bootstour ═══ -->
+<section class="stop-section section-pad bg-cream" id="stop-bootstour">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 04 · Highlight</span>
+    <h3 class="stop-title-main">Bootstour El Nido <em>→ Coron</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 25.–27. Januar 2025</span>
+      <span>🌙 2 Nächte · Liveaboard</span>
+      <span>⛵ 3 Tage auf dem Wasser</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Kalkfelsen-Lagunen, einsame Strände, Schnorcheln – kommt bald.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Stop 05: Coron ═══ -->
+<section class="stop-section section-pad" id="stop-coron">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 05</span>
+    <h3 class="stop-title-main"><em>Coron</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 27.–29. Januar 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏨 SunTourist Inn</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Kayangan Lake und mehr – kommt bald.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Stop 06: Donsol ═══ -->
+<section class="stop-section section-pad bg-cream" id="stop-donsol">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 06 · Highlight</span>
+    <h3 class="stop-title-main">Walhaie in <em>Donsol</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 29.–31. Januar 2025</span>
+      <span>🌙 2 Nächte</span>
+      <span>🏖 Elysia Beach Resort</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Das unvergesslichste Erlebnis der Reise – Schnorcheln mit Walhaien. Kommt bald.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Finale: Rückflug Manila ═══ -->
+<section class="stop-section section-pad" id="stop-rueckflug-manila">
+  <div class="section-inner">
+    <span class="stop-badge">Finale · Rückflug</span>
+    <h3 class="stop-title-main">Zurück nach <em>Manila</em></h3>
+    <div class="stop-meta-row">
+      <span>📅 31. Jan – 1. Feb 2025</span>
+      <span>🌙 1 Nacht</span>
+      <span>✈️ Rückflug 07:15 Uhr</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Die letzten Stunden auf den Philippinen – kommt bald.</span>
+    </div>
+  </div>
+</section>
+
 <div class="section-pad-sm bg-off"><div class="section-inner">
   <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
   <div class="photo-gallery">
@@ -122,22 +410,62 @@
   <a href="reise-thailand-2026.html" class="btn-outline-dark">← Thailand 2026</a>
   <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
   <a href="reise-bali-lombok-2025.html" class="btn-outline-dark">Bali &amp; Lombok 2025 →</a>
-</div></div><footer id="footer"><div class="footer-inner">
-  <div class="footer-top">
-    <div class="footer-brand"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"><p>Unsere echten Routen und ehrlichen Erlebnisse – seit 2011 auf Abenteuer-Tour zu zweit.</p></div>
-    <div><div class="footer-col-title">Reiseziele</div><ul class="footer-links">
-      <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
-      <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
-      <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
-      <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
-      <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
-    </ul></div>
-    <div><div class="footer-col-title">Blog</div><ul class="footer-links">
-      <li><a href="reisetipps.html">Reisetipps</a></li>
-      <li><a href="ueber-uns.html">Über Uns</a></li>
-      <li><a href="index.html">Startseite</a></li>
-    </ul></div>
-    <div></div>
+</div></div><footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer">
+        <p>Unsere echten Routen, ehrlichen Erlebnisse und Inspiration für alle, die raus wollen – Katha &amp; Robert seit 2011 unterwegs.</p>
+        <a href="https://www.instagram.com/30tageabenteuer" target="_blank" rel="noopener" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          @30TageAbenteuer
+        </a>
+      </div>
+      <div>
+        <div class="footer-col-title">Reiseziele</div>
+        <ul class="footer-links">
+          <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+          <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+          <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+          <li><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a></li>
+          <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+          <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Mehr</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html">Reisetipps</a></li>
+          <li><a href="ueber-uns.html">Über Uns</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Reisetipps</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html#planung">Wie wir planen</a></li>
+          <li><a href="reisetipps.html#packliste">Packliste</a></li>
+          <li><a href="reisetipps.html#hotels">Hotels finden</a></li>
+          <li><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span> · Alle Rechte vorbehalten</p>
+      <p class="footer-copy" style="font-style:italic">Made with Fernweh &amp; Kaffee ☕</p>
+    </div>
   </div>
-  <div class="footer-bottom"><p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span></p></div>
-</div></footer></body></html>
+</footer>
+<script>
+function toggleNavSub(btn, id) {
+  var group = document.getElementById(id);
+  var isOpen = group.classList.contains('open');
+  document.querySelectorAll('.dropdown-sub-group').forEach(function(g) { g.classList.remove('open'); });
+  document.querySelectorAll('.dropdown-toggle').forEach(function(b) { b.classList.remove('active'); });
+  if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
+}
+</script>
+</body></html>

@@ -5,6 +5,97 @@
   <meta name="description" content="Florida Roadtrip und Bahamas Kreuzfahrt 2023. Miami, Keys, Everglades, Kreuzfahrt."><title>Florida &amp; Bahamas 2023 – 30 Tage Abenteuer</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    .station-card { background: #A8BFA3; }
+    .station-card .station-hotel,
+    .station-card .station-date,
+    .station-card .station-activities { color: var(--teal-dark); }
+    .station-card-img {
+      margin: -18px -18px 14px;
+      overflow: hidden;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      height: 130px;
+    }
+    .station-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .station-card:hover .station-card-img img { transform: scale(1.06); }
+    .station-card-img-placeholder {
+      height: 130px;
+      margin: -18px -18px 14px;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal-dark));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; opacity: 0.85;
+    }
+    .station-link {
+      display: inline-block; margin-top: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .station-link:hover { border-color: var(--teal); opacity: 0.8; }
+    .station-link::after { content: ' ↓'; }
+    .stop-section { scroll-margin-top: var(--nav-h, 80px); }
+    .stop-badge {
+      display: inline-block; background: var(--teal);
+      color: #fff; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .stop-title-main {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.1;
+      margin: 0 0 14px; color: var(--text-dark);
+    }
+    .stop-title-main em { font-style: italic; color: var(--teal); }
+    .stop-meta-row {
+      display: flex; flex-wrap: wrap; gap: 16px 28px;
+      font-size: 0.875rem; color: #666;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .stop-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: start;
+    }
+    @media (max-width: 800px) { .stop-body { grid-template-columns: 1fr; } }
+    .stop-text p { font-size: 1.02rem; line-height: 1.9; margin-bottom: 22px; color: var(--text-mid); }
+    .stop-text p:last-child { margin-bottom: 0; }
+    .stop-text a { color: var(--teal); }
+    .stop-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stop-photo { margin: 0; }
+    .stop-photo img { width: 100%; height: 185px; object-fit: cover; border-radius: 8px; display: block; }
+    .stop-photo.wide { grid-column: 1 / -1; }
+    .stop-photo.wide img { height: 250px; }
+    .stop-photo figcaption { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
+    .stop-practical {
+      margin-top: 40px; padding-top: 28px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .stop-info-pill {
+      background: var(--off-white); border-radius: 8px;
+      padding: 12px 18px; font-size: 0.875rem; line-height: 1.5;
+    }
+    .stop-info-pill strong {
+      display: block; font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999; margin-bottom: 2px;
+    }
+    .stop-coming {
+      padding: 44px 32px; background: var(--off-white);
+      border-radius: 12px; text-align: center;
+    }
+    .stop-coming strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-mid); }
+    .stop-coming span { font-size: 0.875rem; color: var(--text-muted); }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -19,22 +110,38 @@
     <li><a href="index.html">Start</a></li>
     <li class="has-dropdown"><a href="#">Reiseziele</a>
       <div class="dropdown wide">
-        <div class="dropdown-col"><span class="dropdown-heading">Asien</span>
-          <a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha 2011</a>
-          <a href="reise-bali-2017.html">Bali 2017</a><a href="reise-vietnam-2018.html">Vietnam 2018</a>
-          <a href="reise-thailand-2019.html">Thailand 2019</a><a href="reise-srilanka-2023.html">Sri Lanka 2023</a>
-          <a href="reise-philippinen-2025.html">Philippinen 2025</a>
-          <a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a>
-          <a href="reise-thailand-2026.html">Thailand 2026</a></div>
-        <div class="dropdown-col"><span class="dropdown-heading">Amerika</span>
-          <a href="reise-usa-2013.html">USA Rundreise 2013</a><a href="reise-newyork-2017.html">New York 2017</a>
-          <a href="reise-lasvegas-2019.html">Las Vegas 2019</a><a href="reise-costarica-2022.html">Costa Rica 2022</a>
-          <a href="reise-florida-2023.html">Florida &amp; Bahamas 2023</a>
-          <span class="dropdown-heading" style="margin-top:14px">Afrika</span>
-          <a href="reise-namibia-2024.html">Namibia 2024</a>
-          <span class="dropdown-heading" style="margin-top:14px">Europa</span>
-          <a href="reise-london-2024.html">London 2024</a>
-          <a href="reise-paris-2026.html" class="upcoming-link">Paris 2026 ✦</a></div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
+            <a href="reise-bali-lombok-2025.html">Lombok</a>
+          </div>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
+          </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris &#10022; Upcoming</a>
+        </div>
       </div>
     </li>
     <li><a href="index.html#timeline">Zeitreise</a></li>
@@ -72,9 +179,118 @@
   <div style="max-width:720px;margin-top:40px"><div class="placeholder-text">✏️ Platzhalter: Wie war der Overseas Highway von Miami nach Key West? Empfehlt ihr die Kreuzfahrt zu den Bahamas?</div><p class="trip-text">Florida im Winter ist ein Traum. Die Fahrt auf dem Overseas Highway über 42 Brücken bis nach Key West, die Airboat-Tour durch die Everglades und der Sonnenuntergang am Ritz Carlton in Naples – und dann noch drei Nächte auf einem Kreuzfahrtschiff zu den Bahamas.</p><div class="placeholder-text">✏️ Platzhalter: Eure Tipps zum Mietwagen in Florida, beste Spots in den Keys und Erfahrungen mit der Kreuzfahrt.</div></div>
 </div></section>
 <section class="section-pad"><div class="section-inner">
-  <p class="section-tag">Stationen</p><h2 class="section-title">Stationen &amp; <em>Details</em></h2>
-  <div class="station-grid" style="margin-top:32px"><div class="station-card"><div class="station-order">Stop 01</div><div class="station-name">Miami</div><div class="station-hotel">🏨 Henrosa South Beach</div><div class="station-date">27.–29. Nov · 2 Nächte</div><div class="station-activities">South Beach, Art Déco District, Ocean Drive</div></div><div class="station-card"><div class="station-order">Stop 02</div><div class="station-name">Key West</div><div class="station-hotel">🏨 Wicker Guesthouse</div><div class="station-date">29. Nov – 1. Dez · 2 Nächte</div><div class="station-activities">Overseas Highway, Duval Street, Sunset Celebration</div></div><div class="station-card"><div class="station-order">Stop 03</div><div class="station-name">Key Largo</div><div class="station-hotel">🏨 Bayside Inn Key Largo</div><div class="station-date">1. Dez · 1 Nacht</div><div class="station-activities">John Pennekamp Coral Reef State Park</div></div><div class="station-card"><div class="station-order">Stop 04</div><div class="station-name">Naples</div><div class="station-hotel">🏨 Naples Park Central Hotel</div><div class="station-date">2.–4. Dez · 2 Nächte</div><div class="station-activities">Everglades Airboat (Buffalo Tiger), Loop Road, Ritz Carlton Sunset</div></div><div class="station-card"><div class="station-order">Stop 05</div><div class="station-name">Anna Maria Island</div><div class="station-hotel">🏖 Silver Surf Beach Resort</div><div class="station-date">4.–6. Dez · 2 Nächte</div><div class="station-activities">Siesta Key Beach, Sarasota</div></div><div class="station-card"><div class="station-order">Stop 06</div><div class="station-name">Fort Lauderdale</div><div class="station-hotel">🏨 Snooze</div><div class="station-date">6.–8. Dez · 2 Nächte</div><div class="station-activities">Mietwagen-Rückgabe Flughafen</div></div><div class="station-card"><div class="station-order">Finale ⭐</div><div class="station-name">Kreuzfahrt Bahamas</div><div class="station-hotel">🚢 Kreuzfahrtschiff</div><div class="station-date">8.–11. Dez · 3 Nächte</div><div class="station-activities">Karibische See, Bahamas, Pooldecks und Sunsets</div></div></div>
+  <p class="section-tag">Stationen</p><h2 class="section-title">7 Stationen · <em>14 Nächte</em></h2>
+  <div class="station-grid" style="margin-top:32px">
+    <div class="station-card"><div class="station-card-img-placeholder">🏙</div><div class="station-order">Start</div><div class="station-name">Miami</div><div class="station-hotel">🏨 Henrosa South Beach</div><div class="station-date">27.–29. Nov · 2 Nächte</div><div class="station-activities">South Beach, Art Déco District, Ocean Drive</div><a href="#stop-miami" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🚗</div><div class="station-order">Stop 01</div><div class="station-name">Key West</div><div class="station-hotel">🏨 Wicker Guesthouse</div><div class="station-date">29. Nov – 1. Dez · 2 Nächte</div><div class="station-activities">Overseas Highway, Duval Street, Sunset Celebration</div><a href="#stop-key-west" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🤿</div><div class="station-order">Stop 02</div><div class="station-name">Key Largo</div><div class="station-hotel">🏨 Bayside Inn Key Largo</div><div class="station-date">1. Dez · 1 Nacht</div><div class="station-activities">John Pennekamp Coral Reef State Park</div><a href="#stop-key-largo" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🌿</div><div class="station-order">Stop 03</div><div class="station-name">Naples</div><div class="station-hotel">🏨 Naples Park Central Hotel</div><div class="station-date">2.–4. Dez · 2 Nächte</div><div class="station-activities">Everglades Airboat, Loop Road, Ritz Carlton Sunset</div><a href="#stop-naples" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏖</div><div class="station-order">Stop 04</div><div class="station-name">Anna Maria Island</div><div class="station-hotel">🏖 Silver Surf Beach Resort</div><div class="station-date">4.–6. Dez · 2 Nächte</div><div class="station-activities">Siesta Key Beach, Sarasota</div><a href="#stop-anna-maria-island" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏙</div><div class="station-order">Stop 05</div><div class="station-name">Fort Lauderdale</div><div class="station-hotel">🏨 Snooze</div><div class="station-date">6.–8. Dez · 2 Nächte</div><div class="station-activities">Mietwagen-Rückgabe Flughafen</div><a href="#stop-fort-lauderdale" class="station-link">Zum Bericht</a></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🚢</div><div class="station-order">Finale</div><div class="station-name">Kreuzfahrt Bahamas</div><div class="station-hotel">🚢 Kreuzfahrtschiff</div><div class="station-date">8.–11. Dez · 3 Nächte</div><div class="station-activities">Karibische See, Bahamas, Pooldecks und Sunsets</div><a href="#stop-kreuzfahrt-bahamas" class="station-link">Zum Bericht</a></div>
+  </div>
 </div></section>
+
+<section class="stop-section section-pad bg-cream" id="stop-miami">
+  <div class="section-inner" style="margin-bottom:40px">
+    <h2 class="section-title">Reise im <em>Detail</em></h2>
+  </div>
+  <div class="section-inner">
+    <span class="stop-badge">Start</span>
+    <h3 class="stop-title-main">Miami</h3>
+    <div class="stop-meta-row">
+      <span>📅 27.–29. November 2023</span><span>🌙 2 Nächte</span><span>🏨 Henrosa South Beach</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Miami kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-key-west">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 01</span>
+    <h3 class="stop-title-main">Key West</h3>
+    <div class="stop-meta-row">
+      <span>📅 29. Nov – 1. Dez 2023</span><span>🌙 2 Nächte</span><span>🏨 Wicker Guesthouse</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Key West kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-key-largo">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 02</span>
+    <h3 class="stop-title-main">Key Largo</h3>
+    <div class="stop-meta-row">
+      <span>📅 1. Dezember 2023</span><span>🌙 1 Nacht</span><span>🏨 Bayside Inn Key Largo</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Key Largo kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-naples">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 03</span>
+    <h3 class="stop-title-main">Naples</h3>
+    <div class="stop-meta-row">
+      <span>📅 2.–4. Dezember 2023</span><span>🌙 2 Nächte</span><span>🏨 Naples Park Central Hotel</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Naples kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-anna-maria-island">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 04</span>
+    <h3 class="stop-title-main">Anna Maria Island</h3>
+    <div class="stop-meta-row">
+      <span>📅 4.–6. Dezember 2023</span><span>🌙 2 Nächte</span><span>🏖 Silver Surf Beach Resort</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse von Anna Maria Island kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad" id="stop-fort-lauderdale">
+  <div class="section-inner">
+    <span class="stop-badge">Stop 05</span>
+    <h3 class="stop-title-main">Fort Lauderdale</h3>
+    <div class="stop-meta-row">
+      <span>📅 6.–8. Dezember 2023</span><span>🌙 2 Nächte</span><span>🏨 Snooze</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse aus Fort Lauderdale kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
+
+<section class="stop-section section-pad bg-cream" id="stop-kreuzfahrt-bahamas">
+  <div class="section-inner">
+    <span class="stop-badge">Finale</span>
+    <h3 class="stop-title-main">Kreuzfahrt Bahamas</h3>
+    <div class="stop-meta-row">
+      <span>📅 8.–11. Dezember 2023</span><span>🌙 3 Nächte</span><span>🚢 Kreuzfahrtschiff</span>
+    </div>
+    <div class="stop-coming">
+      <strong>Bericht folgt</strong>
+      <span>Fotos und Erlebnisse von der Bahamas-Kreuzfahrt kommen in Kürze.</span>
+    </div>
+  </div>
+</section>
 <section class="section-pad-sm bg-off"><div class="section-inner">
   <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
   <div class="photo-gallery"><div class="photo-placeholder-sm">Miami South Beach<br><small>Art Déco Häuser, Ocean Drive</small></div><div class="photo-placeholder-sm">Key West Sunset<br><small>Mallory Square Sunset Celebration</small></div><div class="photo-placeholder-sm">Everglades Airboat<br><small>Fahrt durch die Sumpflandschaft</small></div><div class="photo-placeholder-sm">Bahamas<br><small>Türkises Wasser, weißer Sand</small></div></div>
