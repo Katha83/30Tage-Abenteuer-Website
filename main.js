@@ -129,16 +129,22 @@
       });
     }
 
-    // Mobile dropdown toggles (tap on parent link)
+    // Dropdown toggle on click (desktop + mobile)
     qsa('.nav-links > li.has-dropdown > a').forEach(link => {
       link.addEventListener('click', e => {
-        if (window.innerWidth > 900) return; // desktop: hover handles it
         e.preventDefault();
         const li = link.parentElement;
         const wasOpen = li.classList.contains('open');
         qsa('.nav-links > li.has-dropdown').forEach(el => el.classList.remove('open'));
         if (!wasOpen) li.classList.add('open');
       });
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.has-dropdown')) {
+        qsa('.nav-links > li.has-dropdown').forEach(el => el.classList.remove('open'));
+      }
     });
 
     // Close menu when a leaf link is tapped

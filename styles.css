@@ -174,7 +174,7 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   transform: rotate(45deg) translateY(-2px);
   transition: transform .25s;
 }
-.nav-links > li.has-dropdown:hover > a::after { transform: rotate(-135deg) translateY(-2px); }
+.nav-links > li.has-dropdown.open > a::after { transform: rotate(-135deg) translateY(-2px); }
 
 /* Dropdown panel */
 .dropdown {
@@ -191,7 +191,7 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   transition: opacity .25s, transform .25s, visibility .25s;
   z-index: 100;
 }
-.nav-links > li.has-dropdown:hover .dropdown {
+.nav-links > li.has-dropdown.open .dropdown {
   opacity: 1; visibility: visible; pointer-events: all;
   transform: translateX(-50%) translateY(0);
 }
@@ -205,7 +205,7 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   gap: 0 24px;
   left: 0; transform: none;
 }
-.nav-links > li.has-dropdown:hover .dropdown.wide {
+.nav-links > li.has-dropdown.open .dropdown.wide {
   transform: translateY(0);
 }
 
