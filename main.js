@@ -140,6 +140,19 @@
       });
     });
 
+    // Sub-menu toggles (Bali, Thailand …) via data-target attribute
+    qsa('.dropdown-toggle[data-target]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const group = qs('#' + btn.dataset.target);
+        if (!group) return;
+        const isOpen = group.classList.contains('open');
+        qsa('.dropdown-sub-group').forEach(g => g.classList.remove('open'));
+        qsa('.dropdown-toggle').forEach(b => b.classList.remove('active'));
+        if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
+      });
+    });
+
     // Close dropdown on outside click
     document.addEventListener('click', e => {
       if (!e.target.closest('.has-dropdown')) {
@@ -430,13 +443,3 @@
     boot();
   }
 })();
-
-/* Global – called via onclick in nav buttons */
-window.toggleNavSub = function (btn, id) {
-  var group = document.getElementById(id);
-  if (!group) return;
-  var isOpen = group.classList.contains('open');
-  document.querySelectorAll('.dropdown-sub-group').forEach(function (g) { g.classList.remove('open'); });
-  document.querySelectorAll('.dropdown-toggle').forEach(function (b) { b.classList.remove('active'); });
-  if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
-};
