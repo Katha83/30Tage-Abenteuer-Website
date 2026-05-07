@@ -354,6 +354,48 @@
     });
   }
 
+  /* ── 16. LIGHTBOX ───────────────────────────────────── */
+  function initLightbox() {
+    const overlay = document.createElement('div');
+    overlay.id = 'lightbox-overlay';
+    overlay.innerHTML =
+      '<button id="lightbox-close" aria-label="Schließen">&times;</button>' +
+      '<img id="lightbox-img" src="" alt="">' +
+      '<p id="lightbox-caption"></p>';
+    document.body.appendChild(overlay);
+
+    const lbImg = qs('#lightbox-img');
+    const lbCap = qs('#lightbox-caption');
+
+    function open(src, alt, cap) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lbCap.textContent = cap || '';
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => { lbImg.src = ''; }, 300);
+    }
+
+    const sel = '.dest-img, .stop-photo img, .station-card-img img, .about-img-wrap img';
+    qsa(sel).forEach(el => {
+      el.style.cursor = 'zoom-in';
+      el.addEventListener('click', () => {
+        const cap = el.closest('figure')?.querySelector('figcaption')?.textContent || '';
+        open(el.src, el.alt, cap);
+      });
+    });
+
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    qs('#lightbox-close').addEventListener('click', close);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) close();
+    });
+  }
+
   /* ── BOOT ────────────────────────────────────────────── */
   function boot() {
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -374,6 +416,7 @@
     initMagnetic();
     initTripMap();
     initTitleReveal();
+    initLightbox();
 
     window.addEventListener('load', () => {
       if (window.ScrollTrigger) ScrollTrigger.refresh();
@@ -387,3 +430,13 @@
     boot();
   }
 })();
+
+/* Global – called via onclick in nav buttons */
+window.toggleNavSub = function (btn, id) {
+  var group = document.getElementById(id);
+  if (!group) return;
+  var isOpen = group.classList.contains('open');
+  document.querySelectorAll('.dropdown-sub-group').forEach(function (g) { g.classList.remove('open'); });
+  document.querySelectorAll('.dropdown-toggle').forEach(function (b) { b.classList.remove('active'); });
+  if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
+};

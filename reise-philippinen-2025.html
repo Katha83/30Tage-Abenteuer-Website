@@ -139,10 +139,10 @@
           <span class="dropdown-heading">Asien</span>
           <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-bali">
-            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
-            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
-            <a href="reise-bali-lombok-2025.html">Lombok</a>
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali 2017</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok 2025</a>
           </div>
+          <a href="reise-bali-lombok-2025.html">Lombok</a>
           <a href="reise-philippinen-2025.html">Philippinen</a>
           <a href="reise-srilanka-2023.html">Sri Lanka</a>
           <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">▾</span></button>
@@ -319,6 +319,30 @@
           <img src="Philippinen/Erster Stopp-Port Barton/Abendstimmung 2.jpg" alt="Abendstimmung Port Barton" loading="lazy">
           <figcaption>Sonnenuntergang über dem Meer.</figcaption>
         </figure>
+        <figure class="stop-photo wide">
+          <img src="Philippinen/Erster Stopp-Port Barton/Frühstück am Strand.jpg" alt="Frühstück am Strand in Port Barton" loading="lazy">
+          <figcaption>Frühstück mit Meerblick – besser geht's kaum.</figcaption>
+        </figure>
+        <figure class="stop-photo">
+          <img src="Philippinen/Erster Stopp-Port Barton/Essen am Strand.jpg" alt="Essen am Strand" loading="lazy">
+          <figcaption>Frisches Essen direkt am Strand.</figcaption>
+        </figure>
+        <figure class="stop-photo">
+          <img src="Philippinen/Erster Stopp-Port Barton/Barton Bistro.jpg" alt="Barton Bistro" loading="lazy">
+          <figcaption>Das Barton Bistro – eines unserer Lieblingsrestaurants.</figcaption>
+        </figure>
+        <figure class="stop-photo">
+          <img src="Philippinen/Erster Stopp-Port Barton/Essen Collage.jpg" alt="Essen-Collage Port Barton" loading="lazy">
+          <figcaption>Die kulinarischen Highlights von Port Barton.</figcaption>
+        </figure>
+        <figure class="stop-photo">
+          <img src="Philippinen/Erster Stopp-Port Barton/BIerchen mit Blick.jpg" alt="Bierchen mit Meerblick" loading="lazy">
+          <figcaption>Das verdiente Feierabendbierchen mit Aussicht.</figcaption>
+        </figure>
+        <figure class="stop-photo wide">
+          <img src="Philippinen/Erster Stopp-Port Barton/Massage am Strand.jpg" alt="Massage am Strand" loading="lazy">
+          <figcaption>Strandmassage – der perfekte Abschluss eines langen Reisetages.</figcaption>
+        </figure>
       </div>
     </div>
     <div class="stop-practical">
@@ -494,13 +518,4 @@
     </div>
   </div>
 </footer>
-<script>
-function toggleNavSub(btn, id) {
-  var group = document.getElementById(id);
-  var isOpen = group.classList.contains('open');
-  document.querySelectorAll('.dropdown-sub-group').forEach(function(g) { g.classList.remove('open'); });
-  document.querySelectorAll('.dropdown-toggle').forEach(function(b) { b.classList.remove('active'); });
-  if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
-}
-</script>
 </body></html>

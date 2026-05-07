@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -128,10 +128,10 @@
           <span class="dropdown-heading">Asien</span>
           <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-bali')">Bali <span class="drop-chevron">&#9662;</span></button>
           <div class="dropdown-sub-group" id="nav-bali">
-            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali</a>
-            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok</a>
-            <a href="reise-bali-lombok-2025.html">Lombok</a>
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali 2017</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok 2025</a>
           </div>
+          <a href="reise-bali-lombok-2025.html">Lombok</a>
           <a href="reise-philippinen-2025.html">Philippinen</a>
           <a href="reise-srilanka-2023.html">Sri Lanka</a>
           <button class="dropdown-country dropdown-toggle" onclick="toggleNavSub(this,'nav-thailand')">Thailand <span class="drop-chevron">&#9662;</span></button>
@@ -397,13 +397,4 @@
   </div>
   <div class="footer-bottom"><p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span></p></div>
 </div></footer>
-<script>
-function toggleNavSub(btn, id) {
-  var group = document.getElementById(id);
-  var isOpen = group.classList.contains('open');
-  document.querySelectorAll('.dropdown-sub-group').forEach(function(g) { g.classList.remove('open'); });
-  document.querySelectorAll('.dropdown-toggle').forEach(function(b) { b.classList.remove('active'); });
-  if (!isOpen) { group.classList.add('open'); btn.classList.add('active'); }
-}
-</script>
 </body></html>
