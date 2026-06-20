@@ -393,7 +393,7 @@
       setTimeout(() => { lbImg.src = ''; }, 300);
     }
 
-    const sel = '.dest-img, .stop-photo img, .station-card-img img, .about-img-wrap img';
+    const sel = '.dest-img, .stop-photo img, .station-card-img img, .about-img-wrap img, .photo-row-3 img, .photo-row-2 img, .photo-row-2-1 img, .photo-full img, .day-split img';
     qsa(sel).forEach(el => {
       el.style.cursor = 'zoom-in';
       el.addEventListener('click', () => {

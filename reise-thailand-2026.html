@@ -105,11 +105,11 @@
 
     /* Text + image side by side (editorial) */
     .day-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin: 28px 0; }
-    .day-split.flip { direction: rtl; }
-    .day-split.flip > * { direction: ltr; }
+    .day-split.flip > figure { order: -1; }
     .day-split figure img { width: 100%; height: 340px; object-fit: cover; border-radius: 10px; display: block; }
     @media (max-width: 800px) {
       .day-split { grid-template-columns: 1fr; }
+      .day-split.flip > figure { order: 0; }
       .photo-row-3 { grid-template-columns: 1fr 1fr; }
       .photo-row-2-1 { grid-template-columns: 1fr; }
       .photo-full img { height: 260px; }
@@ -343,7 +343,7 @@
           <p>Die Realität sah etwas anders aus. Bis Mitternacht lief alles nach Plan. Danach wollten wir nur noch „kurz" bei den Nachbarn zum Anstoßen vorbeischauen. Aus diesem „kurz" wurden dann mehrere Stunden, sodass wir erst gegen 4 Uhr morgens wieder zu Hause waren. So viel zum Thema gute Vorsätze.</p>
         </div>
         <figure>
-          <img src="Thailand 2026/compressed/bangkok/bkk-02-flugzeug.jpg" alt="Blick aus dem Flugzeugfenster irgendwo über dem Indischen Ozean" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <img src="Thailand 2026/compressed/bangkok/bkk-02-flugzeug.jpg" alt="Blick aus dem Flugzeugfenster irgendwo über dem Indischen Ozean" loading="lazy">
           <figcaption class="cap">Irgendwo über dem Indischen Ozean</figcaption>
         </figure>
       </div>
@@ -354,7 +354,7 @@
           <p>Am 2. Januar landeten wir um 13:45 Uhr am Flughafen Bangkok (BKK). Für den Transfer hatten wir bereits vorab über <strong>GetYourGuide</strong> gebucht. Schon bei der Fahrt in die Stadt fiel auf, dass in Bangkok noch Ferien- und Feiertagsstimmung herrschte – die Straßen waren erstaunlich leer und bereits nach etwa 35 Minuten erreichten wir unser Hotel, das <strong>Boutique Poo-Yai Lee</strong>. Für zwei Nächte zahlten wir lediglich 69 € pro Doppelzimmer inklusive Frühstück. Die Zimmer waren sauber, die Dusche hatte ordentlich Wasserdruck und sogar ein kleiner Balkon gehörte dazu.</p>
         </div>
         <figure>
-          <img src="Thailand 2026/compressed/bangkok/bkk-05-hotel.jpg" alt="Eingang Boutique Poo-Yai Lee Hotel" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <img src="Thailand 2026/compressed/bangkok/bkk-05-hotel.jpg" alt="Eingang Boutique Poo-Yai Lee Hotel" loading="lazy">
           <figcaption class="cap">Unser Hotel: Boutique Poo-Yai Lee</figcaption>
         </figure>
       </div>
@@ -380,7 +380,7 @@
           <p>Unsere Wahl fiel auf das <strong>Nanthong</strong> – ein Restaurant mit schönem Innenhof, viel Platz und einer wirklich entspannten Atmosphäre. Das Essen war lecker, der Biertower ebenfalls und auch die Cocktails konnten überzeugen. Danach ging es zurück ins Hotel. Nach der langen Anreise, dem Jahreswechsel und den wenigen Stunden Schlaf fühlte sich das Bett plötzlich wie purer Luxus an. Der Urlaub hatte begonnen.</p>
         </div>
         <figure>
-          <img src="Thailand 2026/compressed/bangkok/bkk-nathong-restaurant.jpg" alt="Nanthong Restaurant Innenhof bei Nacht" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <img src="Thailand 2026/compressed/bangkok/bkk-nathong-restaurant.jpg" alt="Nanthong Restaurant Innenhof bei Nacht" loading="lazy">
           <figcaption class="cap">Nanthong – unser Restaurant am ersten Abend</figcaption>
         </figure>
       </div>
@@ -524,7 +524,7 @@
           <p>Wir probieren uns durch Pad Thai, Steak und süße Crêpes, genießen die lockere Stimmung unter Lichterketten und lassen den Abend gemütlich ausklingen. Zurück zum Hotel geht es anschließend bequem mit <strong>Bolt</strong>.</p>
         </div>
         <figure>
-          <img src="Thailand 2026/compressed/bangkok/bkk-camping-schild.jpg" alt="The Camping Ground Leuchtschild bei Nacht" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <img src="Thailand 2026/compressed/bangkok/bkk-camping-schild.jpg" alt="The Camping Ground Leuchtschild bei Nacht" loading="lazy">
           <figcaption class="cap">The Camping Ground – zufällig entdeckt, sofort verliebt</figcaption>
         </figure>
       </div>
