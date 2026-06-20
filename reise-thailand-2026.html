@@ -115,44 +115,49 @@
       .photo-full img { height: 260px; }
     }
 
-    /* Highlight / Info Box */
+    /* Highlight / Info Box – Farbgebung wie Stationskarten (#A8BFA3) */
     .highlight-box {
-      background: #fff;
-      border: 1.5px solid var(--teal);
+      background: #A8BFA3;
       border-radius: 14px;
       padding: 28px 32px;
       margin: 36px 0;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     }
     .highlight-box-header {
       display: flex; align-items: flex-start; gap: 14px;
       margin-bottom: 20px; padding-bottom: 18px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.12);
     }
     .highlight-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1; }
     .highlight-tag {
       font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--teal); margin-bottom: 4px;
+      text-transform: uppercase; color: var(--teal-dark); margin-bottom: 4px;
     }
     .highlight-title {
       font-size: 1.2rem; font-weight: 800; color: var(--text-dark); margin: 0;
     }
-    .highlight-body { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: start; }
-    .highlight-map { width: 180px; border-radius: 8px; flex-shrink: 0; }
-    @media (max-width: 700px) {
+    .highlight-body { display: grid; grid-template-columns: 1fr 280px; gap: 28px; align-items: start; }
+    .highlight-map-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .highlight-map { width: 100%; border-radius: 8px; display: block; }
+    .highlight-map-link {
+      font-size: 0.72rem; color: var(--teal-dark); text-decoration: none;
+      text-align: center; display: block; opacity: 0.85;
+    }
+    .highlight-map-link:hover { opacity: 1; text-decoration: underline; }
+    @media (max-width: 760px) {
       .highlight-body { grid-template-columns: 1fr; }
-      .highlight-map { width: 100%; }
+      .highlight-map-wrap { order: -1; }
     }
     .highlight-pills { display: flex; flex-direction: column; gap: 10px; }
     .highlight-pill {
-      background: var(--off-white); border-radius: 8px; padding: 10px 16px;
-      font-size: 0.875rem; line-height: 1.5;
+      background: rgba(255,255,255,0.45); border-radius: 8px; padding: 10px 16px;
+      font-size: 0.875rem; line-height: 1.5; color: var(--text-dark);
     }
     .highlight-pill strong {
       display: block; font-size: 0.64rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-bottom: 2px;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 2px;
     }
-    .highlight-pill a { color: var(--teal); text-decoration: none; }
+    .highlight-pill a { color: var(--teal-dark); text-decoration: none; }
     .highlight-pill a:hover { text-decoration: underline; }
 
     /* Stop detail sections */
@@ -460,7 +465,14 @@
               <a href="https://www.chatuchakmarket.org" target="_blank" rel="noopener">chatuchakmarket.org ↗</a>
             </div>
           </div>
-          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-map.jpg" alt="Lageplan des Chatuchak Weekend Market" class="highlight-map" loading="lazy">
+          <div class="highlight-map-wrap">
+            <a href="https://www.chatuchakmarket.org/home/chatuchak-market-map-e1499274279204/#google_vignette" target="_blank" rel="noopener">
+              <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-map.jpg" alt="Lageplan des Chatuchak Weekend Market" class="highlight-map" loading="lazy">
+            </a>
+            <a href="https://www.chatuchakmarket.org/home/chatuchak-market-map-e1499274279204/#google_vignette" target="_blank" rel="noopener" class="highlight-map-link">
+              🗺️ Originalkarte auf chatuchakmarket.org ↗
+            </a>
+          </div>
         </div>
       </div>
       <!-- /Highlight Box -->
