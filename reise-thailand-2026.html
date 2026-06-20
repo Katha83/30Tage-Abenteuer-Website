@@ -67,6 +67,94 @@
     .station-link:hover { border-color: var(--teal); opacity: 0.8; }
     .station-link::after { content: ' ↓'; }
 
+    /* Day divider between days within one stop */
+    .day-divider {
+      display: flex; align-items: center; gap: 18px;
+      margin: 56px 0 40px;
+    }
+    .day-divider::before, .day-divider::after {
+      content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.1);
+    }
+    .day-divider-inner { text-align: center; flex-shrink: 0; }
+    .day-divider-label {
+      display: block; font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 3px;
+    }
+    .day-divider-title {
+      display: block; font-size: 1rem; font-weight: 700; color: var(--text-dark);
+    }
+
+    /* Editorial / magazine layout blocks */
+    .day-content { max-width: 100%; }
+    .day-text p { font-size: 1.02rem; line-height: 1.9; margin-bottom: 22px; color: var(--text-mid); }
+    .day-text p:last-child { margin-bottom: 0; }
+    .day-text a { color: var(--teal); }
+
+    /* Photo rows within editorial layout */
+    .photo-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 28px 0; }
+    .photo-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 28px 0; }
+    .photo-row-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin: 28px 0; }
+    .photo-row-3 figure img, .photo-row-2 figure img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; display: block; }
+    .photo-row-2-1 figure:first-child img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; display: block; }
+    .photo-row-2-1 figure:last-child img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; display: block; }
+    .photo-full { margin: 28px 0; }
+    .photo-full img { width: 100%; height: 400px; object-fit: cover; border-radius: 12px; display: block; }
+    .photo-full.photo-full-tall img { height: 480px; }
+    figcaption.cap { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
+
+    /* Text + image side by side (editorial) */
+    .day-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin: 28px 0; }
+    .day-split.flip { direction: rtl; }
+    .day-split.flip > * { direction: ltr; }
+    .day-split figure img { width: 100%; height: 340px; object-fit: cover; border-radius: 10px; display: block; }
+    @media (max-width: 800px) {
+      .day-split { grid-template-columns: 1fr; }
+      .photo-row-3 { grid-template-columns: 1fr 1fr; }
+      .photo-row-2-1 { grid-template-columns: 1fr; }
+      .photo-full img { height: 260px; }
+    }
+
+    /* Highlight / Info Box */
+    .highlight-box {
+      background: #fff;
+      border: 1.5px solid var(--teal);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin: 36px 0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .highlight-box-header {
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 20px; padding-bottom: 18px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .highlight-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1; }
+    .highlight-tag {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 4px;
+    }
+    .highlight-title {
+      font-size: 1.2rem; font-weight: 800; color: var(--text-dark); margin: 0;
+    }
+    .highlight-body { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: start; }
+    .highlight-map { width: 180px; border-radius: 8px; flex-shrink: 0; }
+    @media (max-width: 700px) {
+      .highlight-body { grid-template-columns: 1fr; }
+      .highlight-map { width: 100%; }
+    }
+    .highlight-pills { display: flex; flex-direction: column; gap: 10px; }
+    .highlight-pill {
+      background: var(--off-white); border-radius: 8px; padding: 10px 16px;
+      font-size: 0.875rem; line-height: 1.5;
+    }
+    .highlight-pill strong {
+      display: block; font-size: 0.64rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-bottom: 2px;
+    }
+    .highlight-pill a { color: var(--teal); text-decoration: none; }
+    .highlight-pill a:hover { text-decoration: underline; }
+
     /* Stop detail sections */
     .stop-section { scroll-margin-top: var(--nav-h, 80px); }
     .stop-badge {
@@ -240,70 +328,228 @@
       <span>🌙 2 Nächte</span>
       <span>🏨 Boutique Poo-Yai Lee</span>
     </div>
-    <div class="stop-body">
-      <div class="stop-text">
-        <p>Das Jahr begann eigentlich mit guten Vorsätzen. Eigentlich. Denn wie so oft hielten sie genau bis zum ersten Härtetest. Bereits am 31.12. sind wir zu unseren Freunden Sarah und Steffen gefahren, um gemeinsam ins neue Jahr und gleichzeitig in den Urlaub zu starten. Der Plan war eindeutig: ein ruhiger, gemütlicher Silvesterabend mit nicht zu viel Alkohol, damit wir am nächsten Tag fit für die Reise sind.</p>
-        <p>Die Realität sah etwas anders aus. Bis Mitternacht lief alles nach Plan. Danach wollten wir nur noch „kurz" bei den Nachbarn zum Anstoßen vorbeischauen. Aus diesem „kurz" wurden dann mehrere Stunden, sodass wir erst gegen 4 Uhr morgens wieder zu Hause waren. So viel zum Thema gute Vorsätze.</p>
-        <p>Zum Glück ging unser Flug erst am Abend. Ein Bekannter brachte uns zum Flughafen, sodass wir uns diesmal weder um Parkplätze noch um Shuttlebusse kümmern mussten. Dank unseres Priority Passes konnten wir vor dem Abflug noch die Lounge nutzen, etwas essen und bei einem kleinen Bier entspannt in den Urlaub starten. Um 20:55 Uhr hob unser Direktflug mit <strong>Thai Airways</strong> nach Bangkok ab – für 732 € pro Person ein sehr angenehmer Flug mit gutem Service.</p>
-        <p>Am 2. Januar landeten wir um 13:45 Uhr am Flughafen Bangkok (BKK). Für den Transfer hatten wir bereits vorab über <strong>GetYourGuide</strong> gebucht. Schon bei der Fahrt in die Stadt fiel auf, dass in Bangkok noch Ferien- und Feiertagsstimmung herrschte – die Straßen waren erstaunlich leer und bereits nach etwa 35 Minuten erreichten wir unser Hotel, das <strong>Boutique Poo-Yai Lee</strong>. Für zwei Nächte zahlten wir lediglich 69 € pro Doppelzimmer inklusive Frühstück. Die Zimmer waren sauber, die Dusche hatte ordentlich Wasserdruck und sogar ein kleiner Balkon gehörte dazu.</p>
-        <p>Nach dem Check-in stärkten wir uns erst einmal im hoteleigenen Café, bevor wir uns frisch machten und noch einmal in die Stadt aufbrachen. Denn während unser Urlaub gerade begann, endete er für eine Kollegin und ihren Mann. Die beiden waren extra noch einmal vom Flughafen zurück in die Stadt gefahren, damit wir uns vor ihrer Heimreise auf ein gemeinsames Abendessen treffen konnten. Unsere Wahl fiel auf das <strong>Nanthong</strong> – ein Restaurant mit schönem Innenhof, viel Platz und einer entspannten Atmosphäre. Das Essen war lecker, der Biertower ebenfalls, und auch die Cocktails konnten überzeugen.</p>
-        <p>Danach ging es zurück ins Hotel. Nach der langen Anreise, dem Jahreswechsel und den wenigen Stunden Schlaf fühlte sich das Bett plötzlich wie purer Luxus an. Endlich ankommen, hinlegen und schlafen – der Urlaub hatte begonnen.</p>
+
+    <!-- ── Tag 1: Anreise ── -->
+    <div class="day-content">
+
+      <div class="day-split">
+        <div class="day-text">
+          <p>Das Jahr begann eigentlich mit guten Vorsätzen. Eigentlich. Denn wie so oft hielten sie genau bis zum ersten Härtetest. Bereits am 31.12. sind wir zu unseren Freunden Sarah und Steffen gefahren, um gemeinsam ins neue Jahr und gleichzeitig in den Urlaub zu starten. Der Plan war eindeutig: ein ruhiger, gemütlicher Silvesterabend – mit nicht zu viel Alkohol, damit wir am nächsten Tag fit für die Reise sind.</p>
+          <p>Die Realität sah etwas anders aus. Bis Mitternacht lief alles nach Plan. Danach wollten wir nur noch „kurz" bei den Nachbarn zum Anstoßen vorbeischauen. Aus diesem „kurz" wurden dann mehrere Stunden, sodass wir erst gegen 4 Uhr morgens wieder zu Hause waren. So viel zum Thema gute Vorsätze.</p>
+        </div>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-02-flugzeug.jpg" alt="Blick aus dem Flugzeugfenster irgendwo über dem Indischen Ozean" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <figcaption class="cap">Irgendwo über dem Indischen Ozean</figcaption>
+        </figure>
       </div>
-      <div class="stop-photo-grid">
-        <figure class="stop-photo wide">
-          <img src="Thailand 2026/compressed/bangkok/bkk-09-sonnenuntergang.jpg" alt="Sonnenuntergang über dem Chao Phraya mit Fähre" loading="lazy">
-          <figcaption>Abendstimmung am Chao Phraya</figcaption>
+
+      <div class="day-split flip">
+        <div class="day-text">
+          <p>Zum Glück ging unser Flug erst am Abend. Ein Bekannter brachte uns zum Flughafen, sodass wir uns diesmal weder um Parkplätze noch um Shuttlebusse kümmern mussten. Dank unseres Priority Passes konnten wir vor dem Abflug noch die Lounge nutzen, etwas essen und bei einem kleinen Bier entspannt in den Urlaub starten. Um 20:55 Uhr hob unser Direktflug mit <strong>Thai Airways</strong> nach Bangkok ab – für 732 € pro Person ein sehr angenehmer Flug mit gutem Service.</p>
+          <p>Am 2. Januar landeten wir um 13:45 Uhr am Flughafen Bangkok (BKK). Für den Transfer hatten wir bereits vorab über <strong>GetYourGuide</strong> gebucht. Schon bei der Fahrt in die Stadt fiel auf, dass in Bangkok noch Ferien- und Feiertagsstimmung herrschte – die Straßen waren erstaunlich leer und bereits nach etwa 35 Minuten erreichten wir unser Hotel, das <strong>Boutique Poo-Yai Lee</strong>. Für zwei Nächte zahlten wir lediglich 69 € pro Doppelzimmer inklusive Frühstück. Die Zimmer waren sauber, die Dusche hatte ordentlich Wasserdruck und sogar ein kleiner Balkon gehörte dazu.</p>
+        </div>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-05-hotel.jpg" alt="Eingang Boutique Poo-Yai Lee Hotel" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <figcaption class="cap">Unser Hotel: Boutique Poo-Yai Lee</figcaption>
         </figure>
-        <figure class="stop-photo">
+      </div>
+
+      <div class="photo-row-3">
+        <figure>
           <img src="Thailand 2026/compressed/bangkok/bkk-01-ankunft-gruppe.jpg" alt="Die Gruppe bei der Ankunft am Suvarnabhumi Airport" loading="lazy">
-          <figcaption>Ankunft in Bangkok</figcaption>
+          <figcaption class="cap">Ankunft am Suvarnabhumi Airport</figcaption>
         </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-02-flugzeug.jpg" alt="Im Flugzeug auf dem Weg nach Bangkok" loading="lazy">
-          <figcaption>Irgendwo über dem Indischen Ozean</figcaption>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-03-markt-ankunft.jpg" alt="Nachtmarkt-Gasse am Ankunftsabend" loading="lazy">
+          <figcaption class="cap">Erster Abend: Nachtmarkt in der Nachbarschaft</figcaption>
         </figure>
-        <figure class="stop-photo wide">
-          <img src="Thailand 2026/compressed/bangkok/bkk-03-markt-ankunft.jpg" alt="Nachtmarkt-Gasse in Bangkok am Ankunftsabend" loading="lazy">
-          <figcaption>Erster Abend: Nachtmarkt in der Nachbarschaft</figcaption>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-04-abend-restaurant.jpg" alt="Gruppe beim Abendessen" loading="lazy">
+          <figcaption class="cap">Erstes Abendessen</figcaption>
         </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-04-abend-restaurant.jpg" alt="Gruppe beim Abendessen im Outdoor-Restaurant in Bangkok" loading="lazy">
-          <figcaption>Erstes gemeinsames Abendessen</figcaption>
+      </div>
+
+      <div class="day-split">
+        <div class="day-text">
+          <p>Nach dem Check-in stärkten wir uns erst einmal im hoteleigenen Café, bevor wir uns frisch machten und noch einmal in die Stadt aufbrachen. Denn während unser Urlaub gerade begann, endete er für eine Kollegin und ihren Mann – die beiden waren extra noch einmal vom Flughafen zurück in die Stadt gefahren, damit wir uns vor ihrer Heimreise auf ein gemeinsames Abendessen treffen konnten.</p>
+          <p>Unsere Wahl fiel auf das <strong>Nanthong</strong> – ein Restaurant mit schönem Innenhof, viel Platz und einer wirklich entspannten Atmosphäre. Das Essen war lecker, der Biertower ebenfalls und auch die Cocktails konnten überzeugen. Danach ging es zurück ins Hotel. Nach der langen Anreise, dem Jahreswechsel und den wenigen Stunden Schlaf fühlte sich das Bett plötzlich wie purer Luxus an. Der Urlaub hatte begonnen.</p>
+        </div>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-nathong-restaurant.jpg" alt="Nanthong Restaurant Innenhof bei Nacht" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <figcaption class="cap">Nanthong – unser Restaurant am ersten Abend</figcaption>
         </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-06-singha.jpg" alt="Singha Bierturm – Estd. 1933" loading="lazy">
-          <figcaption>Singha Tower – Bangkok-Klassiker</figcaption>
+      </div>
+
+      <div class="photo-row-2">
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-06-singha.jpg" alt="Singha Bierturm" loading="lazy">
+          <figcaption class="cap">Singha Tower – Bangkok-Klassiker</figcaption>
         </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-nathong-restaurant.jpg" alt="Nathong Terrasse Bar & Restaurant bei Nacht" loading="lazy">
-          <figcaption>Nathong – unser Restaurant am ersten Abend</figcaption>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-09-sonnenuntergang.jpg" alt="Sonnenuntergang über Bangkok" loading="lazy">
+          <figcaption class="cap">Abendstimmung über der Stadt</figcaption>
         </figure>
-        <figure class="stop-photo wide">
-          <img src="Thailand 2026/compressed/bangkok/bkk-07-chatuchak.jpg" alt="Eingang Gate 25 des Chatuchak Weekend Market" loading="lazy">
-          <figcaption>Chatuchak Weekend Market – Gate 25</figcaption>
-        </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-08-markt.jpg" alt="Gassen im Chatuchak Weekend Market" loading="lazy">
-          <figcaption>Endlose Gassen, endlose Stände</figcaption>
-        </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-05-hotel.jpg" alt="Eingang Boutique Poo-Yai Lee Hotel" loading="lazy">
-          <figcaption>Unser Hotel: Boutique Poo-Yai Lee</figcaption>
-        </figure>
-        <figure class="stop-photo wide">
-          <img src="Thailand 2026/compressed/bangkok/bkk-11-camping-abend.jpg" alt="The Camping Ground Night Market mit Lichterketten" loading="lazy">
-          <figcaption>The Camping Ground – Abendstimmung pur</figcaption>
-        </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-12-gruppe-bier.jpg" alt="Die Gruppe mit Singha-Bierturm beim Camping Ground" loading="lazy">
-          <figcaption>Prost! Mit dem Singha-Tower</figcaption>
-        </figure>
-        <figure class="stop-photo">
-          <img src="Thailand 2026/compressed/bangkok/bkk-10-camping-schild.jpg" alt="The Camping Ground Leuchtreklame" loading="lazy">
-          <figcaption>The Camping Ground</figcaption>
-        </figure>
+      </div>
+
+    </div><!-- /day-content Tag 1 -->
+
+    <!-- ── Tag-Trenner ── -->
+    <div class="day-divider">
+      <div class="day-divider-inner">
+        <span class="day-divider-label">Tag 2 · 3. Januar 2026</span>
+        <span class="day-divider-title">Chatuchak, Chao Phraya &amp; The Camping Ground</span>
       </div>
     </div>
+
+    <!-- ── Tag 2: Chatuchak ── -->
+    <div class="day-content">
+
+      <div class="day-text" style="max-width:720px">
+        <p>Nach dem Frühstück machen wir uns direkt auf den Weg zum berühmten <strong>Chatuchak Weekend Market</strong>. Da wir möglichst vor den großen Menschenmassen und der Mittagshitze dort sein wollen, starten wir gleich am Morgen. Der Markt gilt als einer der größten Wochenendmärkte der Welt – auf einer riesigen Fläche verteilen sich rund 15.000 Stände: Kleidung, Kunsthandwerk, Pflanzen, Haustierbedarf, Möbel, Souvenirs und unzählige Street-Food-Stände. Touristen und Einheimische auf Schatzsuche.</p>
+      </div>
+
+      <div class="photo-row-3">
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-gate.jpg" alt="Chatuchak Weekend Market Gate 25" loading="lazy">
+          <figcaption class="cap">Eingang Gate 25</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-gasse1.jpg" alt="Belebte Marktgasse mit Kleidung und Menschen" loading="lazy">
+          <figcaption class="cap">Kaum vorstellbar, was sich hier alles tummelt</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-textil.jpg" alt="Schmale Gasse mit Textilien und Schals" loading="lazy">
+          <figcaption class="cap">Gasse für Gasse – endlose Auswahl</figcaption>
+        </figure>
+      </div>
+
+      <!-- ══ Highlight Box: Chatuchak ══ -->
+      <div class="highlight-box">
+        <div class="highlight-box-header">
+          <span class="highlight-icon">🗺️</span>
+          <div>
+            <div class="highlight-tag">Insider-Tipps</div>
+            <h4 class="highlight-title">Chatuchak Weekend Market</h4>
+          </div>
+        </div>
+        <div class="highlight-body">
+          <div class="highlight-pills">
+            <div class="highlight-pill">
+              <strong>Öffnungszeiten</strong>
+              Sa &amp; So · ca. 9:00 – 18:00 Uhr (Händler öffnen gestaffelt)
+            </div>
+            <div class="highlight-pill">
+              <strong>Anreise</strong>
+              🚇 BTS Skytrain → Station <em>Mo Chit</em> &nbsp;|&nbsp; MRT → Station <em>Chatuchak Park</em><br>
+              Von beiden Stationen nur wenige Gehminuten bis zu den Eingängen. Taxi, Grab und Bolt sind ebenfalls eine gute Alternative.
+            </div>
+            <div class="highlight-pill">
+              <strong>Unser Tipp</strong>
+              Früh kommen! Gegen 9 Uhr ist es noch angenehm kühl und deutlich entspannter als zur Mittagszeit. Leichte Kleidung, bequeme Schuhe und ausreichend Wasser einpacken – man legt schnell mehrere Kilometer zurück.
+            </div>
+            <div class="highlight-pill">
+              <strong>Orientierung &amp; Treffpunkt</strong>
+              Der markante <em>Uhrturm</em> im Zentrum des Geländes (erbaut 1987 zum 60. Geburtstag von König Bhumibol) ist der perfekte Treffpunkt, wenn man sich aus den Augen verliert – was schnell passiert.
+            </div>
+            <div class="highlight-pill">
+              <strong>Zahlung</strong>
+              Viele Händler akzeptieren mittlerweile Kartenzahlung – etwas Bargeld ist aber weiterhin hilfreich.
+            </div>
+            <div class="highlight-pill">
+              <strong>Mehr Infos</strong>
+              <a href="https://www.chatuchakmarket.org" target="_blank" rel="noopener">chatuchakmarket.org ↗</a>
+            </div>
+          </div>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-map.jpg" alt="Lageplan des Chatuchak Weekend Market" class="highlight-map" loading="lazy">
+        </div>
+      </div>
+      <!-- /Highlight Box -->
+
+      <div class="day-text" style="max-width:720px">
+        <p>Irgendwann reicht es uns aber, wir verabreden uns am Uhrturm und ziehen jeder auf eigene Entdeckungstour los. Zwischendurch gönnen wir uns einen frischen Fruchtsaft und eine entspannende Fußmassage. Und natürlich landet auch der ein oder andere Street-Food-Snack in der Hand.</p>
+      </div>
+
+      <div class="photo-row-3">
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-duck-noodle.jpg" alt="Duck Noodle Foodstand auf dem Chatuchak Market" loading="lazy">
+          <figcaption class="cap">Duck Noodle – einer von unzähligen Food-Ständen</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-garlic-bread.jpg" alt="Knuspriger Garlic Bread vom Grillstand" loading="lazy">
+          <figcaption class="cap">Garlic Bread – knusprig und unwiderstehlich</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-kokos.jpg" alt="Frische Kokosnüsse am Street-Food-Stand" loading="lazy">
+          <figcaption class="cap">Frische Kokosnuss für 50 Baht</figcaption>
+        </figure>
+      </div>
+
+      <div class="photo-row-2">
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-souvenirs.jpg" alt="Souvenir-Stände im Chatuchak Market" loading="lazy">
+          <figcaption class="cap">Von Taschen bis Kleidung – die Auswahl ist gigantisch</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-chatuchak-gasse2.jpg" alt="Menschen schlendern durch die Marktgassen" loading="lazy">
+          <figcaption class="cap">Man verliert sich schnell zwischen den Gassen</figcaption>
+        </figure>
+      </div>
+
+      <!-- Chao Phraya -->
+      <div class="day-text" style="max-width:720px; margin-top: 20px;">
+        <p>Irgendwann kehren wir zurück zum Hotel. Für den Abend hatten wir eigentlich einen entspannten Plan: Mit dem <strong>Chao Phraya Express Boat</strong> auf dem Fluss Richtung Altstadt fahren, den Sonnenuntergang genießen und dabei die Sehenswürdigkeiten Bangkoks vom Wasser aus bewundern. Die Orange Line verbindet viele wichtige Anlegestellen entlang des Flusses und ist eine günstige Möglichkeit, Bangkok aus einer völlig anderen Perspektive zu erleben.</p>
+        <p>Nur leider nicht an diesem Tag. Warum auch immer wurde der Betrieb bereits gegen 16 Uhr eingestellt – ob Feiertag, Sonderfahrplan oder organisatorische Gründe, wir haben es nicht herausgefunden. Unser Sunset-Plan fiel damit buchstäblich ins Wasser.</p>
+      </div>
+
+      <div class="photo-full">
+        <img src="Thailand 2026/compressed/bangkok/bkk-chao-phraya-sunset.jpg" alt="Sonnenuntergang am Chao Phraya mit Fährschiff und Bangkoks Skyline" loading="lazy">
+        <figcaption class="cap" style="margin-top:8px">Chao Phraya bei Sonnenuntergang – immerhin den Blick aufs Wasser haben wir bekommen</figcaption>
+      </div>
+
+      <div class="day-split flip">
+        <div class="day-text">
+          <p>Also laufen wir einfach los und schauen, was der Abend stattdessen bereithält. Und manchmal sind genau diese ungeplanten Momente die besten. Durch Zufall stoßen wir auf den <strong>The Camping Ground</strong> – einen großen, offenen Treffpunkt unter schattigen Bäumen mit zahlreichen Food- und Getränkeständen sowie vielen Sitzgelegenheiten. Die Atmosphäre ist entspannt, die Auswahl riesig und perfekt, um sich quer durchs Angebot zu probieren.</p>
+          <p>Wir probieren uns durch Pad Thai, Steak und süße Crêpes, genießen die lockere Stimmung unter Lichterketten und lassen den Abend gemütlich ausklingen. Zurück zum Hotel geht es anschließend bequem mit <strong>Bolt</strong>.</p>
+        </div>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-camping-schild.jpg" alt="The Camping Ground Leuchtschild bei Nacht" loading="lazy" style="width:100%;height:300px;object-fit:cover;border-radius:10px;">
+          <figcaption class="cap">The Camping Ground – zufällig entdeckt, sofort verliebt</figcaption>
+        </figure>
+      </div>
+
+      <div class="photo-full photo-full-tall">
+        <img src="Thailand 2026/compressed/bangkok/bkk-camping-atmosphaere.jpg" alt="The Camping Ground bei Nacht – Lichterketten über Holztischen und Bäumen" loading="lazy">
+        <figcaption class="cap" style="margin-top:8px">The Camping Ground – diese Atmosphäre unter Lichterketten ist einfach magisch</figcaption>
+      </div>
+
+      <div class="photo-row-3">
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-camping-pad-thai.jpg" alt="Pad Thai mit Garnelen vom Camping Ground" loading="lazy">
+          <figcaption class="cap">Pad Thai – so muss das sein</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-camping-steak.jpg" alt="Gegrilltes Steak vom Camping Ground Stand" loading="lazy">
+          <figcaption class="cap">Steak vom Grill</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-camping-crepes.jpg" alt="Crêpe-Stand am Camping Ground" loading="lazy">
+          <figcaption class="cap">Süße Crêpes zum Abschluss</figcaption>
+        </figure>
+      </div>
+
+      <div class="photo-row-2">
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-camping-gruppe.jpg" alt="Gruppe mit Bierturm am Camping Ground" loading="lazy">
+          <figcaption class="cap">Prost – auf den ersten richtigen Abend in Bangkok</figcaption>
+        </figure>
+        <figure>
+          <img src="Thailand 2026/compressed/bangkok/bkk-camping-stand.jpg" alt="Food-Stand am Camping Ground bei Nacht" loading="lazy">
+          <figcaption class="cap">Einer von vielen verlockenden Ständen</figcaption>
+        </figure>
+      </div>
+
+    </div><!-- /day-content Tag 2 -->
+
   </div>
 </section>
 
