@@ -325,10 +325,9 @@
     const map = L.map('trip-map', { zoomControl: true, scrollWheelZoom: false })
       .setView([center.lat, center.lng], 5);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> © <a href="https://carto.com">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles © <a href="https://www.esri.com">Esri</a>',
+      maxZoom: 18
     }).addTo(map);
 
     // Route polyline
@@ -345,12 +344,31 @@
       iconSize: [14, 14], iconAnchor: [7, 7], className: ''
     });
 
-    // First/last marker larger
     route.forEach((p, i) => {
       const marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
-      marker.bindPopup(`<strong style="color:#3D6E60">${p.name}</strong>${p.hotel ? '<br><span style="font-size:.85em;color:#8FA89E">'+p.hotel+'</span>' : ''}`, {
-        maxWidth: 200
-      });
+
+      // Tooltip on hover
+      marker.bindTooltip(
+        `<strong style="color:#3D6E60;font-size:.9rem">${p.name}</strong>` +
+        (p.hotel ? `<br><span style="font-size:.78rem;color:#666">${p.hotel}</span>` : '') +
+        `<br><span style="font-size:.72rem;color:#4F8070;margin-top:3px;display:block">→ Zum Bericht</span>`,
+        { direction: 'top', offset: [0, -10], opacity: 1, className: 'map-tooltip' }
+      );
+
+      // Click → scroll to report section
+      if (p.anchor) {
+        marker.on('click', () => {
+          const el = document.getElementById(p.anchor);
+          if (el) {
+            const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 80;
+            const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        });
+        marker.getElement && marker.once('add', () => {
+          if (marker.getElement()) marker.getElement().style.cursor = 'pointer';
+        });
+      }
     });
 
     // Fit to route

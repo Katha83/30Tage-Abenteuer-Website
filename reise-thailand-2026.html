@@ -12,18 +12,30 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>  <meta name="description" content="Thailand 2026 – Bangkok, Koh Phayam, Khao Sok, Koh Lanta, Koh Lipe. 19 Nächte Inselrunde.">
   <title>Thailand 2026 – 30 Tage Abenteuer</title>
   <script>window.TRIP_ROUTE=[
-    {lat:13.75,lng:100.52,name:"Bangkok",hotel:"Boutique Poo-Yai Lee"},
-    {lat:9.74,lng:98.62,name:"Koh Phayam",hotel:"Nitiporn Resort"},
-    {lat:8.92,lng:98.53,name:"Khao Sok NP",hotel:"Our Jungle House"},
-    {lat:8.85,lng:98.58,name:"Cheow Lan Lake"},
-    {lat:7.65,lng:99.05,name:"Koh Lanta",hotel:"Lanta Emerald Bungalow"},
-    {lat:7.24,lng:99.24,name:"Koh Bulon Le",hotel:"Bulone Resort"},
-    {lat:6.49,lng:99.31,name:"Koh Lipe",hotel:"Bayview Sunset"},
-    {lat:13.75,lng:100.52,name:"Bangkok",hotel:"Dinsomon Hotel"}
+    {lat:13.75,lng:100.52,name:"Bangkok",hotel:"Boutique Poo-Yai Lee",anchor:"stop-bangkok"},
+    {lat:9.74,lng:98.62,name:"Koh Phayam",hotel:"Nitiporn Resort",anchor:"stop-koh-phayam"},
+    {lat:8.92,lng:98.53,name:"Khao Sok NP",hotel:"Our Jungle House",anchor:"stop-khao-sok"},
+    {lat:8.85,lng:98.58,name:"Cheow Lan Lake",hotel:"Smiley Lake Tour",anchor:"stop-cheow-lan-lake"},
+    {lat:7.65,lng:99.05,name:"Koh Lanta",hotel:"Lanta Emerald Bungalow",anchor:"stop-koh-lanta"},
+    {lat:7.24,lng:99.24,name:"Koh Bulon Le",hotel:"Bulone Resort",anchor:"stop-koh-bulon-le"},
+    {lat:6.49,lng:99.31,name:"Koh Lipe",hotel:"Bayview Sunset",anchor:"stop-koh-lipe"},
+    {lat:13.75,lng:100.52,name:"Bangkok (Rückflug)",hotel:"Dinsomon Hotel",anchor:"stop-bangkok-finale"}
   ];</script>
   <script src="main.js" defer></script>
   <style>
     html { scroll-behavior: smooth; }
+
+    /* Leaflet map tooltip */
+    .map-tooltip {
+      background: #fff;
+      border: none !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.15) !important;
+      padding: 8px 12px !important;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+    .map-tooltip::before { border-top-color: #fff !important; }
 
     /* Station card overrides */
     .station-card { background: #A8BFA3; }
