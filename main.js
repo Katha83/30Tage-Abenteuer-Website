@@ -337,14 +337,14 @@
       dashArray: '8 6'
     }).addTo(map);
 
-    // Custom teal icon
-    const icon = L.divIcon({
-      html: `<div style="width:14px;height:14px;background:#4F8070;border:3px solid white;
-             border-radius:50%;box-shadow:0 2px 8px rgba(79,128,112,.5)"></div>`,
-      iconSize: [14, 14], iconAnchor: [7, 7], className: ''
-    });
-
     route.forEach((p, i) => {
+      const icon = L.divIcon({
+        html: `<div style="width:30px;height:30px;background:#4F8070;border:3px solid white;
+               border-radius:50%;box-shadow:0 2px 10px rgba(79,128,112,.5);
+               display:flex;align-items:center;justify-content:center;
+               color:#fff;font-size:12px;font-weight:700;cursor:pointer">${i+1}</div>`,
+        iconSize: [30, 30], iconAnchor: [15, 15], className: ''
+      });
       const marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
 
       // Tooltip on hover

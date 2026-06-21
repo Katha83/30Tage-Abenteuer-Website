@@ -25,6 +25,46 @@
   <style>
     html { scroll-behavior: smooth; }
 
+    /* Map legend below the map */
+    .map-legend {
+      display: flex; flex-wrap: wrap; gap: 8px 16px;
+      margin-top: 18px; padding: 16px 20px;
+      background: var(--off-white); border-radius: 10px;
+    }
+    .map-legend-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; color: var(--text-mid);
+    }
+    .map-legend-num {
+      width: 24px; height: 24px; flex-shrink: 0;
+      background: #4F8070; color: #fff;
+      border-radius: 50%; border: 2px solid #fff;
+      box-shadow: 0 1px 5px rgba(79,128,112,.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+    }
+
+    /* Stop Quick-Facts strip */
+    .stop-quickfacts {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 32px;
+    }
+    .sqf-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      background: #fff; border-radius: 10px;
+      padding: 10px 14px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      min-width: 0;
+    }
+    .sqf-icon { font-size: 1.1rem; line-height: 1.3; flex-shrink: 0; }
+    .sqf-content { display: flex; flex-direction: column; }
+    .sqf-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #aaa; margin-bottom: 1px;
+    }
+    .sqf-value { font-size: 0.82rem; color: var(--text-dark); line-height: 1.4; }
+    .sqf-placeholder { color: #bbb; font-style: italic; }
+
     /* Leaflet map tooltip */
     .map-tooltip {
       background: #fff;
@@ -303,6 +343,16 @@
 <section class="section-pad-sm map-section"><div class="section-inner">
   <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
   <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+  <div class="map-legend">
+    <div class="map-legend-item"><span class="map-legend-num">1</span> Bangkok</div>
+    <div class="map-legend-item"><span class="map-legend-num">2</span> Koh Phayam</div>
+    <div class="map-legend-item"><span class="map-legend-num">3</span> Khao Sok NP</div>
+    <div class="map-legend-item"><span class="map-legend-num">4</span> Cheow Lan Lake</div>
+    <div class="map-legend-item"><span class="map-legend-num">5</span> Koh Lanta</div>
+    <div class="map-legend-item"><span class="map-legend-num">6</span> Koh Bulon Le</div>
+    <div class="map-legend-item"><span class="map-legend-num">7</span> Koh Lipe</div>
+    <div class="map-legend-item"><span class="map-legend-num">8</span> Bangkok (Rückflug)</div>
+  </div>
 </div></section>
 <section class="section-pad bg-cream"><div class="section-inner">
   <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>
@@ -344,6 +394,14 @@
       <span>📅 2.–4. Januar 2026</span>
       <span>🌙 2 Nächte</span>
       <span>🏨 Boutique Poo-Yai Lee</span>
+    </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">✈️</span><div class="sqf-content"><span class="sqf-label">Flug</span><span class="sqf-value">Thai Airways · Direktflug BKK · 732 € / Person</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">2 Nächte</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🏨</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Boutique Poo-Yai Lee · 69 € / Nacht (DZ inkl. Frühstück)</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value">Nanthong · The Camping Ground</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value">GetYourGuide Transfer ab BKK · Bolt / Grab</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Chatuchak Weekend Market · Chao Phraya · The Camping Ground</span></div></div>
     </div>
 
     <!-- ── Tag 1: Anreise ── -->
@@ -587,6 +645,13 @@
       <span>🌙 3 Nächte</span>
       <span>🏝 Nitiporn Resort</span>
     </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">3 Nächte</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Nitiporn Resort · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value">Happy Land Bar · Strandrestaurants</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value">Inlandsflug DMK → Ranong · Speedboat · Moped / Elektrobike</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Buffalo Bay Beach · Mopedtour · Sonnenuntergang</span></div></div>
+    </div>
     <div class="stop-body">
       <div class="stop-text">
         <p>Früh raus – Inlandsflug von Don Mueang nach Ranong, dann per Speedboat auf <strong>Koh Phayam</strong>. Die Insel empfängt mit Sand, Palmen und null Hektik: kein einziges Auto, nur Mopeds und Elektrobikes. Das <strong>Nitiporn Resort</strong> lag direkt am Buffalo Bay Beach – Hängematte, Meer, fertig.</p>
@@ -648,6 +713,13 @@
       <span>🌙 1 Nacht</span>
       <span>🌿 Our Jungle House</span>
     </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">1 Nacht</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🌿</span><div class="sqf-content"><span class="sqf-label">Unterkunft &amp; Preis</span><span class="sqf-value">Our Jungle House · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Urwald · Dschungel-Trek · Nachtgeräusche · Wildlife</span></div></div>
+    </div>
     <div class="stop-coming">
       <strong>Bericht folgt</strong>
       <span>Fotos und Erlebnisse aus dem Khao Sok NP kommen in Kürze.</span>
@@ -664,6 +736,13 @@
       <span>📅 8.–9. Januar 2026</span>
       <span>🌙 1 Nacht</span>
       <span>⛵ Smiley Lake Tour</span>
+    </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">1 Nacht</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">⛵</span><div class="sqf-content"><span class="sqf-label">Tour &amp; Preis</span><span class="sqf-value">Smiley Lake Tour · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Verpflegung</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value">Tour ab Khao Sok · Longtailboot</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Übernachtung auf dem Stausee · Kalkfelsen · Kajak</span></div></div>
     </div>
     <div class="stop-coming">
       <strong>Bericht folgt</strong>
@@ -682,6 +761,13 @@
       <span>🌙 3 Nächte</span>
       <span>🏝 Lanta Emerald Bungalow</span>
     </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">3 Nächte</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Lanta Emerald Bungalow · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Entspannung · Mopedtour · Schnorcheln</span></div></div>
+    </div>
     <div class="stop-coming">
       <strong>Bericht folgt</strong>
       <span>Fotos und Erlebnisse aus Koh Lanta kommen in Kürze.</span>
@@ -698,6 +784,13 @@
       <span>📅 12.–14. Januar 2026</span>
       <span>🌙 2 Nächte</span>
       <span>🏝 Bulone Resort</span>
+    </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">2 Nächte</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Bulone Resort · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value">Fähre ab Koh Lanta</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Eine der unberührtesten Inseln Thailands · Traumstrände</span></div></div>
     </div>
     <div class="stop-coming">
       <strong>Bericht folgt</strong>
@@ -716,6 +809,13 @@
       <span>🌙 4 Nächte</span>
       <span>🏝 Bayview Sunset</span>
     </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">4 Nächte</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Bayview Sunset · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value">Speedboat ab Koh Bulon Le</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Türkisblaues Wasser · Korallen · Sonnenuntergänge</span></div></div>
+    </div>
     <div class="stop-coming">
       <strong>Bericht folgt</strong>
       <span>Fotos und Erlebnisse aus Koh Lipe kommen in Kürze.</span>
@@ -732,6 +832,14 @@
       <span>📅 18.–20. Januar 2026</span>
       <span>🌙 2 Nächte</span>
       <span>✈️ Abflug 12:40 Uhr</span>
+    </div>
+    <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">2 Nächte</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🏨</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Dinsomon Hotel · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value">Speedboat + Minivan nach Trang · Flug Trang → BKK</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">✈️</span><div class="sqf-content"><span class="sqf-label">Rückflug</span><span class="sqf-value">Bangkok → Frankfurt · Abflug 12:40 Uhr · Ankunft 19:05 Uhr</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
     </div>
     <div class="stop-coming">
       <strong>Bericht folgt</strong>
