@@ -51,18 +51,21 @@
     }
     .sqf-item {
       display: flex; align-items: flex-start; gap: 8px;
-      background: #fff; border-radius: 10px;
+      background: var(--off-white); border-radius: 10px;
+      border-left: 3px solid var(--teal-light);
       padding: 10px 14px;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
       min-width: 0;
     }
     .sqf-icon { font-size: 1.1rem; line-height: 1.3; flex-shrink: 0; }
     .sqf-content { display: flex; flex-direction: column; }
     .sqf-label {
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #aaa; margin-bottom: 1px;
+      text-transform: uppercase; color: var(--teal-dark); opacity: .7; margin-bottom: 1px;
     }
     .sqf-value { font-size: 0.82rem; color: var(--text-dark); line-height: 1.4; }
+    .sqf-value a { color: var(--teal-dark); text-decoration: none; }
+    .sqf-value a:hover { text-decoration: underline; }
     .sqf-placeholder { color: #bbb; font-style: italic; }
 
     /* Leaflet map tooltip */
@@ -157,6 +160,7 @@
 
     /* Text + image side by side (editorial) */
     .day-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin: 28px 0; }
+    .day-split.align-center { align-items: center; }
     .day-split.flip > figure { order: -1; }
     .day-split figure img { width: 100%; height: 340px; object-fit: cover; border-radius: 10px; display: block; }
     @media (max-width: 800px) {
@@ -390,18 +394,14 @@
   <div class="section-inner">
     <span class="stop-badge">Start</span>
     <h3 class="stop-title-main"><em>Bangkok</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 2.–4. Januar 2026</span>
-      <span>🌙 2 Nächte</span>
-      <span>🏨 Boutique Poo-Yai Lee</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">2.–4. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">✈️</span><div class="sqf-content"><span class="sqf-label">Flug</span><span class="sqf-value">Thai Airways · Direktflug BKK · 732 € / Person</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">2 Nächte</span></div></div>
-      <div class="sqf-item"><span class="sqf-icon">🏨</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Boutique Poo-Yai Lee · 69 € / Nacht (DZ inkl. Frühstück)</span></div></div>
-      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value">Nanthong · The Camping Ground</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🏨</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Boutique Poo-Yai Lee · 37 € / Nacht (DZ inkl. Frühstück)</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value"><a href="https://www.google.com/maps/search/?api=1&query=Nathong+Terrace+Bar+%26+Restaurant+Bangkok" target="_blank" rel="noopener">Nanthong ↗</a> · <a href="https://www.google.com/maps/search/?api=1&query=The+Camping+Ground+Bangkok" target="_blank" rel="noopener">The Camping Ground ↗</a></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🚗</span><div class="sqf-content"><span class="sqf-label">Transport</span><span class="sqf-value">GetYourGuide Transfer ab BKK · Bolt / Grab</span></div></div>
-      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Chatuchak Weekend Market · Chao Phraya · The Camping Ground</span></div></div>
+      <div class="sqf-item"><span class="sqf-icon">🎯</span><div class="sqf-content"><span class="sqf-label">Highlights</span><span class="sqf-value">Chatuchak Weekend Market · Chao Phraya</span></div></div>
     </div>
 
     <!-- ── Tag 1: Anreise ── -->
@@ -418,10 +418,10 @@
         </figure>
       </div>
 
-      <div class="day-split flip">
+      <div class="day-split flip align-center">
         <div class="day-text">
-          <p>Zum Glück ging unser Flug erst am Abend. Ein Bekannter brachte uns zum Flughafen, sodass wir uns diesmal weder um Parkplätze noch um Shuttlebusse kümmern mussten. Dank unseres Priority Passes konnten wir vor dem Abflug noch die Lounge nutzen, etwas essen und bei einem kleinen Bier entspannt in den Urlaub starten. Um 20:55 Uhr hob unser Direktflug mit <strong>Thai Airways</strong> nach Bangkok ab – für 732 € pro Person ein sehr angenehmer Flug mit gutem Service.</p>
-          <p>Am 2. Januar landeten wir um 13:45 Uhr am Flughafen Bangkok (BKK). Für den Transfer hatten wir bereits vorab über <strong>GetYourGuide</strong> gebucht. Schon bei der Fahrt in die Stadt fiel auf, dass in Bangkok noch Ferien- und Feiertagsstimmung herrschte – die Straßen waren erstaunlich leer und bereits nach etwa 35 Minuten erreichten wir unser Hotel, das <strong>Boutique Poo-Yai Lee</strong>. Für zwei Nächte zahlten wir lediglich 69 € pro Doppelzimmer inklusive Frühstück. Die Zimmer waren sauber, die Dusche hatte ordentlich Wasserdruck und sogar ein kleiner Balkon gehörte dazu.</p>
+          <p>Zum Glück ging unser Flug erst am Abend. Ein Bekannter brachte uns zum Frankfurter Flughafen, sodass wir uns diesmal nicht um Parkplätze kümmern mussten. Dank unseres Priority Passes konnten wir vor dem Abflug noch die Lounge nutzen, etwas essen und bei einem kleinen Bier entspannt in den Urlaub starten. Um 20:55 Uhr hob unser Direktflug mit <strong>Thai Airways</strong> nach Bangkok ab – für 732 € pro Person ein sehr angenehmer Flug mit gutem Service.</p>
+          <p>Am 2. Januar landeten wir um 13:45 Uhr am Flughafen Bangkok (BKK). Für den Transfer hatten wir bereits vorab über <strong>GetYourGuide</strong> gebucht. Schon bei der Fahrt in die Stadt fiel auf, dass in Bangkok noch Ferien- und Feiertagsstimmung herrschte – die Straßen waren erstaunlich leer und bereits nach etwa 35 Minuten erreichten wir unser Hotel, das <strong>Boutique Poo-Yai Lee</strong>. Für zwei Nächte zahlten wir lediglich 74 € pro Doppelzimmer inklusive Frühstück. Die Zimmer waren sauber, die Dusche hatte ordentlich Wasserdruck und sogar ein kleiner Balkon gehörte dazu.</p>
         </div>
         <figure>
           <img src="Thailand 2026/compressed/bangkok/bkk-05-hotel.jpg" alt="Eingang Boutique Poo-Yai Lee Hotel" loading="lazy">
@@ -436,15 +436,15 @@
         </figure>
         <figure>
           <img src="Thailand 2026/compressed/bangkok/bkk-03-markt-ankunft.jpg" alt="Nachtmarkt-Gasse am Ankunftsabend" loading="lazy">
-          <figcaption class="cap">Erster Abend: Nachtmarkt in der Nachbarschaft</figcaption>
+          <figcaption class="cap">Erste Local Märkte erkunden</figcaption>
         </figure>
         <figure>
           <img src="Thailand 2026/compressed/bangkok/bkk-04-abend-restaurant.jpg" alt="Gruppe beim Abendessen" loading="lazy">
-          <figcaption class="cap">Erstes Abendessen</figcaption>
+          <figcaption class="cap">Urlaubsstart für uns, Urlaubsende für Andy und Christian.</figcaption>
         </figure>
       </div>
 
-      <div class="day-split">
+      <div class="day-split align-center">
         <div class="day-text">
           <p>Nach dem Check-in stärkten wir uns erst einmal im hoteleigenen Café, bevor wir uns frisch machten und noch einmal in die Stadt aufbrachen. Denn während unser Urlaub gerade begann, endete er für eine Kollegin und ihren Mann – die beiden waren extra noch einmal vom Flughafen zurück in die Stadt gefahren, damit wir uns vor ihrer Heimreise auf ein gemeinsames Abendessen treffen konnten.</p>
           <p>Unsere Wahl fiel auf das <strong>Nanthong</strong> – ein Restaurant mit schönem Innenhof, viel Platz und einer wirklich entspannten Atmosphäre. Das Essen war lecker, der Biertower ebenfalls und auch die Cocktails konnten überzeugen. Danach ging es zurück ins Hotel. Nach der langen Anreise, dem Jahreswechsel und den wenigen Stunden Schlaf fühlte sich das Bett plötzlich wie purer Luxus an. Der Urlaub hatte begonnen.</p>
@@ -455,15 +455,9 @@
         </figure>
       </div>
 
-      <div class="photo-row-2">
-        <figure>
-          <img src="Thailand 2026/compressed/bangkok/bkk-06-singha.jpg" alt="Singha Bierturm" loading="lazy">
-          <figcaption class="cap">Singha Tower – Bangkok-Klassiker</figcaption>
-        </figure>
-        <figure>
-          <img src="Thailand 2026/compressed/bangkok/bkk-09-sonnenuntergang.jpg" alt="Sonnenuntergang über Bangkok" loading="lazy">
-          <figcaption class="cap">Abendstimmung über der Stadt</figcaption>
-        </figure>
+      <div class="photo-full">
+        <img src="Thailand 2026/compressed/bangkok/bkk-13-biertower-tisch.jpg" alt="Gruppe am Tisch mit mehreren Singha Bierturm-Säulen" loading="lazy">
+        <figcaption class="cap" style="margin-top:8px">Biertower am ersten Abend – Prost auf den Urlaub!</figcaption>
       </div>
 
     </div><!-- /day-content Tag 1 -->
@@ -479,7 +473,7 @@
     <!-- ── Tag 2: Chatuchak ── -->
     <div class="day-content">
 
-      <div class="day-text" style="max-width:720px">
+      <div class="day-text">
         <p>Nach dem Frühstück machen wir uns direkt auf den Weg zum berühmten <strong>Chatuchak Weekend Market</strong>. Da wir möglichst vor den großen Menschenmassen und der Mittagshitze dort sein wollen, starten wir gleich am Morgen. Der Markt gilt als einer der größten Wochenendmärkte der Welt – auf einer riesigen Fläche verteilen sich rund 15.000 Stände: Kleidung, Kunsthandwerk, Pflanzen, Haustierbedarf, Möbel, Souvenirs und unzählige Street-Food-Stände. Touristen und Einheimische auf Schatzsuche.</p>
       </div>
 
@@ -547,7 +541,7 @@
       </div>
       <!-- /Highlight Box -->
 
-      <div class="day-text" style="max-width:720px">
+      <div class="day-text">
         <p>Irgendwann reicht es uns aber, wir verabreden uns am Uhrturm und ziehen jeder auf eigene Entdeckungstour los. Zwischendurch gönnen wir uns einen frischen Fruchtsaft und eine entspannende Fußmassage. Und natürlich landet auch der ein oder andere Street-Food-Snack in der Hand.</p>
       </div>
 
@@ -578,7 +572,7 @@
       </div>
 
       <!-- Chao Phraya -->
-      <div class="day-text" style="max-width:720px; margin-top: 20px;">
+      <div class="day-text" style="margin-top: 20px;">
         <p>Irgendwann kehren wir zurück zum Hotel. Für den Abend hatten wir eigentlich einen entspannten Plan: Mit dem <strong>Chao Phraya Express Boat</strong> auf dem Fluss Richtung Altstadt fahren, den Sonnenuntergang genießen und dabei die Sehenswürdigkeiten Bangkoks vom Wasser aus bewundern. Die Orange Line verbindet viele wichtige Anlegestellen entlang des Flusses und ist eine günstige Möglichkeit, Bangkok aus einer völlig anderen Perspektive zu erleben.</p>
         <p>Nur leider nicht an diesem Tag. Warum auch immer wurde der Betrieb bereits gegen 16 Uhr eingestellt – ob Feiertag, Sonderfahrplan oder organisatorische Gründe, wir haben es nicht herausgefunden. Unser Sunset-Plan fiel damit buchstäblich ins Wasser.</p>
       </div>
@@ -640,12 +634,8 @@
   <div class="section-inner">
     <span class="stop-badge">Stop 01</span>
     <h3 class="stop-title-main">Koh <em>Phayam</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 4.–7. Januar 2026</span>
-      <span>🌙 3 Nächte</span>
-      <span>🏝 Nitiporn Resort</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">4.–7. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">3 Nächte</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Nitiporn Resort · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value">Happy Land Bar · Strandrestaurants</span></div></div>
@@ -708,12 +698,8 @@
   <div class="section-inner">
     <span class="stop-badge">Stop 02</span>
     <h3 class="stop-title-main">Khao Sok <em>NP</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 7.–8. Januar 2026</span>
-      <span>🌙 1 Nacht</span>
-      <span>🌿 Our Jungle House</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">7.–8. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">1 Nacht</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌿</span><div class="sqf-content"><span class="sqf-label">Unterkunft &amp; Preis</span><span class="sqf-value">Our Jungle House · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
@@ -732,12 +718,8 @@
   <div class="section-inner">
     <span class="stop-badge">Stop 03</span>
     <h3 class="stop-title-main">Cheow Lan <em>Lake</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 8.–9. Januar 2026</span>
-      <span>🌙 1 Nacht</span>
-      <span>⛵ Smiley Lake Tour</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">8.–9. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">1 Nacht</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">⛵</span><div class="sqf-content"><span class="sqf-label">Tour &amp; Preis</span><span class="sqf-value">Smiley Lake Tour · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Verpflegung</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
@@ -756,12 +738,8 @@
   <div class="section-inner">
     <span class="stop-badge">Stop 04</span>
     <h3 class="stop-title-main">Koh <em>Lanta</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 9.–12. Januar 2026</span>
-      <span>🌙 3 Nächte</span>
-      <span>🏝 Lanta Emerald Bungalow</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">9.–12. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">3 Nächte</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Lanta Emerald Bungalow · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
@@ -780,12 +758,8 @@
   <div class="section-inner">
     <span class="stop-badge">Stop 05</span>
     <h3 class="stop-title-main">Koh Bulon <em>Le</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 12.–14. Januar 2026</span>
-      <span>🌙 2 Nächte</span>
-      <span>🏝 Bulone Resort</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">12.–14. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">2 Nächte</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Bulone Resort · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
@@ -804,12 +778,8 @@
   <div class="section-inner">
     <span class="stop-badge">Stop 06 · Highlight</span>
     <h3 class="stop-title-main">Koh <em>Lipe</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 14.–18. Januar 2026</span>
-      <span>🌙 4 Nächte</span>
-      <span>🏝 Bayview Sunset</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">14.–18. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">4 Nächte</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🏝</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Bayview Sunset · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
@@ -828,12 +798,8 @@
   <div class="section-inner">
     <span class="stop-badge">Finale · Rückflug</span>
     <h3 class="stop-title-main">Zurück nach <em>Bangkok</em></h3>
-    <div class="stop-meta-row">
-      <span>📅 18.–20. Januar 2026</span>
-      <span>🌙 2 Nächte</span>
-      <span>✈️ Abflug 12:40 Uhr</span>
-    </div>
     <div class="stop-quickfacts">
+      <div class="sqf-item"><span class="sqf-icon">📅</span><div class="sqf-content"><span class="sqf-label">Reisezeitraum</span><span class="sqf-value">18.–20. Januar 2026</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🌙</span><div class="sqf-content"><span class="sqf-label">Nächte</span><span class="sqf-value">2 Nächte</span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🏨</span><div class="sqf-content"><span class="sqf-label">Hotel &amp; Preis</span><span class="sqf-value">Dinsomon Hotel · <span class="sqf-placeholder">Preis folgt</span></span></div></div>
       <div class="sqf-item"><span class="sqf-icon">🍽️</span><div class="sqf-content"><span class="sqf-label">Restaurants</span><span class="sqf-value sqf-placeholder">folgt</span></div></div>
