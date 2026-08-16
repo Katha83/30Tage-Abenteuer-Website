@@ -1019,3 +1019,21 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   font-family: sans-serif;
 }
 #lightbox-close:hover { opacity: 1; }
+
+/* ── Back to top ──────────────────────────────────────── */
+#back-to-top {
+  position: fixed; right: 24px; bottom: 24px; z-index: 500;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--teal); color: white; border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  opacity: 0; transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease, background .2s ease;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+#back-to-top:hover { background: var(--teal-dark); }
+#back-to-top svg { width: 20px; height: 20px; }
+@media (max-width: 640px) {
+  #back-to-top { right: 16px; bottom: 16px; width: 42px; height: 42px; }
+}

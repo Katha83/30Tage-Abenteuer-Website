@@ -428,6 +428,32 @@
     });
   }
 
+  /* ── BACK TO TOP ─────────────────────────────────────── */
+  function initBackToTop() {
+    const btn = document.createElement('button');
+    btn.id = 'back-to-top';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Nach oben scrollen');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    document.body.appendChild(btn);
+
+    let visible = false;
+    function toggle() {
+      const show = window.scrollY > window.innerHeight * 0.6;
+      if (show !== visible) {
+        visible = show;
+        btn.classList.toggle('visible', show);
+      }
+    }
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+
+    btn.addEventListener('click', () => {
+      if (lenis) lenis.scrollTo(0, { duration: 1.1 });
+      else window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    });
+  }
+
   /* ── BOOT ────────────────────────────────────────────── */
   function boot() {
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -449,6 +475,7 @@
     initTripMap();
     initTitleReveal();
     initLightbox();
+    initBackToTop();
 
     window.addEventListener('load', () => {
       if (window.ScrollTrigger) ScrollTrigger.refresh();
