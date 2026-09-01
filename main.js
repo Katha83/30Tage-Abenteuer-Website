@@ -321,9 +321,10 @@
 
     const route = window.TRIP_ROUTE; // array of {lat, lng, name, hotel?}
     const center = route[Math.floor(route.length / 2)];
+    const zoom = window.TRIP_MAP_ZOOM || 5; // pages can override, e.g. for a single-city Kurztrip
 
     const map = L.map('trip-map', { zoomControl: true, scrollWheelZoom: false })
-      .setView([center.lat, center.lng], 5);
+      .setView([center.lat, center.lng], zoom);
 
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles © <a href="https://www.esri.com">Esri</a>',
