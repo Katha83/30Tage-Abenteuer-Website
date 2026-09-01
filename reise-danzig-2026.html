@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>  <meta name="description" content="Danzig 2026 – Kurztrip übers lange Wochenende. Altstadt, Sopot und die Ostseeküste.">
+  <title>Danzig 2026 – 30 Tage Abenteuer</title>
+  <script>window.TRIP_ROUTE=[
+    {lat:54.3520,lng:18.6466,name:"Danzig Altstadt"}
+    /* weitere Punkte (Sopot, Westerplatte, …) ergänzen, sobald die Route feststeht */
+  ];</script>
+  <script src="main.js" defer></script>
+</head><body><div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="30 Tage Abenteuer – Startseite"><img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
+      <div class="dropdown wide">
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Asien</span>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">▾</span></button>
+          <div class="dropdown-sub-group" id="nav-bali">
+            <a href="reise-bali-2017.html" class="dropdown-sublink">Bali 2017</a>
+            <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok 2025</a>
+          </div>
+          <a href="reise-bali-lombok-2025.html">Lombok</a>
+          <a href="reise-philippinen-2025.html">Philippinen</a>
+          <a href="reise-srilanka-2023.html">Sri Lanka</a>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">▾</span></button>
+          <div class="dropdown-sub-group" id="nav-thailand">
+            <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
+          </div>
+          <a href="reise-vietnam-2018.html">Vietnam</a>
+        </div>
+        <div class="dropdown-col">
+          <span class="dropdown-heading">Nordamerika</span>
+          <a href="reise-florida-2023.html">Florida &amp; Bahamas</a>
+          <a href="reise-lasvegas-2019.html">Las Vegas</a>
+          <a href="reise-newyork-2017.html">New York</a>
+          <a href="reise-usa-2013.html">Kalifornien Rundreise</a>
+          <span class="dropdown-heading" style="margin-top:10px">Mittelamerika</span>
+          <a href="reise-costarica-2022.html">Costa Rica</a>
+          <span class="dropdown-heading" style="margin-top:10px">Afrika</span>
+          <a href="reise-namibia-2024.html">Namibia</a>
+          <span class="dropdown-heading" style="margin-top:10px">Europa</span>
+          <a href="reise-london-2024.html">London</a>
+          <a href="reise-danzig-2026.html" class="upcoming-link">Danzig ✦ Upcoming</a>
+          <a href="reise-paris-2026.html" class="upcoming-link">Paris ✦ Upcoming</a>
+        </div>
+      </div>
+    </li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+        <a href="reisetipps.html#budget">Reisebudget</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</header><div class="trip-hero" style="margin-top:var(--nav-h);background:linear-gradient(135deg, var(--teal-light), var(--teal-dark))">
+  <div class="trip-hero-overlay"></div>
+  <div class="trip-hero-content">
+    <p class="section-tag">Ostsee · Kurztrip</p>
+    <h1 class="trip-hero-title">Danzig 2026</h1>
+    <div class="trip-hero-meta"><span>📅 3.–7. September 2026</span><span>🌙 4 Nächte</span><span>🎒 Langes Wochenende</span></div>
+  </div>
+</div>
+<div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Danzig 2026</span></div>
+
+<section class="section-pad-sm map-section"><div class="section-inner">
+  <p class="section-tag">Unsere Route</p><h2 class="section-title">Danzig auf <em>einen Blick</em></h2>
+  <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+</div></section>
+
+<!-- ═══ Kurzübersicht: modularer, erweiterbarer Karten-Baustein ═══
+     Jede .overview-card ist eine eigenständige Kachel (Icon + Titel + Liste).
+     Für künftige Kurztrips einfach Karten hinzufügen/entfernen/umbenennen. -->
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Kurzübersicht</p><h2 class="section-title">Alles Wichtige auf <em>einen Blick</em></h2>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🏰</span><h3 class="overview-card-title">Top-Highlights</h3></div>
+      <ul class="overview-list">
+        <li>✏️ Platzhalter: Altstadt / Rechtstadt (Details folgen)</li>
+        <li>✏️ Platzhalter: Sopot &amp; Seebrücke (Details folgen)</li>
+        <li>✏️ Platzhalter: Bootstour auf der Ostsee (Details folgen)</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">💡</span><h3 class="overview-card-title">Besonderheiten</h3></div>
+      <ul class="overview-list">
+        <li>✏️ Platzhalter: Insider-Tipps &amp; Empfehlungen folgen</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🎫</span><h3 class="overview-card-title">Praktische Infos</h3></div>
+      <ul class="overview-list">
+        <li><strong>ÖPNV:</strong> ✏️ Platzhalter (Metroticket/Tram-Infos folgen)</li>
+        <li><strong>Taxi/Uber:</strong> ✏️ Platzhalter</li>
+        <li><strong>Währung:</strong> Złoty (PLN)</li>
+        <li><strong>Sprache:</strong> Polnisch</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-off"><div class="section-inner">
+  <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet</em></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">3.–7. September 2026</div></div>
+    <div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">4 Nächte</div></div>
+    <div class="info-card"><div class="info-card-label">Reiseart</div><div class="info-card-value">Kurztrip / langes Wochenende</div></div>
+    <div class="info-card"><div class="info-card-label">Highlights</div><div class="info-card-value">Altstadt &amp; Ostseeküste</div></div>
+  </div>
+  <div style="max-width:720px;margin-top:40px">
+    <div class="placeholder-text">✏️ Platzhalter: Warum Danzig? Was hat uns an der Stadt gereizt?</div>
+    <div class="placeholder-text">✏️ Platzhalter: Kurzfazit nach dem Trip.</div>
+  </div>
+</div></section>
+
+<!-- ═══ Tag für Tag ═══
+     Sobald Texte/Fotos vorliegen: pro Tag einen .day-divider + .day-content
+     Block einfügen (siehe reise-thailand-2026.html als Referenz) und diesen
+     .stop-coming Platzhalter entsprechend anpassen bzw. entfernen. -->
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Reisebericht</p><h2 class="section-title">Tag für <em>Tag</em></h2>
+  <div class="stop-coming" style="margin-top:32px">
+    <strong>Bericht folgt</strong>
+    <span>3.–7. September 2026 – die Tagesberichte werden hier ergänzt, sobald Texte und Fotos vorliegen.</span>
+  </div>
+</div></section>
+
+<div class="section-pad-sm bg-off"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <a href="reise-thailand-2026.html" class="btn-outline-dark">← Thailand 2026</a>
+  <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+  <a href="reise-paris-2026.html" class="btn-outline-dark">Paris 2026 →</a>
+</div></div><footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer">
+        <p>Unsere echten Routen, ehrlichen Erlebnisse und Inspiration für alle, die raus wollen – Katha &amp; Robert seit 2011 unterwegs.</p>
+        <a href="https://www.instagram.com/30tageabenteuer" target="_blank" rel="noopener" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          @30TageAbenteuer
+        </a>
+      </div>
+      <div>
+        <div class="footer-col-title">Reiseziele</div>
+        <ul class="footer-links">
+          <li><a href="reise-danzig-2026.html">Danzig 2026</a></li>
+          <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+          <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+          <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+          <li><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a></li>
+          <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+          <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Mehr</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html">Reisetipps</a></li>
+          <li><a href="ueber-uns.html">Über Uns</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Reisetipps</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html#planung">Wie wir planen</a></li>
+          <li><a href="reisetipps.html#packliste">Packliste</a></li>
+          <li><a href="reisetipps.html#hotels">Hotels finden</a></li>
+          <li><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <span>30 Tage Abenteuer</span> · Alle Rechte vorbehalten</p>
+      <p class="footer-copy" style="font-style:italic">Made with Fernweh &amp; Kaffee ☕</p>
+    </div>
+  </div>
+</footer>
+</body></html>
