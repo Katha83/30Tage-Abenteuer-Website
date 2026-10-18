@@ -17,6 +17,22 @@
   ];
   window.TRIP_MAP_ZOOM=13; // Kurztrip: direkt auf die Stadt zoomen statt Europa-Übersicht</script>
   <script src="main.js" defer></script>
+  <style>
+    /* Viele Danzig-Fotos sind Hochformat (Handyfotos) – die geteilten Bausteine
+       (day-split/photo-row/photo-full) beschneiden per object-fit:cover auf feste
+       Querformat-Höhen. Hier zeigen wir stattdessen jedes Foto vollständig in
+       seinem eigenen Seitenverhältnis, auch wenn es dadurch größer wird. */
+    .day-content .photo-row-2,
+    .day-content .photo-row-3 {
+      align-items: start;
+    }
+    .day-content .day-split figure img,
+    .day-content .photo-row-2 figure img,
+    .day-content .photo-row-3 figure img,
+    .day-content .photo-full img {
+      height: auto;
+    }
+  </style>
 </head><body><div id="cursor-dot" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
 <header id="nav" role="banner">
