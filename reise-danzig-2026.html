@@ -21,7 +21,10 @@
     /* Viele Danzig-Fotos sind Hochformat (Handyfotos) – die geteilten Bausteine
        (day-split/photo-row/photo-full) beschneiden per object-fit:cover auf feste
        Querformat-Höhen. Hier zeigen wir stattdessen jedes Foto vollständig in
-       seinem eigenen Seitenverhältnis, auch wenn es dadurch größer wird. */
+       seinem eigenen Seitenverhältnis, auch wenn es dadurch größer wird. Fotos
+       sind zudem nach Ausrichtung gruppiert (Hochformat mit Hochformat, Querformat
+       mit Querformat), damit die Reihen gleichmäßig wirken. Fließtext steht
+       durchgehend über voller Breite, nicht mehr beengt neben einem Bild. */
     .day-content .photo-row-2,
     .day-content .photo-row-3 {
       align-items: start;
@@ -31,6 +34,18 @@
     .day-content .photo-row-3 figure img,
     .day-content .photo-full img {
       height: auto;
+    }
+    /* Einzelnes Hochformat-Foto, hervorgehoben und zentriert statt über volle Breite */
+    .photo-portrait-solo {
+      max-width: 480px;
+      margin: 28px auto;
+    }
+    .photo-portrait-solo img {
+      width: 100%; height: auto;
+      border-radius: 10px; display: block;
+    }
+    @media (max-width: 600px) {
+      .photo-portrait-solo { max-width: 100%; }
     }
   </style>
 </head><body><div id="cursor-dot" aria-hidden="true"></div>
@@ -169,42 +184,40 @@
       <p>Im Juni hat meine Oma ihren 90. Geburtstag gefeiert, und von mir und meiner Familie gab es dafür ein besonderes Geschenk: eine Reise nach Danzig, von Donnerstag bis Montag. Anfang September, dachten wir uns, haben wir sicher Glück mit dem Wetter. Spoiler: nö.</p>
       <p>Los ging's gemeinsam mit dem Auto vom Münsterland nach Dortmund zum Flughafen. Das Auto haben wir auf einem Parkplatz mit Shuttleservice abgestellt – der Shuttle selbst war okay, aber der Parkplatz war völlig überfüllt. Nur weil kurz vor uns ein anderer Fluggast mit dem Shuttle zurückkam und seine Lücke freigab, haben wir überhaupt noch einen Platz bekommen.</p>
       <p>Zum Glück hatten wir genug zeitlichen Puffer eingeplant, denn Wizz Air teilte uns mit, dass unser Flug nun doch zwei Stunden später starten würde. Der Flughafen Dortmund war trotzdem super entspannt: Da wir online eingecheckt hatten, konnten wir unser Gepäck einfach am automatisierten Self-Bag-Drop-Schalter abgeben. Viel mehr gab es danach allerdings nicht zu tun – nach insgesamt drei Stunden Verspätung saßen wir schließlich im Flieger Richtung Danzig.</p>
+      <p>Unseren Uber zur Flughafenabholung hatten wir vorbestellt – praktisch, denn Uber behält Flüge und Verspätungen im Blick, sodass man nicht alle paar Minuten den Fahrer informieren muss. In Danzig gelandet, hatten wir sehr schnell unser Gepäck und ebenso schnell unseren Fahrer gefunden, der uns mitten in die Altstadt zu unserer Unterkunft brachte: dem Baltic Gdansk Old Town. Das Apartment kann ich uneingeschränkt weiterempfehlen – sauber, modern, perfekte Lage, unkomplizierter Self-Check-in. Gebucht über Booking, wo es mittlerweile oft ein sogenanntes Preisversprechen gibt: Sinkt der Preis bis zur Anreise, bekommt man die Differenz als Guthaben gutgeschrieben. Bei uns ist der Preis von 640,84 € auf 529,92 € gefallen – eine schöne Überraschung.</p>
     </div>
 
-    <div class="day-split flip align-center">
-      <div class="day-text">
-        <p>Unseren Uber zur Flughafenabholung hatten wir vorbestellt – praktisch, denn Uber behält Flüge und Verspätungen im Blick, sodass man nicht alle paar Minuten den Fahrer informieren muss. In Danzig gelandet, hatten wir sehr schnell unser Gepäck und ebenso schnell unseren Fahrer gefunden, der uns mitten in die Altstadt zu unserer Unterkunft brachte: dem Baltic Gdansk Old Town.</p>
-      </div>
+    <div class="photo-row-3">
       <figure>
-        <img src="Danzig/compressed/dzg-d1-mariacka-nacht.jpg" alt="Die Mariacka in Danzigs Altstadt bei Nacht, beleuchtete Kirche und Giebelhäuser" loading="lazy">
-        <figcaption class="cap">Abends durch die Altstadt – unser erster Spaziergang durch Danzig</figcaption>
-      </figure>
-    </div>
-
-    <div class="photo-row-2">
-      <figure>
-        <img src="Danzig/compressed/dzg-d2-baltic-gdansk-fassade.jpg" alt="Fassade der Unterkunft Baltic Gdansk Old Town in der Altstadt" loading="lazy">
+        <img src="Danzig/compressed/dzg-d1-baltic-gdansk-fassade.jpg" alt="Fassade der Unterkunft Baltic Gdansk Old Town in der Altstadt" loading="lazy">
         <figcaption class="cap">Unsere Unterkunft: Baltic Gdansk Old Town</figcaption>
       </figure>
       <figure>
-        <img src="Danzig/compressed/dzg-d1-pierogarnia-aussen.jpg" alt="Außenansicht des Restaurants Pierogarnia Stary Młyn bei Nacht" loading="lazy">
-        <figcaption class="cap">Pierogarnia Stary Młyn – unser erstes Abendessen</figcaption>
+        <img src="Danzig/compressed/dzg-d1-mariacka-nacht.jpg" alt="Die Mariacka in Danzigs Altstadt bei Nacht, beleuchtete Kirche und Giebelhäuser" loading="lazy">
+        <figcaption class="cap">Abends durch die Altstadt – unser erster Spaziergang</figcaption>
       </figure>
-    </div>
-
-    <div class="day-text">
-      <p>Das Apartment kann ich uneingeschränkt weiterempfehlen – sauber, modern, perfekte Lage, unkomplizierter Self-Check-in. Gebucht über Booking, wo es mittlerweile oft ein sogenanntes Preisversprechen gibt: Sinkt der Preis bis zur Anreise, bekommt man die Differenz als Guthaben gutgeschrieben. Bei uns ist der Preis von 640,84 € auf 529,92 € gefallen – eine schöne Überraschung.</p>
-      <p>Am ersten Abend haben wir nur schnell das Apartment bezogen und sind direkt um die Ecke ins Restaurant „Pierogarnia Stary Młyn" gegangen. Da wir spät dran waren, bekamen wir problemlos einen Tisch – an den anderen Abenden war es dort immer voll und nur mit Reservierung machbar. Auch hier: absolute Empfehlung. Sehr gemütlich, leckeres Bier, nette Bedienung – und probiert unbedingt die gebackenen Piroggen. Man sucht sich die Portionsgröße aus, entscheidet sich für eine der vielen Füllungen und dazu noch eine passende Soße. Ich hatte die Grillowe (Pulled Beef/Barbecue) – super würzig und lecker.</p>
-    </div>
-
-    <div class="photo-row-2">
       <figure>
         <img src="Danzig/compressed/dzg-d1-familientisch.jpg" alt="Die Familie am Tisch im Restaurant Pierogarnia Stary Młyn" loading="lazy">
         <figcaption class="cap">Gemeinsam am Tisch – Start in den Kurztrip</figcaption>
       </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Am ersten Abend haben wir nur schnell das Apartment bezogen und sind direkt um die Ecke ins Restaurant „Pierogarnia Stary Młyn" gegangen. Da wir spät dran waren, bekamen wir problemlos einen Tisch – an den anderen Abenden war es dort immer voll und nur mit Reservierung machbar. Auch hier: absolute Empfehlung. Sehr gemütlich, leckeres Bier, nette Bedienung – und probiert unbedingt die gebackenen Piroggen. Man sucht sich die Portionsgröße aus, entscheidet sich für eine der vielen Füllungen und dazu noch eine passende Soße. Ich hatte die Grillowe (Pulled Beef/Barbecue) – super würzig und lecker.</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Danzig/compressed/dzg-d1-pierogarnia-aussen.jpg" alt="Außenansicht des Restaurants Pierogarnia Stary Młyn bei Nacht" loading="lazy">
+        <figcaption class="cap">Pierogarnia Stary Młyn – unser erstes Abendessen</figcaption>
+      </figure>
       <figure>
         <img src="Danzig/compressed/dzg-d1-piroggen-teller.jpg" alt="Teller mit gebackenen Piroggen und Dip-Soße" loading="lazy">
-        <figcaption class="cap">Gebackene Piroggen mit Soße – unbedingte Empfehlung</figcaption>
+        <figcaption class="cap">Gebackene Piroggen mit Soße</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d1-piroggen-cutopen.jpg" alt="Aufgeschnittene gebackene Piroggen mit Pulled-Beef-Füllung" loading="lazy">
+        <figcaption class="cap">Die Grillowe-Füllung – unbedingte Empfehlung</figcaption>
       </figure>
     </div>
   </div>
@@ -217,13 +230,18 @@
   </div>
 
   <div class="day-content">
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Am nächsten Morgen ging es los zum Sightseeing und durch die Gassen schlendern. Das Wetter war durchwachsen, die Regenjacke fest im Gepäck. Die Mariacka ist mit ihren alten Gebäuden und verzierten Treppenaufgängen aber selbst bei grauem Himmel sehenswert – nur die Bernsteinhändler hatten zu dieser frühen Stunde noch nicht aufgebaut.</p>
-      </div>
+    <div class="day-text">
+      <p>Am nächsten Morgen ging es los zum Sightseeing und durch die Gassen schlendern. Das Wetter war durchwachsen, die Regenjacke fest im Gepäck. Die Mariacka ist mit ihren alten Gebäuden und verzierten Treppenaufgängen aber selbst bei grauem Himmel sehenswert – nur die Bernsteinhändler hatten zu dieser frühen Stunde noch nicht aufgebaut.</p>
+    </div>
+
+    <div class="photo-row-2">
       <figure>
         <img src="Danzig/compressed/dzg-d2-mariacka-regen.jpg" alt="Person in gelber Regenjacke in der Mariacka in Danzig" loading="lazy">
         <figcaption class="cap">Mit Regenjacke durch die Mariacka</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-regenjacken-oma.jpg" alt="Oma und Familienmitglied in Regenjacken auf einer Gasse in Danzig" loading="lazy">
+        <figcaption class="cap">Passend zum Wetter: die Regenjacken sind im Einsatz</figcaption>
       </figure>
     </div>
 
@@ -231,10 +249,17 @@
       <p>Am Ende der Mariacka geht es direkt an die Mottlau. Jede Stadt am Wasser hat ihr ganz eigenes Flair, finde ich. Wir laufen zum Krantor, an das sich meine Oma noch gut erinnert – früher wurde der Kran von Menschen in riesigen Treträdern angetrieben, da konnte man sich im Job tatsächlich mal wie im Hamsterrad fühlen 😊. Wir lassen uns die Promenade entlangtreiben, staunen über die schönen Giebelhäuser und haben sogar das Glück, dass sich genau in diesem Moment die Fußgängerbrücke zur Seite schwenkt – ein System, das man nicht alle Tage sieht.</p>
     </div>
 
-    <div class="photo-row-2">
+    <div class="photo-portrait-solo">
       <figure>
         <img src="Danzig/compressed/dzg-d2-krantor.jpg" alt="Der Krantor an der Mottlau in Danzig" loading="lazy">
         <figcaption class="cap">Der Krantor an der Mottlau</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-altstadt-reihe.jpg" alt="Reihe bunter Giebelhäuser in der Danziger Altstadt" loading="lazy">
+        <figcaption class="cap">Die Giebelhäuser entlang der Promenade</figcaption>
       </figure>
       <figure>
         <img src="Danzig/compressed/dzg-d2-galeone-altstadt.jpg" alt="Goldene Galeone auf der Mottlau vor der Altstadtkulisse" loading="lazy">
@@ -257,54 +282,122 @@
       </figure>
     </div>
 
-    <div class="day-split flip align-center">
-      <div class="day-text">
-        <p>Da sich nun endlich die Sonne zeigt, holen wir uns Karten für eine Bootsfahrt zur Westerplatte. Erster Fehler: Wir kaufen sie nicht direkt an den Booten, sondern am Ende der Promenade – und erfahren erst nach dem Kauf, dass wir die ganze Strecke zurücklaufen müssen und das Boot schon in zehn Minuten ablegt. Entsprechend verschwitzt und genervt kommen wir dort an. Die Fahrt zur Westerplatte ist eher unspektakulär und führt durchs Hafengebiet; dazu entscheidet sich das Wetter mittendrin wieder für Wind und Nieselregen, sodass die Stimmung vor Ort nur semi-gut ist. Aktuell ist dort zudem alles eine große Baustelle. Trotz der geschichtlichen Tragweite und des besonderen Datums: Die Tour würde ich nicht noch einmal machen. Also nehmen wir das nächste Boot direkt wieder zurück.</p>
-      </div>
+    <div class="day-text">
+      <p>Da sich nun endlich die Sonne zeigt, holen wir uns Karten für eine Bootsfahrt zur Westerplatte. Erster Fehler: Wir kaufen sie nicht direkt an den Booten, sondern am Ende der Promenade – und erfahren erst nach dem Kauf, dass wir die ganze Strecke zurücklaufen müssen und das Boot schon in zehn Minuten ablegt. Entsprechend verschwitzt und genervt kommen wir dort an. Die Fahrt zur Westerplatte ist eher unspektakulär und führt durchs Hafengebiet; dazu entscheidet sich das Wetter mittendrin wieder für Wind und Nieselregen, sodass die Stimmung vor Ort nur semi-gut ist. Aktuell ist dort zudem alles eine große Baustelle. Trotz der geschichtlichen Tragweite und des besonderen Datums: Die Tour würde ich nicht noch einmal machen. Also nehmen wir das nächste Boot direkt wieder zurück.</p>
+    </div>
+
+    <div class="photo-row-2">
       <figure>
         <img src="Danzig/compressed/dzg-d2-westerplatte-denkmal.jpg" alt="Das Westerplatte-Denkmal bei Danzig" loading="lazy">
         <figcaption class="cap">Das Westerplatte-Denkmal</figcaption>
       </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-westerplatte-closeup.jpg" alt="Nahaufnahme des Westerplatte-Denkmals" loading="lazy">
+        <figcaption class="cap">Nahaufnahme des Denkmals</figcaption>
+      </figure>
     </div>
 
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Um dem Regen zu entkommen, gehen wir bei der Rückkehr in der FoodHall Mittag essen – eine coole Location, an der man sich von verschiedenen Ständen etwas holt und dann gemeinsam isst. Ich mag das Konzept: Jeder findet etwas Leckeres, und die ewige Diskussion „Wo gehen wir essen?" entfällt komplett.</p>
-      </div>
+    <div class="day-text">
+      <p>Um dem Regen zu entkommen, gehen wir bei der Rückkehr in der FoodHall Mittag essen – eine coole Location, an der man sich von verschiedenen Ständen etwas holt und dann gemeinsam isst. Ich mag das Konzept: Jeder findet etwas Leckeres, und die ewige Diskussion „Wo gehen wir essen?" entfällt komplett.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-speicher-gebaeude.jpg" alt="Rotes Speichergebäude mit Restaurantterrasse auf der Speicherinsel" loading="lazy">
+        <figcaption class="cap">Das Speichergebäude mit der FoodHall</figcaption>
+      </figure>
       <figure>
         <img src="Danzig/compressed/dzg-d2-foodhall-essen.jpg" alt="Nudelgericht und Bier in der FoodHall Danzig" loading="lazy">
         <figcaption class="cap">Mittagessen in der FoodHall</figcaption>
       </figure>
     </div>
 
-    <div class="day-split flip align-center">
-      <div class="day-text">
-        <p>Anschließend schlendern wir weiter durch die Altstadt und lassen die schönen Häuser mit ihren bunten Dekorationen auf uns wirken. Nach einer kurzen Kaffeepause in der Wohnung geht es auf die Lange Gasse und von dort auf die Suche nach einem Abendessen-Spot. Die Wahl fällt auf das Restaurant „Chef" mit polnischer Küche und gemütlicher Atmosphäre. Hier trinken wir auch endlich mal einen Danziger Goldwasser – ein klarer Gewürzlikör, in dem kleine Blattgoldflocken schwimmen, mit stolzen 40 Umdrehungen. Einmal probiert muss gereicht haben, mein neues Lieblingsgetränk wird es jedenfalls nicht.</p>
-      </div>
+    <div class="day-text">
+      <p>Anschließend schlendern wir weiter durch die Altstadt und lassen die schönen Häuser mit ihren bunten Dekorationen auf uns wirken.</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-pink-restaurant.jpg" alt="Restaurantfassade mit pinkem Blumenschmuck in der Danziger Altstadt" loading="lazy">
+        <figcaption class="cap">Blumengeschmückte Fassaden in der Altstadt</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-floral-eingang.jpg" alt="Mit Blumen dekorierter Ladeneingang in Danzig" loading="lazy">
+        <figcaption class="cap">Ein liebevoll dekorierter Eingang</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-gruentor-tag.jpg" alt="Das Grüne Tor in Danzig bei Tag" loading="lazy">
+        <figcaption class="cap">Das Grüne Tor am Ende der Langen Gasse</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Nach einer kurzen Kaffeepause in der Wohnung geht es auf die Lange Gasse und von dort auf die Suche nach einem Abendessen-Spot. Die Wahl fällt auf das Restaurant „Chef" mit polnischer Küche und gemütlicher Atmosphäre. Hier trinken wir auch endlich mal einen Danziger Goldwasser – ein klarer Gewürzlikör, in dem kleine Blattgoldflocken schwimmen, mit stolzen 40 Umdrehungen. Einmal probiert muss gereicht haben, mein neues Lieblingsgetränk wird es jedenfalls nicht.</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-chef-dinner-teller.jpg" alt="Piroggen, Suppe und Bier im Restaurant Chef in Danzig" loading="lazy">
+        <figcaption class="cap">Abendessen im „Chef"</figcaption>
+      </figure>
       <figure>
         <img src="Danzig/compressed/dzg-d2-goldwasser-oma.jpg" alt="Oma stößt mit einem Glas Danziger Goldwasser an" loading="lazy">
         <figcaption class="cap">Anstoßen mit Danziger Goldwasser</figcaption>
       </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-goldwasser-oma2.jpg" alt="Oma stößt mit einem weiteren Glas Danziger Goldwasser an" loading="lazy">
+        <figcaption class="cap">Noch ein Prost auf den Trip</figcaption>
+      </figure>
     </div>
 
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Nach dem Abendessen genießen wir die Abendstimmung. Schon tagsüber wunderschön, zeigt die Beleuchtung am Abend noch einmal eine ganz andere, wundervolle Seite von Danzig. Der Musiker am Neptunbrunnen hat zu Recht eine große Schar Zuhörer um sich versammelt und unterstreicht die Stimmung perfekt.</p>
-      </div>
+    <div class="day-text">
+      <p>Nach dem Abendessen genießen wir die Abendstimmung. Schon tagsüber wunderschön, zeigt die Beleuchtung am Abend noch einmal eine ganz andere, wundervolle Seite von Danzig. Der Musiker am Neptunbrunnen hat zu Recht eine große Schar Zuhörer um sich versammelt und unterstreicht die Stimmung perfekt.</p>
+    </div>
+
+    <div class="photo-row-3">
       <figure>
         <img src="Danzig/compressed/dzg-d2-neptunbrunnen-musiker.jpg" alt="Musiker spielt bei Nacht am beleuchteten Neptunbrunnen in Danzig" loading="lazy">
         <figcaption class="cap">Der Musiker am beleuchteten Neptunbrunnen</figcaption>
       </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-neptunbrunnen-nacht.jpg" alt="Der Neptunbrunnen in Danzig blau beleuchtet bei Nacht" loading="lazy">
+        <figcaption class="cap">Der Neptunbrunnen in blauem Licht</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-gruentor-nacht.jpg" alt="Das Grüne Tor in Danzig beleuchtet bei Nacht" loading="lazy">
+        <figcaption class="cap">Das Grüne Tor bei Nacht</figcaption>
+      </figure>
     </div>
 
-    <div class="day-split flip align-center">
-      <div class="day-text">
-        <p>Als Absacker schauen wir noch in der Cocktailbar „La Muerte" vorbei. Die Ausstattung fand ich großartig, die Cocktails waren dann aber doch zu experimentell und teilweise einfach nicht lecker. Nach einer Runde ziehen wir weiter und trinken lieber noch ein Bierchen in der Wohnung.</p>
-      </div>
+    <div class="day-text">
+      <p>Wir lassen uns treiben – vorbei am Rathaus, der Mottlau entlang und schließlich zurück zur güldenen Galeone, die nachts noch einmal ganz anders leuchtet.</p>
+    </div>
+
+    <div class="photo-row-2">
       <figure>
-        <img src="Danzig/compressed/dzg-d2-lamuerte-fenster.jpg" alt="Bunte Día-de-los-Muertos-Buntglasfenster in der Cocktailbar La Muerte" loading="lazy">
-        <figcaption class="cap">Die Buntglasfenster in der Cocktailbar „La Muerte"</figcaption>
+        <img src="Danzig/compressed/dzg-d2-rathaus-nacht.jpg" alt="Das Rathaus von Danzig golden beleuchtet bei Nacht auf der Langen Gasse" loading="lazy">
+        <figcaption class="cap">Das Rathaus auf der Langen Gasse</figcaption>
       </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-mottlau-nacht.jpg" alt="Die Mottlau mit beleuchteten Speichergebäuden bei Nacht" loading="lazy">
+        <figcaption class="cap">Die Mottlau bei Nacht</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-portrait-solo">
+      <figure>
+        <img src="Danzig/compressed/dzg-d2-galeone-nacht.jpg" alt="Die goldene Galeone an der Mottlau beleuchtet bei Nacht mit dem Riesenrad im Hintergrund" loading="lazy">
+        <figcaption class="cap">Die Galeone bei Nacht</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Als Absacker schauen wir noch in der Cocktailbar „La Muerte" vorbei. Die Ausstattung fand ich großartig, die Cocktails waren dann aber doch zu experimentell und teilweise einfach nicht lecker. Nach einer Runde ziehen wir weiter und trinken lieber noch ein Bierchen in der Wohnung.</p>
+    </div>
+
+    <div class="photo-full">
+      <img src="Danzig/compressed/dzg-d2-lamuerte-fenster.jpg" alt="Bunte Día-de-los-Muertos-Buntglasfenster in der Cocktailbar La Muerte" loading="lazy">
+      <figcaption class="cap" style="margin-top:8px">Die Buntglasfenster in der Cocktailbar „La Muerte"</figcaption>
     </div>
   </div>
 
@@ -316,30 +409,52 @@
   </div>
 
   <div class="day-content">
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Der nächste Tag startet mit einem ausgiebigen Frühstück im „Koi Midori" um die Ecke unserer Unterkunft. Man bestellt und bezahlt unten und kann dann mit seinen Errungenschaften gemütlich im oberen Bereich sitzen – oder bei gutem Wetter einen der wenigen Plätze draußen ergattern. Die Auswahl ist nicht riesig, aber lecker und frisch. Können wir weiterempfehlen.</p>
-      </div>
+    <div class="day-text">
+      <p>Der nächste Tag startet mit einem ausgiebigen Frühstück im „Koi Midori" um die Ecke unserer Unterkunft. Man bestellt und bezahlt unten und kann dann mit seinen Errungenschaften gemütlich im oberen Bereich sitzen – oder bei gutem Wetter einen der wenigen Plätze draußen ergattern. Die Auswahl ist nicht riesig, aber lecker und frisch. Können wir weiterempfehlen.</p>
+    </div>
+
+    <div class="photo-row-2">
       <figure>
         <img src="Danzig/compressed/dzg-d3-koimidori-fruehstueck.jpg" alt="Frühstücksteller mit Croissants und Kaffee im Café Koi Midori" loading="lazy">
         <figcaption class="cap">Frühstück im „Koi Midori"</figcaption>
       </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d3-koimidori-balkon.jpg" alt="Zweistöckiges Interieur des Cafés Koi Midori mit Balkon" loading="lazy">
+        <figcaption class="cap">Das gemütliche Café über zwei Ebenen</figcaption>
+      </figure>
     </div>
 
-    <div class="day-split flip align-center">
-      <div class="day-text">
-        <p>Frisch gestärkt geht's – diesmal ohne Regen – noch einmal durch die Stadt schlendern, und wir können die Schönheit Danzigs nochmal bei Sonnenschein betrachten. Wir lassen uns viel Zeit, bummeln entspannt bis zum Shoppingcenter Forum Gdańsk. Wir wollen aber nur kurz reinschauen, und nach ein, zwei Läden geht's auch schon wieder zurück – denn am Abend haben wir noch ein Konzert über GetYourGuide gebucht.</p>
-      </div>
+    <div class="day-text">
+      <p>Frisch gestärkt geht's – diesmal ohne Regen – noch einmal durch die Stadt schlendern, und wir können die Schönheit Danzigs nochmal bei Sonnenschein betrachten. Wir lassen uns viel Zeit, bummeln vorbei am Neptunbrunnen und dem Hohen Tor entspannt bis zum Shoppingcenter Forum Gdańsk. Wir wollen aber nur kurz reinschauen, und nach ein, zwei Läden geht's auch schon wieder zurück – denn am Abend haben wir noch ein Konzert über GetYourGuide gebucht.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Danzig/compressed/dzg-d3-gotischer-turm.jpg" alt="Gotischer Backsteinturm neben einer historischen Festungsanlage in Danzig" loading="lazy">
+        <figcaption class="cap">Der gotische Turm nahe dem Hohen Tor</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d3-hohes-tor.jpg" alt="Das Hohe Tor in Danzig" loading="lazy">
+        <figcaption class="cap">Das Hohe Tor</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Danzig/compressed/dzg-d3-neptunbrunnen-tag.jpg" alt="Der Neptunbrunnen in Danzig bei Tag" loading="lazy">
+        <figcaption class="cap">Der Neptunbrunnen bei Tag</figcaption>
+      </figure>
       <figure>
         <img src="Danzig/compressed/dzg-d3-forum-gdansk.jpg" alt="Moderne Glasfassade mit Löwenskulptur am Einkaufszentrum Forum Gdańsk" loading="lazy">
         <figcaption class="cap">Das Shoppingcenter Forum Gdańsk</figcaption>
       </figure>
     </div>
 
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Da die Füße mittlerweile etwas müde sind, lassen wir uns von einem Uber zur Katharinenkirche fahren. Um 19 Uhr ist Einlass, um 19:15 Uhr startet das Candlelight-Konzert „Chopin & Friends" in der Kirche. Es ist eine kleine Veranstaltung, der Pianist war wirklich gut – bei mir ist der Funke aber irgendwie nicht ganz übergesprungen. Trotzdem: eine schöne Stunde Unterhaltung.</p>
-      </div>
+    <div class="day-text">
+      <p>Da die Füße mittlerweile etwas müde sind, lassen wir uns von einem Uber zur Katharinenkirche fahren. Um 19 Uhr ist Einlass, um 19:15 Uhr startet das Candlelight-Konzert „Chopin & Friends" in der Kirche. Es ist eine kleine Veranstaltung, der Pianist war wirklich gut – bei mir ist der Funke aber irgendwie nicht ganz übergesprungen. Trotzdem: eine schöne Stunde Unterhaltung.</p>
+    </div>
+
+    <div class="photo-portrait-solo">
       <figure>
         <img src="Danzig/compressed/dzg-d3-katharinenkirche.jpg" alt="Die Katharinenkirche in Danzig von außen" loading="lazy">
         <figcaption class="cap">Die Katharinenkirche</figcaption>
@@ -352,17 +467,24 @@
     </div>
 
     <div class="day-text">
-      <p>Ein Uber bringt uns zurück nach Hause, von wo wir zum Abendessen aufbrechen. Eigentlich wollten wir noch einmal ins Pierogarnia Stary Młyn vom ersten Abend, aber wir hatten nicht reserviert und hatten eindeutig unterschätzt, wie voll die Stadt an einem Samstagabend ist. Dass es mittlerweile auch wieder regnet, macht die Suche nicht leichter. Nach ein paar abgeklapperten Restaurants bekommen wir aber einen Tisch im „Riverside" auf der Speicherinsel – netter Service, schönes Ambiente. Wir bestellen Pizza, die sehr lecker war, auch Bier und Cocktails überzeugten. Bei schönem Wetter gibt es hier sogar Sitzplätze mit direktem Blick aufs Wasser.</p>
+      <p>Ein Uber bringt uns zurück nach Hause, von wo wir zum Abendessen aufbrechen. Eigentlich wollten wir noch einmal ins Pierogarnia Stary Młyn vom ersten Abend, aber wir hatten nicht reserviert und hatten eindeutig unterschätzt, wie voll die Stadt an einem Samstagabend ist. Dass es mittlerweile auch wieder regnet, macht die Suche nicht leichter. Nach ein paar abgeklapperten Restaurants bekommen wir aber einen Tisch im „Riverside" auf der Speicherinsel – netter Service, schönes Ambiente. Wir bestellen Pizza, die sehr lecker war, auch Bier und Cocktails überzeugten. Bei schönem Wetter gibt es hier sogar Sitzplätze mit direktem Blick aufs Wasser. Auf dem Rückweg ist die beleuchtete Altstadt noch einmal ein Erlebnis für sich.</p>
     </div>
 
     <div class="photo-row-2">
       <figure>
-        <img src="Danzig/compressed/dzg-d3-speicherinsel-nacht.jpg" alt="Die Speicherinsel in Danzig bunt beleuchtet bei Nacht" loading="lazy">
-        <figcaption class="cap">Die Speicherinsel bei Nacht</figcaption>
+        <img src="Danzig/compressed/dzg-d3-gruentor-nacht2.jpg" alt="Das Grüne Tor in Danzig beleuchtet bei Nacht mit Passanten" loading="lazy">
+        <figcaption class="cap">Das Grüne Tor am Abend</figcaption>
       </figure>
       <figure>
-        <img src="Danzig/compressed/dzg-d3-pizza-riverside.jpg" alt="Pizza im Restaurant Riverside auf der Speicherinsel" loading="lazy">
-        <figcaption class="cap">Pizza im „Riverside"</figcaption>
+        <img src="Danzig/compressed/dzg-d3-mottlau-nacht2.jpg" alt="Die Mottlau mit Ausflugsschiff beleuchtet bei Nacht" loading="lazy">
+        <figcaption class="cap">Die Mottlau bei Nacht</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-portrait-solo">
+      <figure>
+        <img src="Danzig/compressed/dzg-d3-cocktail-tanqueray.jpg" alt="Ein Gin-Cocktail der Marke Tanqueray auf einem Holztisch" loading="lazy">
+        <figcaption class="cap">Ein Cocktail zum Tagesausklang</figcaption>
       </figure>
     </div>
   </div>
@@ -381,62 +503,114 @@
 
     <div class="photo-row-2">
       <figure>
+        <img src="Danzig/compressed/dzg-d4-morgenlauf-krantor2.jpg" alt="Der Krantor und die Mottlau im goldenen Morgenlicht" loading="lazy">
+        <figcaption class="cap">Morgenlicht über der Mottlau</figcaption>
+      </figure>
+      <figure>
         <img src="Danzig/compressed/dzg-d4-morgenlauf-riesenrad.jpg" alt="Danzig im Morgenlicht mit Blick auf das Riesenrad, menschenleere Promenade" loading="lazy">
         <figcaption class="cap">Morgenstille an der Mottlau</figcaption>
       </figure>
+    </div>
+
+    <div class="photo-row-2">
       <figure>
         <img src="Danzig/compressed/dzg-d4-morgenlauf-krantor.jpg" alt="Der Krantor im goldenen Morgenlicht" loading="lazy">
         <figcaption class="cap">Der Krantor im goldenen Morgenlicht</figcaption>
       </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-morgenlauf-krantor3.jpg" alt="Blick von der Promenade auf den Krantor und den Hafen am frühen Morgen" loading="lazy">
+        <figcaption class="cap">Noch menschenleer um diese Uhrzeit</figcaption>
+      </figure>
     </div>
 
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Nach der Dusche sammle ich meine Familie ein, und wir fahren mit dem Uber nach Sopot. Es ist auch sehr gut mit dem Zug erreichbar, aber für vier Personen war das Uber einfach entspannter und nicht wirklich viel teurer. Und wir haben uns das perfekte Wetter ausgesucht: zwar sehr windig, aber durchgehend sonnig.</p>
-      </div>
+    <div class="photo-row-2">
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-morgenlauf-torbogen.jpg" alt="Blick durch einen Torbogen auf den Langen Markt am frühen Morgen" loading="lazy">
+        <figcaption class="cap">Durchblick zum Langen Markt</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-morgenlauf-mariacka.jpg" alt="Die menschenleere Mariacka im Morgenlicht" loading="lazy">
+        <figcaption class="cap">Die Mariacka ganz für mich allein</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Nach der Dusche sammle ich meine Familie ein, und wir fahren mit dem Uber nach Sopot. Es ist auch sehr gut mit dem Zug erreichbar, aber für vier Personen war das Uber einfach entspannter und nicht wirklich viel teurer. Und wir haben uns das perfekte Wetter ausgesucht: zwar sehr windig, aber durchgehend sonnig.</p>
+    </div>
+
+    <div class="photo-portrait-solo">
       <figure>
         <img src="Danzig/compressed/dzg-d4-sopot-strand.jpg" alt="Strand von Sopot mit dem Grand Hotel im Hintergrund" loading="lazy">
         <figcaption class="cap">Strand von Sopot</figcaption>
       </figure>
     </div>
 
-    <div class="day-split flip align-center">
-      <div class="day-text">
-        <p>Wir starten erstmal mit einem Frühstück im niedlichen „Przystanek Monciak". Hier hatte ich den besten Frühstücksbagel überhaupt, auch der Kaffee war super und das Personal extrem nett. Absolute Empfehlung!</p>
-      </div>
+    <div class="day-text">
+      <p>Wir starten erstmal mit einem Frühstück im niedlichen „Przystanek Monciak". Hier hatte ich den besten Frühstücksbagel überhaupt, auch der Kaffee war super und das Personal extrem nett. Absolute Empfehlung!</p>
+    </div>
+
+    <div class="photo-row-3">
       <figure>
         <img src="Danzig/compressed/dzg-d4-sopot-bagel.jpg" alt="Frühstücksbagel mit Spiegelei im Café Przystanek Monciak in Sopot" loading="lazy">
-        <figcaption class="cap">Der beste Frühstücksbagel – „Przystanek Monciak"</figcaption>
+        <figcaption class="cap">Der beste Frühstücksbagel</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-monciak-interieur.jpg" alt="Innenraum des Cafés Przystanek Monciak in Sopot" loading="lazy">
+        <figcaption class="cap">„Przystanek Monciak" von innen</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-eisstand.jpg" alt="Eisdiele Lato Cafe in Sopot" loading="lazy">
+        <figcaption class="cap">Eisdiele auf dem Weg zum Pier</figcaption>
       </figure>
     </div>
 
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Erwartungsgemäß ist sehr viel los – Sonntag und Sonne –, aber das stört nicht wirklich. Wir schlendern runter zum Pier. Für die Seebrücke braucht man ein Ticket, das man vorab online oder direkt vor Ort kaufen kann. Ich hatte es nicht vorab geholt und stand etwa zehn Minuten in der Schlange – lohnt sich aus meiner Sicht trotzdem. Man kann bis zum Yachthafen laufen, wo verschiedenste Bootstouren angeboten werden. Der Seegang war aber, trotz Sonne, ziemlich rau, und als ich gesehen habe, wie alles schaukelt, habe ich dankend verzichtet.</p>
-      </div>
+    <div class="day-text">
+      <p>Erwartungsgemäß ist sehr viel los – Sonntag und Sonne –, aber das stört nicht wirklich. Wir schlendern über den belebten Platz runter zum Pier. Für die Seebrücke braucht man ein Ticket, das man vorab online oder direkt vor Ort kaufen kann. Ich hatte es nicht vorab geholt und stand etwa zehn Minuten in der Schlange – lohnt sich aus meiner Sicht trotzdem. Man kann bis zum Yachthafen laufen, wo verschiedenste Bootstouren angeboten werden. Der Seegang war aber, trotz Sonne, ziemlich rau, und als ich gesehen habe, wie alles schaukelt, habe ich dankend verzichtet.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-sopot-platz.jpg" alt="Belebter Platz mit Einkaufszentrum in Sopot" loading="lazy">
+        <figcaption class="cap">Der belebte Platz auf dem Weg zum Pier</figcaption>
+      </figure>
       <figure>
         <img src="Danzig/compressed/dzg-d4-sopot-seebruecke.jpg" alt="Die Seebrücke (Molo) von Sopot mit vielen Besuchern" loading="lazy">
         <figcaption class="cap">Die Seebrücke von Sopot</figcaption>
       </figure>
     </div>
 
-    <div class="day-split flip align-center">
-      <div class="day-text">
-        <p>Stattdessen setzen wir uns mit einem Aperol auf die Brücke – windig, aber dank Sonne gut auszuhalten. Anschließend schlendern wir gemütlich zurück, drehen noch eine Runde an den Ständen vor der Brücke und laufen dann langsam zum Ausgangspunkt zurück, wo wir erneut ein Uber für die Rückfahrt bestellen. Eigentlich war noch ein Stopp in Oliwa geplant, da es auf dem Weg liegt, aber die Reisetruppe ist müde und will heim.</p>
-      </div>
+    <div class="day-text">
+      <p>Stattdessen setzen wir uns mit einem Aperol auf die Brücke – windig, aber dank Sonne gut auszuhalten. Anschließend schlendern wir gemütlich zurück, drehen noch eine Runde an den Ständen vor der Brücke und laufen dann langsam zum Ausgangspunkt zurück, vorbei am Brunnen und dem alten Karussell im Park, wo wir erneut ein Uber für die Rückfahrt bestellen. Eigentlich war noch ein Stopp in Oliwa geplant, da es auf dem Weg liegt, aber die Reisetruppe ist müde und will heim.</p>
+    </div>
+
+    <div class="photo-row-2">
       <figure>
         <img src="Danzig/compressed/dzg-d4-sopot-aperol.jpg" alt="Familie bei einem Aperol Spritz auf der Seebrücke in Sopot" loading="lazy">
         <figcaption class="cap">Aperol auf der Seebrücke</figcaption>
       </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-sopot-brunnen-karussell.jpg" alt="Brunnen und historisches Karussell in einem Park in Sopot" loading="lazy">
+        <figcaption class="cap">Brunnen und altes Karussell im Park</figcaption>
+      </figure>
     </div>
 
-    <div class="day-split align-center">
-      <div class="day-text">
-        <p>Das Abendessen gibt's diesmal sehr früh, direkt um die Ecke im „Gvara". Auch hier wieder: netter Service, leckeres Essen – über das Essen können wir uns bei diesem Trip wirklich nicht beschweren. Zurück in der Wohnung stehen dann Koffer packen, aufräumen und die letzten Getränke leeren auf dem Programm.</p>
-      </div>
+    <div class="day-text">
+      <p>Das Abendessen gibt's diesmal sehr früh, direkt um die Ecke im „Gvara". Auch hier wieder: netter Service, leckeres Essen – über das Essen können wir uns bei diesem Trip wirklich nicht beschweren. Zurück in der Wohnung stehen dann Koffer packen, aufräumen und die letzten Getränke leeren auf dem Programm.</p>
+    </div>
+
+    <div class="photo-full">
+      <img src="Danzig/compressed/dzg-d4-gvara-restaurant.jpg" alt="Innenraum des Restaurants Gvara in Danzig" loading="lazy">
+      <figcaption class="cap" style="margin-top:8px">Abendessen im „Gvara"</figcaption>
+    </div>
+
+    <div class="photo-row-2">
       <figure>
-        <img src="Danzig/compressed/dzg-d4-gvara-restaurant.jpg" alt="Innenraum des Restaurants Gvara in Danzig" loading="lazy">
-        <figcaption class="cap">Abendessen im „Gvara"</figcaption>
+        <img src="Danzig/compressed/dzg-d4-gvara-schnitzel.jpg" alt="Schnitzel und Burger im Restaurant Gvara" loading="lazy">
+        <figcaption class="cap">Schnitzel und Burger</figcaption>
+      </figure>
+      <figure>
+        <img src="Danzig/compressed/dzg-d4-gvara-pierogi.jpg" alt="Pierogi-Teller im Restaurant Gvara" loading="lazy">
+        <figcaption class="cap">Noch ein Teller Pierogi zum Abschluss</figcaption>
       </figure>
     </div>
   </div>
