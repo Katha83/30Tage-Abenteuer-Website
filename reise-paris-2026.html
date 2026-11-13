@@ -1,22 +1,90 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Paris 2026 - 30 Tage Abenteuer</title>
-  <meta name="description" content="Paris September 2026 - Unsere naechste Reise in die Stadt der Liebe ist in Planung.">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="preloader"><div id="preloader-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" style="height:60px"></div><div id="preloader-count">0%</div></div>
-  <div id="cursor-dot"></div><div id="cursor-ring"></div>
-  <nav id="nav"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a><button class="nav-burger" aria-label="Menue" aria-expanded="false" id="nav-burger"><span></span><span></span><span></span></button><ul class="nav-links" id="nav-links"><li class="has-dropdown"><a href="index.html#reisen">Reiseziele</a>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>  <meta name="description" content="Paris 2026 – Städtetrip mit Céline-Dion-Konzert, Disneyland, Montmartre, Seine-Bootstour und Eiffelturm.">
+  <title>Paris 2026 – 30 Tage Abenteuer</title>
+  <script>window.TRIP_ROUTE=[
+    {lat:48.8575,lng:2.3580,name:"Unsere Wohnung im Marais"},
+    {lat:48.8722,lng:2.7758,name:"Disneyland Paris"},
+    {lat:48.8526,lng:2.3471,name:"Shakespeare and Company"},
+    {lat:48.8867,lng:2.3431,name:"Montmartre & Sacré-Cœur"},
+    {lat:48.8530,lng:2.3499,name:"Notre-Dame"},
+    {lat:48.8462,lng:2.3464,name:"Panthéon"},
+    {lat:48.8957,lng:2.2295,name:"Céline-Dion-Konzert"},
+    {lat:48.8584,lng:2.2945,name:"Eiffelturm"}
+  ];
+  window.TRIP_MAP_ZOOM=11;</script>
+  <script src="main.js" defer></script>
+  <style>
+    /* Wie bei Danzig: Fotos vollständig im eigenen Seitenverhältnis zeigen statt
+       auf feste Querformat-Höhen zu beschneiden; Fotos nach Ausrichtung gruppiert. */
+    .day-content .photo-row-2,
+    .day-content .photo-row-3 {
+      align-items: start;
+    }
+    .day-content .day-split figure img,
+    .day-content .photo-row-2 figure img,
+    .day-content .photo-row-3 figure img,
+    .day-content .photo-full img {
+      height: auto;
+    }
+    /* Einzelnes Hochformat-Foto, hervorgehoben und zentriert statt über volle Breite */
+    .photo-portrait-solo {
+      max-width: 480px;
+      margin: 28px auto;
+    }
+    .photo-portrait-solo img,
+    .photo-wide-solo img {
+      width: 100%; height: auto;
+      border-radius: 10px; display: block;
+    }
+    /* Einzelnes Querformat-Foto, das keine volle Seitenbreite braucht */
+    .photo-wide-solo {
+      max-width: 760px;
+      margin: 28px auto;
+    }
+    /* Infobox im Reisebericht (z. B. Disneyland-Tickets, Attraktionen-Check) */
+    .info-box {
+      background: white; border: 1px solid var(--border);
+      border-left: 4px solid var(--teal-light);
+      border-radius: var(--radius); padding: 28px;
+      margin: 32px 0;
+    }
+    .info-box-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 600; color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+    .info-box > p {
+      font-size: .95rem; line-height: 1.7; color: var(--text-mid);
+      margin-bottom: 14px;
+    }
+    .info-box .overview-list + p { margin-top: 18px; }
+    .gut-zu-wissen-lead { max-width: 720px; margin-top: 16px; }
+    @media (max-width: 600px) {
+      .photo-portrait-solo, .photo-wide-solo { max-width: 100%; }
+      .info-box { padding: 20px; }
+    }
+  </style>
+</head><body><div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="30 Tage Abenteuer – Startseite"><img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
       <div class="dropdown wide">
         <div class="dropdown-col">
           <span class="dropdown-heading">Asien</span>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-bali">
             <a href="reise-bali-2017.html" class="dropdown-sublink">Bali 2017</a>
             <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok 2025</a>
@@ -24,11 +92,11 @@
           <a href="reise-bali-lombok-2025.html">Lombok</a>
           <a href="reise-philippinen-2025.html">Philippinen</a>
           <a href="reise-srilanka-2023.html">Sri Lanka</a>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-thailand">
             <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
-            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und S&#252;dtour</a>
-            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand S&#252;den</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
           </div>
           <a href="reise-vietnam-2018.html">Vietnam</a>
         </div>
@@ -48,19 +116,751 @@
           <a href="reise-paris-2026.html">Paris</a>
         </div>
       </div>
-    </li><li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple"><a href="reisetipps.html#planung">Reiseplanung</a><a href="reisetipps.html#packliste">Packliste</a><a href="reisetipps.html#hotels">Hotels &amp; Unterkuenfte</a><a href="reisetipps.html#kreditkarte">Kreditkarte &amp; Finanzen</a><a href="reisetipps.html#budget">Budget &amp; Kosten</a></div></li><li><a href="ueber-uns.html">Ueber Uns</a></li></ul></div></nav>
-  <header class="trip-hero" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80')"><div class="hero-overlay"></div><div class="trip-hero-content"><div class="trip-breadcrumb"><a href="index.html">Home</a> / <a href="index.html#reisen">Reiseziele</a> / Paris 2026</div><h1 class="trip-hero-title">Paris 2026</h1><div class="trip-hero-meta"><span>September 2026</span><span>ca. 5 Naechte</span><span>Staedtetrip (geplant)</span></div></div></header>
-  <section class="section bg-cream"><div class="container"><div class="info-grid reveal-hidden"><div class="info-card"><span class="info-icon">🗓️</span><span class="info-label">Status</span><span class="info-value">In Planung</span></div><div class="info-card"><span class="info-icon">📍</span><span class="info-label">Laender</span><span class="info-value">Frankreich</span></div><div class="info-card"><span class="info-icon">✈️</span><span class="info-label">Kontinent</span><span class="info-value">Europa</span></div><div class="info-card"><span class="info-icon">🗼</span><span class="info-label">Highlights</span><span class="info-value">Eiffelturm, Louvre, Montmartre</span></div></div></div></section>
-  <section class="section bg-off"><div class="container"><h2 class="section-title reveal-hidden">Unsere Route</h2><div class="map-wrap reveal-hidden" id="trip-map"></div></div></section>
-  <section class="section bg-cream"><div class="container"><h2 class="section-title reveal-hidden">Allgemeines</h2><div class="placeholder-text reveal-hidden"><p>Paris steht schon lange auf unserer Liste – und im September 2026 ist es endlich so weit! Die Stadt der Liebe, des Lichts und der Croissants erwartet uns. Wir freuen uns auf den Eiffelturm, die Kunstschaetze des Louvre, das Kuenstlerviertel Montmartre und natuerlich viel gutes Essen.</p><p>Dieser Reisebericht ist noch in Entstehung – schau bald wieder vorbei fuer unsere Tipps, Route und Erlebnisse aus Paris.</p></div></div></section>
-  <section class="section bg-off"><div class="container"><h2 class="section-title reveal-hidden">Unsere Stationen</h2><div class="station-grid"><article class="station-card reveal-hidden"><div class="station-num">1</div><div class="station-body"><h3 class="station-name">Paris – Eiffelturm &amp; Champs-Elysees</h3><div class="station-meta"><span>Geplant</span></div><div class="station-highlight">Die Ikonen der Stadt</div><p class="station-text">Der Eiffelturm, die Champs-Elysees, der Arc de Triomphe – Klassiker, die man gesehen haben muss.</p></div></article><article class="station-card reveal-hidden"><div class="station-num">2</div><div class="station-body"><h3 class="station-name">Montmartre &amp; Sacre-Coeur</h3><div class="station-meta"><span>Geplant</span></div><div class="station-highlight">Kuenstlerviertel mit Panoramablick</div><p class="station-text">Enge Gassen, Strassenkuenstler und oben auf dem Huegel die weisse Kuppel der Sacre-Coeur – Montmartre hat seinen eigenen Charme.</p></div></article><article class="station-card reveal-hidden"><div class="station-num">3</div><div class="station-body"><h3 class="station-name">Louvre &amp; Musee d Orsay</h3><div class="station-meta"><span>Geplant</span></div><div class="station-highlight">Weltklasse Kunstschaetze</div><p class="station-text">Der Louvre ist riesig – man sollte mindestens einen halben Tag einplanen. Das Musee d Orsay mit den Impressionisten ist unser persoenliches Highlight.</p></div></article><article class="station-card reveal-hidden"><div class="station-num">4</div><div class="station-body"><h3 class="station-name">Le Marais &amp; Bastille</h3><div class="station-meta"><span>Geplant</span></div><div class="station-highlight">Trendy Viertel &amp; gutes Essen</div><p class="station-text">Das Marais-Viertel ist hip, bunt und voller guter Restaurants und kleiner Boutiquen. Hier schlaegt das moderne Paris.</p></div></article></div></div></section>
-  <section class="section bg-cream"><div class="container"><h2 class="section-title reveal-hidden">Fotogalerie</h2><div class="photo-gallery reveal-hidden"><div class="photo-placeholder"><span>Eiffelturm Nacht</span></div><div class="photo-placeholder"><span>Sacre-Coeur Montmartre</span></div><div class="photo-placeholder"><span>Louvre Glasspyramide</span></div><div class="photo-placeholder"><span>Seine Spaziergang</span></div><div class="photo-placeholder"><span>Pariser Cafes</span></div><div class="photo-placeholder"><span>Champs-Elysees</span></div></div></div></section>
-  <nav class="trip-nav-prev-next"><div class="container"><div class="pn-prev"><a href="reise-danzig-2026.html">&larr; Danzig 2026</a></div><div class="pn-next"><a href="reise-thailand-2026.html">Thailand 2026 &rarr;</a></div></div></nav>
-  <footer class="site-footer"><div class="container footer-inner"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" class="footer-logo"><p>&copy; 2026 30 Tage Abenteuer</p><div class="footer-links"><a href="ueber-uns.html">Ueber Uns</a><a href="reisetipps.html">Reisetipps</a></div></div></footer>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script>window.TRIP_ROUTE = [{lat:48.8584,lng:2.2945,name:"Eiffelturm"},{lat:48.8867,lng:2.3431,name:"Sacre-Coeur Montmartre"},{lat:48.8606,lng:2.3376,name:"Louvre"},{lat:48.8538,lng:2.3670,name:"Le Marais"}];</script>
-  <script src="main.js"></script>
+    </li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+        <a href="reisetipps.html#budget">Reisebudget</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</header><div class="trip-hero" style="margin-top:var(--nav-h)">
+  <img class="trip-hero-img" src="Paris/compressed/par-d3-eiffelturm-funkeln.jpg" alt="Der funkelnde, golden beleuchtete Eiffelturm bei Nacht, von der Seine aus gesehen" loading="eager" style="object-position:center 15%">
+  <div class="trip-hero-overlay"></div>
+  <div class="trip-hero-content">
+    <p class="section-tag">Frankreich · Städtetrip</p>
+    <h1 class="trip-hero-title">Paris 2026</h1>
+    <div class="trip-hero-meta"><span>📅 27. September – 2. Oktober 2026</span><span>🌙 5 Nächte</span><span>🎒 Städtetrip</span></div>
+  </div>
+</div>
+<div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Paris 2026</span></div>
+
+<section class="section-pad-sm map-section"><div class="section-inner">
+  <p class="section-tag">Lage</p><h2 class="section-title">Wo es <em>hingeht</em></h2>
+  <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+</div></section>
+
+<!-- ═══ Kurzübersicht: modularer, erweiterbarer Karten-Baustein ═══ -->
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Kurzübersicht</p><h2 class="section-title">Alles Wichtige auf <em>einen Blick</em></h2>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🗼</span><h3 class="overview-card-title">Unsere Highlights</h3></div>
+      <ul class="overview-list">
+        <li>Das Céline-Dion-Konzert</li>
+        <li>Seine-Bootstour am funkelnden Eiffelturm vorbei</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🎤</span><h3 class="overview-card-title">Die Geschichte dahinter</h3></div>
+      <ul class="overview-list">
+        <li>Céline Dions Comeback: zehn Konzerte, alle in Paris</li>
+        <li>Vorverkauf per Losverfahren, 9 Mio. Anmeldungen – und wir haben vier Karten ergattert</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🎫</span><h3 class="overview-card-title">Praktische Infos</h3></div>
+      <ul class="overview-list">
+        <li><strong>Währung:</strong> Euro</li>
+        <li><strong>Transfer:</strong> Uber gibt es auch, aber die Metro ist unschlagbar – enge Taktung, günstig, schnell</li>
+        <li><strong>Sehenswürdigkeiten:</strong> So viel Andrang hatten wir in anderen Städten noch nie – rechtzeitig reservieren!</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="section-pad bg-off"><div class="section-inner">
+  <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet</em></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-label">Zeitraum</div><div class="info-card-value">27. September – 2. Oktober 2026</div></div>
+    <div class="info-card"><div class="info-card-label">Anreise</div><div class="info-card-value">Bahn ab Leipzig · 215 € p. P. (hin &amp; zurück)</div></div>
+    <div class="info-card"><div class="info-card-label">Unterkunft</div><div class="info-card-value">Airbnb-Wohnung im Marais · 1.162,51 €</div></div>
+    <div class="info-card"><div class="info-card-label">Reiseart</div><div class="info-card-value">Städtetrip</div></div>
+  </div>
+  <div style="max-width:720px;margin-top:40px">
+    <p class="trip-text">Paris stand schon länger auf unserer „Würden wir gerne mal besuchen"-Liste. Aber wie so oft wurde daraus ein „irgendwann". Dann kam eine unglaubliche Möglichkeit, die Paris auf Platz 1 katapultiert hat: Wir haben Karten für Céline Dion bekommen! Wir haben Céline bereits in Berlin und Las Vegas live gesehen, und nach ihrer schweren Erkrankung hatte sie endlich ihr Comeback angekündigt. Nach sechs Jahren steht sie wieder auf der großen Bühne – mit zunächst zehn Konzerten in 2026, alle in Paris. Der Vorverkauf wurde per Losverfahren entschieden und nach 9 Mio. (!!) Anmeldungen geschlossen. Und was soll ich sagen? Wir haben einen Zugang gewonnen und im Vorverkauf vier Karten ergattert. Damit stand Paris als nächstes Städteziel fest.</p>
+    <p class="trip-text">Was wir nicht wussten: Am Anreisewochenende war der Papst in der Stadt, und am Montag startete die Fashion Week – ich hatte mich schon über die vielen stylischen, großen und schlanken Menschen gewundert. Dadurch war es natürlich auch voller und teurer.</p>
+  </div>
+</div></section>
+
+<!-- ═══ Gut zu wissen: Tickets, Metro, Anreise ═══ -->
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Gut zu wissen</p><h2 class="section-title">Tickets, Metro &amp; <em>Anreise</em></h2>
+  <p class="trip-text gut-zu-wissen-lead">So viel Andrang an den Sehenswürdigkeiten hatten wir in anderen Städten noch nie. Wer bestimmte Dinge auf jeden Fall sehen will, kommt um eine rechtzeitige Reservierung nicht herum.</p>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">⏰</span><h3 class="overview-card-title">Frühzeitig reservieren</h3></div>
+      <ul class="overview-list">
+        <li><strong>Eiffelturm</strong> (toureiffel.paris): ca. 3 Monate vorher, gerade wenn du bis zur Spitze willst. Ticket aktuell 36,70 €</li>
+        <li><strong>Katakomben</strong> (catacombes.paris.fr): Slots werden 7 Tage vorher freigeschaltet, ca. 31 €</li>
+        <li><strong>Sainte-Chapelle</strong> (sainte-chapelle.fr): am besten ebenfalls vorbuchen – wir kamen in unserer Woche nicht rein</li>
+        <li><strong>Disneyland:</strong> in der Nebensaison entspannter, zur Hauptreisezeit auf jeden Fall frühzeitig Tickets sichern</li>
+        <li><strong>Notre-Dame</strong> (resa.notredameparis.fr): kostenloser Eintritt, Slots werden 2–3 Tage vorher freigegeben. Zur gewählten Zeit geht man entspannt an der ewig langen Schlange vorbei direkt zum Eingang für Reservierungen</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🏛️</span><h3 class="overview-card-title">Jederzeit buchbar – vorab trotzdem empfehlenswert</h3></div>
+      <ul class="overview-list">
+        <li><strong>Louvre</strong> (louvre.fr): Startzeitfenster buchen, ca. 22 €</li>
+        <li><strong>Musée d'Orsay</strong> (musee-orsay.fr): ca. 16 €</li>
+        <li><strong>Arc de Triomphe</strong> (ticket.monuments-nationaux.fr): ca. 16 €</li>
+        <li><strong>Seine-Rundfahrt</strong> (z. B. vedettesdupontneuf.com oder bateauxparisiens.com): ca. 15–19 €, teurer mit Dinner und/oder Sekt</li>
+      </ul>
+      <div class="overview-card-header" style="margin-top:24px"><span class="overview-icon">🚶</span><h3 class="overview-card-title">Vor Ort möglich</h3></div>
+      <ul class="overview-list">
+        <li><strong>Invalides/Dôme</strong> (musee-armee.fr): ca. 15 €</li>
+        <li><strong>Panthéon</strong> (ticket.monuments-nationaux.fr): ca. 13 €</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🚇</span><h3 class="overview-card-title">Metro-Tickets</h3></div>
+      <ul class="overview-list">
+        <li><strong>Navigo Easy:</strong> aufladbare Karte, am Automaten für einmalig 2 €, beladbar mit Einzel- oder Tagestickets. Aufladen am Automaten oder per NFC-fähigem Handy mit der App „Île-de-France Mobilités"</li>
+        <li><strong>Navigo Découverte:</strong> Wochenpass (Montag–Sonntag) für 32,40 €, gilt in allen Zonen. Am Automaten (Achtung: Passfoto nötig, einmalig zusätzlich 5 €) oder in der App – Selfie machen et voilà. Beachte: Der Pass startet immer montags. Reist ihr z. B. donnerstags an, gilt er nur bis zum folgenden Sonntag, nicht 7 Tage lang</li>
+        <li><strong>App Île-de-France Mobilités:</strong> Alle Varianten gibt es auch in der App. Achtung: NFC muss aktiviert sein, unterwegs braucht ihr mobile Daten, und klappt das Einlesen nicht, schirmt eventuell die Handyhülle ab</li>
+        <li><strong>Einzeltickets:</strong> Metro/RER 2,55 €, Bus/Tram 2,05 € pro Fahrt, Tagesticket 12,30 € (lohnt sich ab 5 Fahrten). Achtung: Metro und Bus sind getrennte Tickets</li>
+        <li>Ein Einzelticket gilt ab Entwertung 2 Stunden – so lange kann man beliebig oft umsteigen, solange man das Schienennetz nicht durch eine Sperre verlässt</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🚆</span><h3 class="overview-card-title">Anreise nach Paris</h3></div>
+      <ul class="overview-list">
+        <li><strong>Flugzeug:</strong> Von den meisten großen Flughäfen gibt es Direktflüge nach Paris-Charles-de-Gaulle (CDG)</li>
+        <li><strong>Flixbus:</strong> Meine Eltern sind mit dem Flixbus von Münster angereist – ca. 8 Stunden Fahrtzeit über Nacht</li>
+        <li><strong>Bahn:</strong> Wir sind mit der Bahn gefahren: Start 10:49 Uhr in Leipzig, zweimal umsteigen (Mannheim und Karlsruhe), theoretische Ankunft am Gare de l'Est um 18:16 Uhr (in der Realität ca. 60 Minuten Verspätung). Zurück nur ein Umstieg in Frankfurt, dafür 2 Stunden Verspätung. Preis: hin und zurück 215 € p. P.</li>
+        <li><strong>Auto:</strong> Natürlich auch möglich. Die Autobahn ist mautpflichtig, und im Großraum Paris braucht ihr die französische Umweltplakette „Crit'Air" – online beim französischen Umweltministerium (certificat-air.gouv.fr) für 4,76 € inkl. Versand nach Deutschland</li>
+        <li><strong>Parken:</strong> im Hotel nach Parkmöglichkeiten fragen, Parkhaus (nervenschonend im Voraus reservieren) oder Park-and-Ride. Parken am Straßenrand möglichst vermeiden: Risiko für Blechschäden, teuer und oft zeitlich begrenzt</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ Tag für Tag ═══ -->
+<section class="section-pad bg-off"><div class="section-inner">
+  <p class="section-tag">Reisebericht</p><h2 class="section-title">Tag für <em>Tag</em></h2>
+
+  <div class="day-divider" style="margin-top:32px">
+    <div class="day-divider-inner">
+      <span class="day-divider-label">Tag 1 · Sonntag, 27. September</span>
+      <span class="day-divider-title">Anreise</span>
+    </div>
+  </div>
+
+  <div class="day-content">
+    <div class="day-text">
+      <p>Um 10:04 Uhr startet die S-Bahn im Nachbardorf. Wir haben uns für unsere Rucksäcke entschieden – beim Tragen ein absoluter Vorteil, beim Verstauen etwas sperrig. Umstiege hatten wir in Leipzig, Mannheim und Karlsruhe, und alles hat super funktioniert – bis kurz vor Straßburg. Dort blieben wir wegen eines technischen Problems an einem Zug vor uns erst mal stehen. Vorbei war's mit pünktlich, und an der Stelle war die Bahn tatsächlich nicht schuld. Das hat sie dann auf dem Rückweg geschafft, aber dazu am Ende mehr. Dank Fresspaket und Netflix vergeht die Zeit trotzdem gut.</p>
+      <p>Am Bahnhof angekommen, bleibt Robert erst mal an der Metro-Schranke hängen. Anscheinend hat die Handyhülle das Signal blockiert, oder er hat das kurze Grün übersehen und ist zu spät durchgegangen. Am Ende klappt es aber, und 20 Minuten später sind wir beim Airbnb, wo meine Eltern die Wohnung bereits bezogen haben und uns erwarten.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d1-bahnsteig-selfie.jpg" alt="Selfie von Robert und Katha mit großen Rucksäcken am Bahnsteig" loading="lazy">
+        <figcaption class="cap">Mit Rucksack los Richtung Paris</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d1-ankunftsbier.jpg" alt="Die Familie sitzt mit Getränken in der Airbnb-Wohnung" loading="lazy">
+        <figcaption class="cap">Angekommen: das erste Ankunftsbierchen in der Wohnung</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d1-ausblick-wohnung.jpg" alt="Blick aus dem Fenster der Wohnung auf eine typische Pariser Hausfassade mit schmiedeeisernen Balkonen" loading="lazy">
+        <figcaption class="cap">Der Ausblick aus unserer Wohnung</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d1-flur-wohnung.jpg" alt="Schmaler Hausflur mit schwarz-weißem Schachbrettboden und Steinwand" loading="lazy">
+        <figcaption class="cap">Der Flur Richtung Ausgang – mit Schachbrettboden</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d1-haustuer-wohnung.jpg" alt="Zwei blaugraue Wohnungstüren auf rotem Fliesenboden im Treppenhaus" loading="lazy">
+        <figcaption class="cap">Unsere Wohnungstür im Marais</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Nach einem ersten Ankunftsbierchen schlendern wir ein bisschen durchs Viertel und lassen die ersten Eindrücke auf uns wirken. Um die Ecke liegt das nette kleine Bistro „Comptoir Rivoli". Wir sind noch satt, aber ein Bierchen geht immer – jedenfalls nachdem man sich beim Anblick der Preise kurz geschüttelt hat. Der Kellner ist sehr nett und erträgt meine jämmerlichen Französischversuche stoisch.</p>
+      <p>Danach sitzen wir noch in der Wohnung zusammen und gehen nicht allzu spät in die Federn. Der Tag war lang, und am nächsten Morgen wollen wir früh Richtung Disneyland starten.</p>
+    </div>
+
+    <div class="photo-wide-solo">
+      <figure>
+        <img src="Paris/compressed/par-d1-crepes-stand.jpg" alt="Beleuchteter Crêpes-Stand in einer Pariser Gasse am Abend" loading="lazy">
+        <figcaption class="cap">Abendlicher Bummel durchs Viertel</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="day-divider">
+    <div class="day-divider-inner">
+      <span class="day-divider-label">Tag 2 · Montag, 28. September</span>
+      <span class="day-divider-title">Disneyland Paris</span>
+    </div>
+  </div>
+
+  <div class="day-content">
+    <div class="info-box">
+      <h3 class="info-box-title">🏰 Infobox: Disneyland-Tickets &amp; Anreise</h3>
+      <p>Unsere Tickets haben wir über die offizielle Ticketseite geholt (tickets.disneylandparis.com). Welche Tickets gibt es?</p>
+      <ul class="overview-list">
+        <li><strong>Datiertes Ticket:</strong> Du wählst ein festes Datum für deinen Besuch aus, das garantiert dir den Zugang an diesem Tag. Wählbar sind Tages- und Mehrtagestickets, und du musst entscheiden, ob du nur einen Park oder beide sehen willst. Hast du, wie wir, nur einen Tag, entscheide dich für einen – für zwei Parks reicht die Zeit nicht, gerade wenn du auch mal eine Parade oder Show sehen willst. Datierte Tickets sind bis 3 Tage vor dem Besuch kostenlos stornierbar.</li>
+        <li><strong>Undatiertes Ticket:</strong> ab Kauf 1 Jahr gültig, für einen oder beide Parks, mit 14-tägigem Widerrufsrecht. Vor dem Besuch muss man sich mit dem Ticket trotzdem registrieren, um Eintritt zu erhalten – und je nach Saison sind Besuchstage schnell ausgebucht.</li>
+        <li><strong>Kombipakete</strong> mit Hotels am oder im Park: Hier hat man zum Teil früher und länger Zutritt.</li>
+        <li><strong>Zusatztickets</strong> wie Premier Access, garantierte Showeinlässe oder reservierte Bereiche mit besonders gutem Blick auf die Paraden.</li>
+      </ul>
+      <p style="margin-top:22px"><strong>Anreise zum Disneyland:</strong></p>
+      <ul class="overview-list">
+        <li><strong>Auto:</strong> über die Autobahn erreichbar, kostenpflichtiger Parkplatz (normales Auto: 30 €)</li>
+        <li><strong>Zug:</strong> Der RER A fährt direkt bis vors Disneyland (Halt Marne-la-Vallée – Chessy) und ist von Paris aus mit dem Standardticket nutzbar.</li>
+      </ul>
+    </div>
+
+    <div class="day-text">
+      <p>Wir haben uns für datierte Tagestickets für nur einen Park entschieden, den Disneyland Park. Gegen 8 Uhr geht es los. Die Anreise ist wirklich easy: mit der Metro zum Gare de Lyon und dort in den RER A – dank der 2 Stunden Gültigkeit alles mit einem Einzelticket aus der App. Der RER ist ordentlich voll. Einige sind an ihren Micky-Maus-Ohren schnell als Parkbesucher zu erkennen, viele sind aber auch auf dem Weg zur Arbeit. Montag halt.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d2-morgens-am-quai.jpg" alt="Menschenleere Pariser Straße mit Laternen im Morgenrot" loading="lazy">
+        <figcaption class="cap">Früh am Morgen auf dem Weg zur Metro</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d2-disneyland-schild.jpg" alt="Das Disneyland-Paris-Schild mit Micky-Maus-Figur über dem Eingangsbereich" loading="lazy">
+        <figcaption class="cap">Direkt am Bahnhof: das Disneyland-Schild</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Der RER A hält direkt am Disneyland, das Schild sieht man gleich beim Verlassen des Bahnhofs. Es folgt ein Sicherheitscheck – unser Proviant war kein Problem. Um 9:30 Uhr öffnen die Tore, und wir stehen tatsächlich im Disneyland. Leider hat sich das Wetter nicht an die Vorhersage gehalten: Bewölkt und trocken sollte es sein, wir haben dann mal bewölkt und nass daraus gemacht.</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d2-halloween-eingang.jpg" alt="Eingangsgebäude des Disneyland Park mit Halloween-Festival-Dekoration" loading="lazy">
+        <figcaption class="cap">Der Eingang im Halloween-Look</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d2-disneyland-hotel.jpg" alt="Das rosafarbene Disneyland Hotel mit Blumenbeeten davor" loading="lazy">
+        <figcaption class="cap">Das Disneyland Hotel</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d2-dornroeschenschloss.jpg" alt="Blick über die Main Street auf das Dornröschenschloss unter grauem Himmel" loading="lazy">
+        <figcaption class="cap">Das Schloss – bei bewölktem Himmel</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Die App hatten wir vorab heruntergeladen. Dort verknüpft man seine Tickets und findet die Öffnungszeiten, alle Show- und Paradezeiten, einen Parkplan und bei jeder Attraktion die aktuelle Wartezeit. Und ehrlich? Alles über 40 Minuten haben wir ausgelassen. Dadurch ist uns wahrscheinlich das ein oder andere Highlight entgangen, aber das war unser Kompromiss. Manche Attraktionen haben eigene Single-Rider-Lines, die wir ein paar Mal nutzen konnten – das hat einiges an Zeit gespart. Der Park war auch gar nicht so voll, ich kann mir kaum vorstellen, wie es dort in der Hauptsaison zugeht.</p>
+      <p>Der Park ist schon für sich eine Attraktion: die Deko, die Themenwelten … Aber was haben wir konkret gesehen, und wie fällt unser Fazit aus?</p>
+    </div>
+
+    <div class="info-box">
+      <h3 class="info-box-title">🎢 Unser Disneyland-Check</h3>
+      <ul class="overview-list">
+        <li><strong>Parade zur Mittagszeit:</strong> kann man sich mal anschauen – viele Darsteller, gut gestaltete Wagen und Musik</li>
+        <li><strong>Show „König der Löwen":</strong> eine ganz tolle Show, die uns sehr gut gefallen hat. Einen Platz zu bekommen war kein Problem, wir waren gute 20 Minuten vorher da</li>
+        <li><strong>Pirates of the Caribbean:</strong> nette, entspannte Bootsfahrt</li>
+        <li><strong>Star Tours – The Adventures Continue:</strong> war früher wahrscheinlich sehr spannend, mittlerweile wirkt die Technik eher veraltet und wenig spektakulär</li>
+        <li><strong>Hyperspace Mountain:</strong> coole Achterbahn im Dunkeln</li>
+        <li><strong>Phantom Manor:</strong> „Gruselhaus", nicht wirklich gruselig</li>
+        <li><strong>Buzz Lightyear Laser Blast:</strong> mit kleineren Kids bestimmt lustig, für uns war's okay</li>
+        <li><strong>Indiana Jones and the Temple of Peril:</strong> Achterbahn, hat Spaß gemacht</li>
+        <li><strong>Disneyland Railroad:</strong> Einige Stationen waren geschlossen, wir haben sie genutzt, um zum Parkeingang zurückzufahren</li>
+        <li><strong>Thunder Mesa Riverboat:</strong> Schaufelraddampfer-Fahrt, ganz nett gemacht, ca. 20 Minuten über den See</li>
+      </ul>
+      <p>Beim nächsten Mal würde ich wahrscheinlich zuerst zum Big Thunder Mountain laufen – dort gibt es im Gegensatz zum Hyperspace Mountain keine Single-Rider-Spur.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d2-koenig-der-loewen.jpg" alt="Bunt beleuchtete Bühne der Show König der Löwen im Disneyland Paris" loading="lazy">
+        <figcaption class="cap">Die Show „König der Löwen" – ganz toll</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d2-phantom-manor.jpg" alt="Das viktorianische Spukhaus Phantom Manor auf einem Hügel" loading="lazy">
+        <figcaption class="cap">Phantom Manor – nicht wirklich gruselig</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d2-railroad.jpg" alt="Rot-goldene Dampflok der Disneyland Railroad am Bahnsteig" loading="lazy">
+        <figcaption class="cap">Mit der Disneyland Railroad zurück zum Eingang</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d2-riverboat-thunder-mountain.jpg" alt="Schaufelraddampfer auf dem See vor den roten Felsen des Big Thunder Mountain" loading="lazy">
+        <figcaption class="cap">Riverboat und Big Thunder Mountain</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-portrait-solo">
+      <figure>
+        <img src="Paris/compressed/par-d2-halloween-deko.jpg" alt="Goofy als Kerzenfigur in einem herbstlichen Halloween-Blumenbeet" loading="lazy">
+        <figcaption class="cap">Überall Halloween-Deko</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Ich hätte durchaus noch eine Weile bleiben können, aber am späten Nachmittag war die Reisebegleitung müde, und wir haben den Heimweg angetreten. Der Zug war total leer, und wir konnten entspannt zurück nach Paris fahren.</p>
+      <p>Zurück im Marais wollten wir nicht mehr weit laufen und sind direkt um die Ecke ins „La Tartine" gegangen – ein französisches Bistro mit Happy Hour. Wir haben gut gegessen (Zwiebelsuppe, Croque Madame und Croque Monsieur, Bœuf bourguignon), also einmal quer durch die klassische Bistroküche.</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d2-croque-madame.jpg" alt="Croque Madame mit Spiegelei und Salat auf einem weißen Teller" loading="lazy">
+        <figcaption class="cap">Croque Madame im „La Tartine"</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d2-bistro-ragout.jpg" alt="Fleischragout in heller Soße mit Reis" loading="lazy">
+        <figcaption class="cap">Klassische Bistroküche</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d2-escargots.jpg" alt="Weinbergschnecken in einer Schneckenpfanne, dahinter ein Bier" loading="lazy">
+        <figcaption class="cap">Escargots – typisch französisch</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="day-divider">
+    <div class="day-divider-inner">
+      <span class="day-divider-label">Tag 3 · Dienstag, 29. September</span>
+      <span class="day-divider-title">Shakespeare and Company, Montmartre &amp; Seine</span>
+    </div>
+  </div>
+
+  <div class="day-content">
+    <div class="day-text">
+      <p>Der nächste Morgen startet mit Sonne und einem Frühstück im „Little Cafe". Leider eine Enttäuschung: teuer, nicht lecker und eine sehr kleine Portion.</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d3-little-cafe.jpg" alt="Croissants, Orangensaft und Kaffee auf einem Bistrotisch in einer sonnigen Gasse" loading="lazy">
+        <figcaption class="cap">Frühstück im „Little Cafe"</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-croissants.jpg" alt="Zwei Croissants, Kaffee und Orangensaft auf einem Tisch" loading="lazy">
+        <figcaption class="cap">Croissant, Kaffee, O-Saft</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-avocado-toast.jpg" alt="Avocado-Toast mit pochiertem Ei und Gurken" loading="lazy">
+        <figcaption class="cap">Avocado-Toast – teuer und klein</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Die Enttäuschung ging an diesem Tag leider weiter. Wir wollten in die Sainte-Chapelle, aber bei über 1,5 Stunden Wartezeit und nach einem Blick ins Internet war klar: In dieser Woche bekommen wir keinen Slot mehr. Also schlendern wir durch die Gassen Richtung Shakespeare and Company – ein unglaublich schöner Buchladen. Auch hier stand ich gute 25 Minuten an, um reinzukommen. Drinnen sind keine Fotos erlaubt, aber wer Buchläden so liebt wie ich, wird ihn großartig finden – die Wartezeit lohnt sich.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d3-shakespeare-and-company.jpg" alt="Grüne Ladenfront der Buchhandlung Shakespeare and Company mit Bücherkisten davor" loading="lazy">
+        <figcaption class="cap">Shakespeare and Company</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-notre-dame-aussen.jpg" alt="Die Westfassade von Notre-Dame bei blauem Himmel" loading="lazy">
+        <figcaption class="cap">Gleich gegenüber: Notre-Dame</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Danach beschließen wir, das Zentrum zu verlassen und nach Montmartre zu fahren. Also ab in die Metro, und los geht's. Zur Sacré-Cœur kommt man entweder per Bus oder mit der Standseilbahn (beides mit den normalen Tickets) – oder, wenn man wie wir auf der „falschen" Seite ist, nur über viele Treppen. Oben ist uns die Schlange vor der Sacré-Cœur ebenfalls zu lang (Eintritt frei), also genießen wir An- und Ausblick vom Fuß der Basilika.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d3-quartier-latin.jpg" alt="Belebte Gasse im Quartier Latin mit Geschäften und Imbissen" loading="lazy">
+        <figcaption class="cap">Durch die Gassen des Quartier Latin</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-metro-eingang.jpg" alt="Grüner Jugendstil-Metroeingang mit Métropolitain-Schild" loading="lazy">
+        <figcaption class="cap">Ab in die Metro – Eingang im Jugendstil</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-full">
+      <img src="Paris/compressed/par-d3-sacre-coeur.jpg" alt="Die weiße Basilika Sacré-Cœur bei strahlend blauem Himmel mit Menschenschlange davor" loading="lazy">
+      <figcaption class="cap" style="margin-top:8px">Die Sacré-Cœur – auch von außen beeindruckend</figcaption>
+    </div>
+
+    <div class="day-text">
+      <p>Wir schlendern weiter zum Place du Tertre. Hier sitzen die Künstler mit ihren Werken, drumherum gibt es viele schöne Cafés, Bistros und Läden. Da wir meine Eltern unten zurückgelassen haben, setzen wir uns nicht, sondern treten nach dem Rundgang den Rückweg an. Die Gegend kann ich empfehlen – sie hat uns gut gefallen, und die Basilika ist auch von außen schön und beeindruckend.</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d3-place-du-tertre.jpg" alt="Der Place du Tertre mit Künstlerständen unter Bäumen" loading="lazy">
+        <figcaption class="cap">Der Place du Tertre mit seinen Künstlern</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-montmartre-bistro.jpg" alt="Eckbistro mit roten Markisen und Herbstdeko in Montmartre" loading="lazy">
+        <figcaption class="cap">Bistros rund um den Platz</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-montmartre-ente.jpg" alt="Orangefarbene Ente vor einem Restaurant auf einer Kopfsteinpflasterstraße in Montmartre" loading="lazy">
+        <figcaption class="cap">Ganz klassisch: eine Ente in Montmartre</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d3-montmartre-tasche.jpg" alt="Gestreifte Strohtasche mit Montmartre-Schriftzug an einer blauen Wand mit Blumenranken" loading="lazy">
+        <figcaption class="cap">Souvenirs mit Charme</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-montmartre-gasse.jpg" alt="Steile Kopfsteinpflastergasse mit Läden in Montmartre" loading="lazy">
+        <figcaption class="cap">Gassen in Montmartre</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-sacre-coeur-gasse.jpg" alt="Gasse mit Souvenirläden und Blick auf die Sacré-Cœur" loading="lazy">
+        <figcaption class="cap">Die Sacré-Cœur immer im Blick</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d3-biscuiterie.jpg" alt="Schaufenster der Biscuiterie de Montmartre" loading="lazy">
+        <figcaption class="cap">Die Biscuiterie de Montmartre</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-strassenecke.jpg" alt="Typisch Pariser Straßenkreuzung mit hellen Haussmann-Fassaden" loading="lazy">
+        <figcaption class="cap">Typisch Paris: Haussmann-Fassaden</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d3-fisch-pommes.jpg" alt="Panierter Fisch mit Pommes, Salat und Remoulade" loading="lazy">
+        <figcaption class="cap">Zwischendurch: Fisch mit Pommes …</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-burger.jpg" alt="Burger mit Pommes auf einem Bistrotisch" loading="lazy">
+        <figcaption class="cap">… und ein Burger</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-mochi.jpg" alt="Bunte Mochi-Eiskugeln in einer Papierschale" loading="lazy">
+        <figcaption class="cap">Mochi-Eis als Nachtisch</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Abends geht's zu einem unserer Highlights dieses Urlaubs: einer Seine-Rundfahrt mit dem funkelnden Eiffelturm direkt vor uns. Die Tickets für die 20-Uhr-Abfahrt haben wir einen Tag vorher bei vedettesdupontneuf.com besorgt (15 € p. P.). Ich kann die Tour absolut empfehlen: Unterwegs sieht man viele Sehenswürdigkeiten vom Wasser aus, viele Pariser sitzen am Ufer, und die Beleuchtung sorgt für eine besondere Stimmung. Zusätzlich hatten wir Glück, dass der Vollmond gerade erst vorbei war – der fast volle Mond hat die Stimmung noch verschönert. Besonders beeindruckend: Die Abfahrt ist perfekt getimt, sodass man pünktlich zum Funkelstart des Eiffelturms auf seiner Höhe ist. Ein unglaublich schöner Augenblick.</p>
+    </div>
+
+    <div class="photo-portrait-solo">
+      <figure>
+        <img src="Paris/compressed/par-d3-metro-abend.jpg" alt="Jugendstil-Metroeingang am Abend vor beleuchteten Cafés" loading="lazy">
+        <figcaption class="cap">Abends auf dem Weg zum Boot</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d3-seine-abendrot.jpg" alt="Die Seine im Abendrot mit Brücken und dem Eiffelturm in der Ferne" loading="lazy">
+        <figcaption class="cap">Abendrot über der Seine</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-eiffelturm-bruecke.jpg" alt="Der beleuchtete Eiffelturm bei Nacht neben einer Brücke, vom Boot aus" loading="lazy">
+        <figcaption class="cap">Vom Boot aus: der Eiffelturm direkt vor uns</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-full">
+      <img src="Paris/compressed/par-d3-eiffelturm-funkeln.jpg" alt="Der funkelnde, golden beleuchtete Eiffelturm bei Nacht mit dem Mond am Himmel" loading="lazy">
+      <figcaption class="cap" style="margin-top:8px">Pünktlich zum Funkelstart – ein unglaublich schöner Augenblick</figcaption>
+    </div>
+  </div>
+
+  <div class="day-divider">
+    <div class="day-divider-inner">
+      <span class="day-divider-label">Tag 4 · Mittwoch, 30. September</span>
+      <span class="day-divider-title">Louvre, Notre-Dame, Panthéon &amp; Céline Dion</span>
+    </div>
+  </div>
+
+  <div class="day-content">
+    <div class="day-text">
+      <p>Am nächsten Tag brauchen meine Eltern eine Pause, also ziehen Robert und ich alleine los. Das Wetter hat sich wieder auf Grau und Niesel eingestellt – nicht optimal für eine Sightseeing-Runde, aber nicht zu ändern. Wir starten mit dem Louvre, bestaunen ihn allerdings nur von außen, da wir kein passendes Zeitfenster buchen konnten. Auch hier wieder der Tipp: Wenn man etwas unbedingt sehen will, rechtzeitig reservieren. Wir schlendern an der Pyramide vorbei und sind platt, wie riesig das Areal ist: Der Louvre hat eine Ausstellungsfläche von unglaublichen 72.735 Quadratmetern, die gesamte umbaute Palastfläche beträgt 135.000 Quadratmeter (knapp 19 Fußballfelder)!</p>
+    </div>
+
+    <div class="photo-row-3">
+      <figure>
+        <img src="Paris/compressed/par-d4-pont-des-arts.jpg" alt="Der Pont des Arts mit Blick auf die Kuppel des Institut de France unter grauem Himmel" loading="lazy">
+        <figcaption class="cap">Über den Pont des Arts</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d4-arc-carrousel.jpg" alt="Der Arc de Triomphe du Carrousel vor dem Louvre" loading="lazy">
+        <figcaption class="cap">Der Arc de Triomphe du Carrousel</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d4-louvre-pyramide.jpg" alt="Die gläserne Louvre-Pyramide im Innenhof des Palastes" loading="lazy">
+        <figcaption class="cap">Die Louvre-Pyramide – riesiges Areal</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Weiter geht's zur Kathedrale Notre-Dame, für die wir ein Zeitfenster buchen konnten. Die Tickets sind kostenlos, über eine Spende freut man sich natürlich. Ungefähr zu unserer Zeit stellen wir uns in die separate, sehr kurze Schlange für reservierte Tickets, dann noch die Taschenkontrolle, und schon stehen wir in den beeindruckenden Räumen von Notre-Dame. Einen Audioguide haben wir nicht, wir drehen einfach in Ruhe eine Runde.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d4-notre-dame-leuchter.jpg" alt="Goldener Kronleuchter im hellen Kirchenschiff von Notre-Dame" loading="lazy">
+        <figcaption class="cap">Das Kirchenschiff mit goldenen Leuchtern</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d4-notre-dame-rosette.jpg" alt="Große blaue Fensterrose in Notre-Dame" loading="lazy">
+        <figcaption class="cap">Die Fensterrose</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d4-notre-dame-fenster.jpg" alt="Farbenprächtiges Buntglasfenster in einer Seitenkapelle von Notre-Dame" loading="lazy">
+        <figcaption class="cap">Farbenprächtige Buntglasfenster</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d4-notre-dame-chor.jpg" alt="Blick durch das hohe Kirchenschiff von Notre-Dame zum Chor" loading="lazy">
+        <figcaption class="cap">Blick Richtung Chor</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-full">
+      <img src="Paris/compressed/par-d4-notre-dame-querhaus.jpg" alt="Das Querhaus von Notre-Dame mit Fensterrose und Altarbereich" loading="lazy">
+      <figcaption class="cap" style="margin-top:8px">Die frisch restaurierte Notre-Dame von innen</figcaption>
+    </div>
+
+    <div class="day-text">
+      <p>Anschließend wollten wir eigentlich in die Krypta unter dem Vorplatz von Notre-Dame, die aber aktuell wegen Bauarbeiten geschlossen ist. Also laufen wir zum Panthéon und werfen auf dem Weg noch einen Blick auf die Sorbonne. In Paris läuft man gefühlt sowieso an einer Sehenswürdigkeit nach der anderen vorbei. Prunkbauten können sie :-)</p>
+      <p>Im Panthéon ist nicht viel los, also stellen wir uns an und holen uns für 13 € p. P. Tickets. Auch hier verzichten wir auf einen Audioguide. EU-Bürger unter 26 Jahren kommen übrigens kostenlos rein. Das Panthéon ist die Grabstätte bedeutender Persönlichkeiten Frankreichs. Neben den Gräbern gibt es innen eine Nachbildung des Foucaultschen Pendels und eine Kuppel mit weitem Blick über Paris – wenn sie denn nicht, wie bei uns, geschlossen ist … Trotz fehlender Aussicht hat es uns dort gut gefallen.</p>
+    </div>
+
+    <div class="photo-wide-solo">
+      <figure>
+        <img src="Paris/compressed/par-d4-pantheon-aussen.jpg" alt="Säulenportikus des Panthéon mit französischer Flagge" loading="lazy">
+        <figcaption class="cap">Das Panthéon</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d4-pantheon-kuppel.jpg" alt="Innenraum des Panthéon mit Säulen und kassettierter Kuppel" loading="lazy">
+        <figcaption class="cap">Unter der Kuppel des Panthéon</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d4-pantheon-convention.jpg" alt="Das Skulpturenmonument La Convention Nationale im Panthéon" loading="lazy">
+        <figcaption class="cap">Das Monument „La Convention Nationale"</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Auf dem Rückweg zur Wohnung gibt es noch ein Eis bei Berthillon – kein Schnäppchen, aber super lecker! Zurück in der Wohnung folgt ein vorgezogenes Abendessen von Schwartz's Deli. Das „best hot pastrami sandwich" war sehr lecker, und vor den Fleischmengen musste selbst mein Mann kapitulieren.</p>
+    </div>
+
+    <div class="photo-portrait-solo">
+      <figure>
+        <img src="Paris/compressed/par-d4-berthillon-eis.jpg" alt="Zwei Eiswaffeln mit Eis von Berthillon" loading="lazy">
+        <figcaption class="cap">Eis bei Berthillon – kein Schnäppchen, aber super lecker</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-wide-solo">
+      <figure>
+        <img src="Paris/compressed/par-d4-schwartz-deli.jpg" alt="Pastrami-Sandwich mit Pommes in einer Box von Schwartz's Deli" loading="lazy">
+        <figcaption class="cap">Pastrami-Sandwich von Schwartz's Deli</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Und dann ist es endlich so weit: Wir fahren zur Plenitude Arena, wo um 20:30 Uhr das Céline-Dion-Konzert startet. Auch hierhin kommen wir mit unserem Metro-Ticket – die Linie 1 bringt uns bis auf 10 Minuten Fußweg an die Arena heran. Der Einlass ist gut organisiert. Herausfordernd wird es trotzdem noch einmal: Unsere Plätze sind ganz oben, und an unserem Eingang gibt es keinen Aufzug oder Ähnliches. Für uns gut machbar, für viele aber eine ziemliche Herausforderung.</p>
+      <p>Oben angekommen, gibt es ein Bierchen für jeden, und wir nehmen unsere Plätze ein. Bei der „Bestplatz-Buchung" gab es damals ein paar Probleme, aber ich hatte zu viel Sorge, beim Zurückgehen keine Karten mehr zu bekommen – also saßen wir seeehr weit oben. Dank der Bildschirme konnte man trotzdem gut sehen, was vor sich ging.</p>
+      <p>Es war ein großartiges Konzert, und das Publikum war der Wahnsinn. Als französischsprachige Künstlerin ist Céline in Frankreich eine absolute Ikone, und so wurde sie auch bei jedem Song gefeiert. Gänsehaut.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d4-celine-plakat.jpg" alt="Konzertplakat Céline Dion Paris 2026–2027" loading="lazy">
+        <figcaption class="cap">Céline Dion – Paris 2026</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d4-konzert-fluegel.jpg" alt="Céline Dion mit ausgebreiteten Armen neben dem Pianisten am Flügel, auf der Großleinwand" loading="lazy">
+        <figcaption class="cap">Gänsehaut-Moment am Flügel</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d4-konzert-buehne.jpg" alt="Konzertbühne mit Céline Dion auf der Leinwand" loading="lazy">
+        <figcaption class="cap">Dank der Bildschirme auch von ganz oben gut zu sehen</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d4-konzert-arena.jpg" alt="Volle Arena mit tausenden Handylichtern während des Konzerts" loading="lazy">
+        <figcaption class="cap">Ein Lichtermeer – das Publikum war der Wahnsinn</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="day-divider">
+    <div class="day-divider-inner">
+      <span class="day-divider-label">Tag 5 · Donnerstag, 1. Oktober</span>
+      <span class="day-divider-title">Eiffelturm, Marais &amp; Bastille</span>
+    </div>
+  </div>
+
+  <div class="day-content">
+    <div class="day-text">
+      <p>Wir lieben es, in Städten hoch hinauszukommen und den Ausblick zu genießen, daher haben wir für den nächsten Tag Tickets für den Eiffelturm. Wir fahren etwas früher hin, das Wetter ist fantastisch, und wir schlendern bei strahlendem Sonnenschein von der Metrostation an der Seine entlang zum Eiffelturm. An den Zugängen gibt es keine langen Schlangen, wir sind schnell durch die Sicherheitskontrolle und können auf den Platz unter dem Eiffelturm. Zum Fahrstuhl darf man allerdings erst, wenn das eigene Zeitfenster dran ist. Wir haben uns für das Ticket bis ganz nach oben entschieden. Hoch fährt man am besten direkt bis zur Spitze – auf dem Rückweg hat man ausreichend Zeit, alles zu erkunden.</p>
+    </div>
+
+    <div class="photo-portrait-solo">
+      <figure>
+        <img src="Paris/compressed/par-d5-eiffelturm-ente.jpg" alt="Pinke Ente vor dem Fuß des Eiffelturms bei blauem Himmel" loading="lazy">
+        <figcaption class="cap">Strahlender Sonnenschein am Eiffelturm</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Dank des schönen Wetters haben wir einen unglaublich guten Weitblick. Von oben erkennt man gut das besondere Straßennetz von Paris und sieht viele der bereits besuchten Sehenswürdigkeiten. Den Rückweg nehmen wir über die Treppen. Danach geht es wieder Richtung Wohnung, denn meine Eltern fahren an diesem Abend bereits mit dem Flixbus zurück nach Hause.</p>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d5-blick-trocadero.jpg" alt="Blick von der Eiffelturm-Spitze über die Seine auf den Trocadéro und La Défense" loading="lazy">
+        <figcaption class="cap">Blick auf den Trocadéro und La Défense</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d5-blick-seine.jpg" alt="Blick vom Eiffelturm über die Dächer von Paris und die Seine unter Schäfchenwolken" loading="lazy">
+        <figcaption class="cap">Paris von oben – mit Weitblick</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-full">
+      <img src="Paris/compressed/par-d5-panorama-1.jpg" alt="Panorama vom Eiffelturm über das Marsfeld und die Stadt" loading="lazy">
+      <figcaption class="cap" style="margin-top:8px">Panorama über das Marsfeld</figcaption>
+    </div>
+
+    <div class="photo-full">
+      <img src="Paris/compressed/par-d5-panorama-2.jpg" alt="Weites Panorama über Paris und die Seine von der Eiffelturm-Spitze" loading="lazy">
+      <figcaption class="cap" style="margin-top:8px">Das besondere Straßennetz von Paris</figcaption>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d5-blick-marsfeld.jpg" alt="Senkrechter Blick vom Eiffelturm auf das Marsfeld und den Tour Montparnasse" loading="lazy">
+        <figcaption class="cap">Das Marsfeld und der Tour Montparnasse</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d5-glasboden.jpg" alt="Füße auf dem Glasboden des Eiffelturms mit Blick in die Tiefe" loading="lazy">
+        <figcaption class="cap">Auf dem Glasboden – nichts für schwache Nerven</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Robert und ich erkunden zum Abschluss abends noch das Marais und die Gegend rund um die Bastille. Hier sieht man deutlich, dass die Fashion Week in vollem Gange ist – ungeschminkt und im bequemen Städtetrip-Outfit fühle ich mich extrem underdressed.</p>
+    </div>
+
+    <div class="photo-wide-solo">
+      <figure>
+        <img src="Paris/compressed/par-d5-marais-oldtimer.jpg" alt="Grünes Oldtimer-Cabrio am Straßenrand im Marais" loading="lazy">
+        <figcaption class="cap">Oldtimer im Marais</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-portrait-solo">
+      <figure>
+        <img src="Paris/compressed/par-d5-bastille-saeule.jpg" alt="Die Julisäule auf dem Place de la Bastille vor blauem Abendhimmel" loading="lazy">
+        <figcaption class="cap">Die Julisäule an der Bastille</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Abendessen gibt es ganz stumpf bei McDonald's, um die hiesigen Spezialburger zu probieren – und aus Ritual auch den Big Mac. Der war wie immer, die Spezialburger waren nicht so gut.</p>
+      <p>Anschließend kehren wir noch im „Le Rempart Bastille" ein, das zu späterer Stunde eine Happy Hour für Cocktails und Bier hat. Die Cocktails waren aber mit die schlechtesten, die ich je getrunken habe – mich hat es richtig geschüttelt. Für Getränke würde ich es also nicht empfehlen, das Essen haben wir nicht probiert. Danach geht es auch für uns zurück in die Wohnung: Rucksäcke packen und aufräumen.</p>
+    </div>
+
+    <div class="photo-wide-solo">
+      <figure>
+        <img src="Paris/compressed/par-d5-mcdonalds.jpg" alt="Big Mac und ein französischer Spezialburger nebeneinander" loading="lazy">
+        <figcaption class="cap">Big Mac vs. Pariser Spezialburger</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="day-divider">
+    <div class="day-divider-inner">
+      <span class="day-divider-label">Tag 6 · Freitag, 2. Oktober</span>
+      <span class="day-divider-title">Abreise &amp; Fazit</span>
+    </div>
+  </div>
+
+  <div class="day-content">
+    <div class="day-text">
+      <p>Unser Zug geht um 9:06 Uhr zurück. Auf dem Rückweg haben wir erneut Pech: Wegen einer Streckensperrung sind wir alles in allem gute 2,5 Stunden später zu Hause. Immerhin gab es dafür 50 % des Ticketpreises zurück.</p>
+      <p><strong>Fazit:</strong> Paris ist eine sehr schöne Stadt mit einer hohen Dichte an Sehenswürdigkeiten, und selbst „normale" Bistros sind so hübsch, dass sie als Fotomotiv enden. Positiv ist auch, wie einfach die öffentlichen Verkehrsmittel funktionieren – so lässt sich die Stadt sehr entspannt erkunden. Nur bestimmte Eintritte unbedingt rechtzeitig planen, um sich Enttäuschungen am Eingang zu ersparen.</p>
+    </div>
+  </div>
+</div></section>
+
+<div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <a href="reise-danzig-2026.html" class="btn-outline-dark">← Danzig 2026</a>
+  <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+  <a href="reise-thailand-2026.html" class="btn-outline-dark">Thailand 2026 →</a>
+</div></div><footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer">
+        <p>Unsere echten Routen, ehrlichen Erlebnisse und Inspiration für alle, die raus wollen – Katha &amp; Robert seit 2011 unterwegs.</p>
+        <a href="https://www.instagram.com/30tageabenteuer" target="_blank" rel="noopener" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          @30TageAbenteuer
+        </a>
+      </div>
+      <div>
+        <div class="footer-col-title">Reiseziele</div>
+        <ul class="footer-links">
+          <li><a href="reise-paris-2026.html">Paris 2026</a></li>
+          <li><a href="reise-danzig-2026.html">Danzig 2026</a></li>
+          <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+          <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+          <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+          <li><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a></li>
+          <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+          <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Mehr</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html">Reisetipps</a></li>
+          <li><a href="ueber-uns.html">Über Uns</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Reisetipps</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html#planung">Wie wir planen</a></li>
+          <li><a href="reisetipps.html#packliste">Packliste</a></li>
+          <li><a href="reisetipps.html#hotels">Hotels finden</a></li>
+          <li><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <span>30 Tage Abenteuer</span> · Alle Rechte vorbehalten</p>
+      <p class="footer-copy" style="font-style:italic">Made with Fernweh &amp; Kaffee ☕</p>
+    </div>
+  </div>
+</footer>
 </body></html>
