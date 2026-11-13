@@ -64,6 +64,11 @@
     .overview-list a, .day-text a { color: var(--teal-dark); text-decoration: none; font-weight: 600; }
     .overview-list a:hover, .day-text a:hover { text-decoration: underline; }
     .gut-zu-wissen-lead { max-width: 720px; margin-top: 16px; }
+    /* Gut-zu-wissen-Kärtchen grün wie die Infoboxen (#A8BFA3, siehe .highlight-box) */
+    .gut-zu-wissen .overview-card { background: #A8BFA3; border-color: transparent; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+    .gut-zu-wissen .overview-icon { background: rgba(255,255,255,0.45); }
+    .gut-zu-wissen .overview-list li { color: var(--text-dark); }
+    .gut-zu-wissen .overview-list li::before { background: var(--teal-dark); }
     @media (max-width: 600px) {
       .photo-portrait-solo, .photo-wide-solo { max-width: 100%; }
       .photo-pair { flex-direction: column; }
@@ -145,7 +150,7 @@
 </div></section>
 
 <!-- ═══ Gut zu wissen: Tickets, Metro, Anreise ═══ -->
-<section class="section-pad bg-cream"><div class="section-inner">
+<section class="section-pad bg-cream gut-zu-wissen"><div class="section-inner">
   <p class="section-tag">Gut zu wissen</p><h2 class="section-title">Tickets, Metro &amp; <em>Anreise</em></h2>
   <p class="trip-text gut-zu-wissen-lead">So viel Andrang an den Sehenswürdigkeiten hatten wir in anderen Städten noch nie. Wer bestimmte Dinge auf jeden Fall sehen will, kommt um eine rechtzeitige Reservierung nicht herum.</p>
   <div class="overview-grid">
@@ -156,7 +161,7 @@
         <li><strong>Katakomben</strong> (<a href="https://www.catacombes.paris.fr" target="_blank" rel="noopener">catacombes.paris.fr ↗</a>): Slots werden 7 Tage vorher freigeschaltet, ca. 31 €</li>
         <li><strong>Sainte-Chapelle</strong> (<a href="https://www.sainte-chapelle.fr" target="_blank" rel="noopener">sainte-chapelle.fr ↗</a>): am besten ebenfalls vorbuchen – wir kamen in unserer Woche nicht rein</li>
         <li><strong>Disneyland:</strong> in der Nebensaison entspannter, zur Hauptreisezeit auf jeden Fall frühzeitig Tickets sichern</li>
-        <li><strong>Notre-Dame</strong> (<a href="https://resa.notredameparis.fr" target="_blank" rel="noopener">resa.notredameparis.fr ↗</a>): kostenloser Eintritt, Slots werden 2–3 Tage vorher freigegeben. Zur gewählten Zeit geht man entspannt an der ewig langen Schlange vorbei direkt zum Eingang für Reservierungen</li>
+        <li><strong>Notre-Dame</strong> (<a href="https://www.notredameparis.fr" target="_blank" rel="noopener">notredameparis.fr ↗</a>): kostenloser Eintritt, Slots werden 2–3 Tage vorher freigegeben. Zur gewählten Zeit geht man entspannt an der ewig langen Schlange vorbei direkt zum Eingang für Reservierungen</li>
       </ul>
     </div>
     <div class="overview-card">
