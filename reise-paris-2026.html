@@ -51,27 +51,23 @@
       max-width: 760px;
       margin: 28px auto;
     }
-    /* Infobox im Reisebericht (z. B. Disneyland-Tickets, Attraktionen-Check) */
-    .info-box {
-      background: white; border: 1px solid var(--border);
-      border-left: 4px solid var(--teal-light);
-      border-radius: var(--radius); padding: 28px;
-      margin: 32px 0;
+    /* Fotoreihen mit einheitlicher Bildhöhe: Bilder werden auf 16:9 (bzw. 4:3) zugeschnitten */
+    .day-content .photo-row-equal figure img {
+      width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
     }
-    .info-box-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem; font-weight: 600; color: var(--text-dark);
-      margin-bottom: 16px;
-    }
-    .info-box > p {
-      font-size: .95rem; line-height: 1.7; color: var(--text-mid);
-      margin-bottom: 14px;
-    }
-    .info-box .overview-list + p { margin-top: 18px; }
+    .day-content .photo-row-equal.photo-row-4x3 figure img { aspect-ratio: 4 / 3; }
+    /* Hoch- und Querformat nebeneinander in gleicher Höhe (flex-grow = Seitenverhältnis) */
+    .photo-pair { display: flex; gap: 16px; align-items: flex-start; margin: 28px 0; }
+    .photo-pair figure { min-width: 0; }
+    .photo-pair img { width: 100%; height: auto; border-radius: 10px; display: block; }
+    /* Links in Tipps & Text */
+    .overview-list a, .day-text a { color: var(--teal-dark); text-decoration: none; font-weight: 600; }
+    .overview-list a:hover, .day-text a:hover { text-decoration: underline; }
     .gut-zu-wissen-lead { max-width: 720px; margin-top: 16px; }
     @media (max-width: 600px) {
       .photo-portrait-solo, .photo-wide-solo { max-width: 100%; }
-      .info-box { padding: 20px; }
+      .photo-pair { flex-direction: column; }
+      .photo-pair figure { flex: none !important; width: 100%; }
     }
   </style>
 </head><body><div id="cursor-dot" aria-hidden="true"></div>
@@ -133,7 +129,7 @@
     <span></span><span></span><span></span>
   </button>
 </header><div class="trip-hero" style="margin-top:var(--nav-h)">
-  <img class="trip-hero-img" src="Paris/compressed/par-d3-eiffelturm-funkeln.jpg" alt="Der funkelnde, golden beleuchtete Eiffelturm bei Nacht, von der Seine aus gesehen" loading="eager" style="object-position:center 15%">
+  <img class="trip-hero-img" src="Paris/compressed/par-hero-panorama-marsfeld.jpg" alt="Panorama vom Eiffelturm über das Marsfeld und die Dächer von Paris unter Schäfchenwolken" loading="eager">
   <div class="trip-hero-overlay"></div>
   <div class="trip-hero-content">
     <p class="section-tag">Frankreich · Städtetrip</p>
@@ -148,30 +144,53 @@
   <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
 </div></section>
 
-<!-- ═══ Kurzübersicht: modularer, erweiterbarer Karten-Baustein ═══ -->
+<!-- ═══ Gut zu wissen: Tickets, Metro, Anreise ═══ -->
 <section class="section-pad bg-cream"><div class="section-inner">
-  <p class="section-tag">Kurzübersicht</p><h2 class="section-title">Alles Wichtige auf <em>einen Blick</em></h2>
+  <p class="section-tag">Gut zu wissen</p><h2 class="section-title">Tickets, Metro &amp; <em>Anreise</em></h2>
+  <p class="trip-text gut-zu-wissen-lead">So viel Andrang an den Sehenswürdigkeiten hatten wir in anderen Städten noch nie. Wer bestimmte Dinge auf jeden Fall sehen will, kommt um eine rechtzeitige Reservierung nicht herum.</p>
   <div class="overview-grid">
     <div class="overview-card">
-      <div class="overview-card-header"><span class="overview-icon">🗼</span><h3 class="overview-card-title">Unsere Highlights</h3></div>
+      <div class="overview-card-header"><span class="overview-icon">⏰</span><h3 class="overview-card-title">Frühzeitig reservieren</h3></div>
       <ul class="overview-list">
-        <li>Das Céline-Dion-Konzert</li>
-        <li>Seine-Bootstour am funkelnden Eiffelturm vorbei</li>
+        <li><strong>Eiffelturm</strong> (<a href="https://www.toureiffel.paris" target="_blank" rel="noopener">toureiffel.paris ↗</a>): ca. 3 Monate vorher, gerade wenn du bis zur Spitze willst. Ticket aktuell 36,70 €</li>
+        <li><strong>Katakomben</strong> (<a href="https://www.catacombes.paris.fr" target="_blank" rel="noopener">catacombes.paris.fr ↗</a>): Slots werden 7 Tage vorher freigeschaltet, ca. 31 €</li>
+        <li><strong>Sainte-Chapelle</strong> (<a href="https://www.sainte-chapelle.fr" target="_blank" rel="noopener">sainte-chapelle.fr ↗</a>): am besten ebenfalls vorbuchen – wir kamen in unserer Woche nicht rein</li>
+        <li><strong>Disneyland:</strong> in der Nebensaison entspannter, zur Hauptreisezeit auf jeden Fall frühzeitig Tickets sichern</li>
+        <li><strong>Notre-Dame</strong> (<a href="https://resa.notredameparis.fr" target="_blank" rel="noopener">resa.notredameparis.fr ↗</a>): kostenloser Eintritt, Slots werden 2–3 Tage vorher freigegeben. Zur gewählten Zeit geht man entspannt an der ewig langen Schlange vorbei direkt zum Eingang für Reservierungen</li>
       </ul>
     </div>
     <div class="overview-card">
-      <div class="overview-card-header"><span class="overview-icon">🎤</span><h3 class="overview-card-title">Die Geschichte dahinter</h3></div>
+      <div class="overview-card-header"><span class="overview-icon">🏛️</span><h3 class="overview-card-title">Jederzeit buchbar – vorab trotzdem empfehlenswert</h3></div>
       <ul class="overview-list">
-        <li>Céline Dions Comeback: zehn Konzerte, alle in Paris</li>
-        <li>Vorverkauf per Losverfahren, 9 Mio. Anmeldungen – und wir haben vier Karten ergattert</li>
+        <li><strong>Louvre</strong> (<a href="https://www.louvre.fr" target="_blank" rel="noopener">louvre.fr ↗</a>): Startzeitfenster buchen, ca. 22 €</li>
+        <li><strong>Musée d'Orsay</strong> (<a href="https://www.musee-orsay.fr" target="_blank" rel="noopener">musee-orsay.fr ↗</a>): ca. 16 €</li>
+        <li><strong>Arc de Triomphe</strong> (<a href="https://ticket.monuments-nationaux.fr" target="_blank" rel="noopener">ticket.monuments-nationaux.fr ↗</a>): ca. 16 €</li>
+        <li><strong>Seine-Rundfahrt</strong> (z. B. <a href="https://www.vedettesdupontneuf.com" target="_blank" rel="noopener">vedettesdupontneuf.com ↗</a> oder <a href="https://www.bateauxparisiens.com" target="_blank" rel="noopener">bateauxparisiens.com ↗</a>): ca. 15–19 €, teurer mit Dinner und/oder Sekt</li>
+      </ul>
+      <div class="overview-card-header" style="margin-top:24px"><span class="overview-icon">🚶</span><h3 class="overview-card-title">Vor Ort möglich</h3></div>
+      <ul class="overview-list">
+        <li><strong>Invalides/Dôme</strong> (<a href="https://www.musee-armee.fr" target="_blank" rel="noopener">musee-armee.fr ↗</a>): ca. 15 €</li>
+        <li><strong>Panthéon</strong> (<a href="https://ticket.monuments-nationaux.fr" target="_blank" rel="noopener">ticket.monuments-nationaux.fr ↗</a>): ca. 13 €</li>
       </ul>
     </div>
     <div class="overview-card">
-      <div class="overview-card-header"><span class="overview-icon">🎫</span><h3 class="overview-card-title">Praktische Infos</h3></div>
+      <div class="overview-card-header"><span class="overview-icon">🚇</span><h3 class="overview-card-title">Metro-Tickets</h3></div>
       <ul class="overview-list">
-        <li><strong>Währung:</strong> Euro</li>
-        <li><strong>Transfer:</strong> Uber gibt es auch, aber die Metro ist unschlagbar – enge Taktung, günstig, schnell</li>
-        <li><strong>Sehenswürdigkeiten:</strong> So viel Andrang hatten wir in anderen Städten noch nie – rechtzeitig reservieren!</li>
+        <li><strong>Navigo Easy:</strong> aufladbare Karte, am Automaten für einmalig 2 €, beladbar mit Einzel- oder Tagestickets. Aufladen am Automaten oder per NFC-fähigem Handy mit der App „Île-de-France Mobilités"</li>
+        <li><strong>Navigo Découverte:</strong> Wochenpass (Montag–Sonntag) für 32,40 €, gilt in allen Zonen. Am Automaten (Achtung: Passfoto nötig, einmalig zusätzlich 5 €) oder in der App – Selfie machen et voilà. Beachte: Der Pass startet immer montags. Reist ihr z. B. donnerstags an, gilt er nur bis zum folgenden Sonntag, nicht 7 Tage lang</li>
+        <li><strong>App Île-de-France Mobilités:</strong> Alle Varianten gibt es auch in der App. Achtung: NFC muss aktiviert sein, unterwegs braucht ihr mobile Daten, und klappt das Einlesen nicht, schirmt eventuell die Handyhülle ab</li>
+        <li><strong>Einzeltickets:</strong> Metro/RER 2,55 €, Bus/Tram 2,05 € pro Fahrt, Tagesticket 12,30 € (lohnt sich ab 5 Fahrten). Achtung: Metro und Bus sind getrennte Tickets</li>
+        <li>Ein Einzelticket gilt ab Entwertung 2 Stunden – so lange kann man beliebig oft umsteigen, solange man das Schienennetz nicht durch eine Sperre verlässt</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-header"><span class="overview-icon">🚆</span><h3 class="overview-card-title">Anreise nach Paris</h3></div>
+      <ul class="overview-list">
+        <li><strong>Flugzeug:</strong> Von den meisten großen Flughäfen gibt es Direktflüge nach Paris-Charles-de-Gaulle (CDG)</li>
+        <li><strong>Flixbus:</strong> Meine Eltern sind mit dem Flixbus von Münster angereist – ca. 8 Stunden Fahrtzeit über Nacht</li>
+        <li><strong>Bahn:</strong> Wir sind mit der Bahn gefahren: Start 10:49 Uhr in Leipzig, zweimal umsteigen (Mannheim und Karlsruhe), theoretische Ankunft am Gare de l'Est um 18:16 Uhr (in der Realität ca. 60 Minuten Verspätung). Zurück nur ein Umstieg in Frankfurt, dafür 2 Stunden Verspätung. Preis: hin und zurück 215 € p. P.</li>
+        <li><strong>Auto:</strong> Natürlich auch möglich. Die Autobahn ist mautpflichtig, und im Großraum Paris braucht ihr die französische Umweltplakette „Crit'Air" – online beim französischen Umweltministerium (<a href="https://www.certificat-air.gouv.fr" target="_blank" rel="noopener">certificat-air.gouv.fr ↗</a>) für 4,76 € inkl. Versand nach Deutschland</li>
+        <li><strong>Parken:</strong> im Hotel nach Parkmöglichkeiten fragen, Parkhaus (nervenschonend im Voraus reservieren) oder Park-and-Ride. Parken am Straßenrand möglichst vermeiden: Risiko für Blechschäden, teuer und oft zeitlich begrenzt</li>
       </ul>
     </div>
   </div>
@@ -191,60 +210,8 @@
   </div>
 </div></section>
 
-<!-- ═══ Gut zu wissen: Tickets, Metro, Anreise ═══ -->
-<section class="section-pad bg-cream"><div class="section-inner">
-  <p class="section-tag">Gut zu wissen</p><h2 class="section-title">Tickets, Metro &amp; <em>Anreise</em></h2>
-  <p class="trip-text gut-zu-wissen-lead">So viel Andrang an den Sehenswürdigkeiten hatten wir in anderen Städten noch nie. Wer bestimmte Dinge auf jeden Fall sehen will, kommt um eine rechtzeitige Reservierung nicht herum.</p>
-  <div class="overview-grid">
-    <div class="overview-card">
-      <div class="overview-card-header"><span class="overview-icon">⏰</span><h3 class="overview-card-title">Frühzeitig reservieren</h3></div>
-      <ul class="overview-list">
-        <li><strong>Eiffelturm</strong> (toureiffel.paris): ca. 3 Monate vorher, gerade wenn du bis zur Spitze willst. Ticket aktuell 36,70 €</li>
-        <li><strong>Katakomben</strong> (catacombes.paris.fr): Slots werden 7 Tage vorher freigeschaltet, ca. 31 €</li>
-        <li><strong>Sainte-Chapelle</strong> (sainte-chapelle.fr): am besten ebenfalls vorbuchen – wir kamen in unserer Woche nicht rein</li>
-        <li><strong>Disneyland:</strong> in der Nebensaison entspannter, zur Hauptreisezeit auf jeden Fall frühzeitig Tickets sichern</li>
-        <li><strong>Notre-Dame</strong> (resa.notredameparis.fr): kostenloser Eintritt, Slots werden 2–3 Tage vorher freigegeben. Zur gewählten Zeit geht man entspannt an der ewig langen Schlange vorbei direkt zum Eingang für Reservierungen</li>
-      </ul>
-    </div>
-    <div class="overview-card">
-      <div class="overview-card-header"><span class="overview-icon">🏛️</span><h3 class="overview-card-title">Jederzeit buchbar – vorab trotzdem empfehlenswert</h3></div>
-      <ul class="overview-list">
-        <li><strong>Louvre</strong> (louvre.fr): Startzeitfenster buchen, ca. 22 €</li>
-        <li><strong>Musée d'Orsay</strong> (musee-orsay.fr): ca. 16 €</li>
-        <li><strong>Arc de Triomphe</strong> (ticket.monuments-nationaux.fr): ca. 16 €</li>
-        <li><strong>Seine-Rundfahrt</strong> (z. B. vedettesdupontneuf.com oder bateauxparisiens.com): ca. 15–19 €, teurer mit Dinner und/oder Sekt</li>
-      </ul>
-      <div class="overview-card-header" style="margin-top:24px"><span class="overview-icon">🚶</span><h3 class="overview-card-title">Vor Ort möglich</h3></div>
-      <ul class="overview-list">
-        <li><strong>Invalides/Dôme</strong> (musee-armee.fr): ca. 15 €</li>
-        <li><strong>Panthéon</strong> (ticket.monuments-nationaux.fr): ca. 13 €</li>
-      </ul>
-    </div>
-    <div class="overview-card">
-      <div class="overview-card-header"><span class="overview-icon">🚇</span><h3 class="overview-card-title">Metro-Tickets</h3></div>
-      <ul class="overview-list">
-        <li><strong>Navigo Easy:</strong> aufladbare Karte, am Automaten für einmalig 2 €, beladbar mit Einzel- oder Tagestickets. Aufladen am Automaten oder per NFC-fähigem Handy mit der App „Île-de-France Mobilités"</li>
-        <li><strong>Navigo Découverte:</strong> Wochenpass (Montag–Sonntag) für 32,40 €, gilt in allen Zonen. Am Automaten (Achtung: Passfoto nötig, einmalig zusätzlich 5 €) oder in der App – Selfie machen et voilà. Beachte: Der Pass startet immer montags. Reist ihr z. B. donnerstags an, gilt er nur bis zum folgenden Sonntag, nicht 7 Tage lang</li>
-        <li><strong>App Île-de-France Mobilités:</strong> Alle Varianten gibt es auch in der App. Achtung: NFC muss aktiviert sein, unterwegs braucht ihr mobile Daten, und klappt das Einlesen nicht, schirmt eventuell die Handyhülle ab</li>
-        <li><strong>Einzeltickets:</strong> Metro/RER 2,55 €, Bus/Tram 2,05 € pro Fahrt, Tagesticket 12,30 € (lohnt sich ab 5 Fahrten). Achtung: Metro und Bus sind getrennte Tickets</li>
-        <li>Ein Einzelticket gilt ab Entwertung 2 Stunden – so lange kann man beliebig oft umsteigen, solange man das Schienennetz nicht durch eine Sperre verlässt</li>
-      </ul>
-    </div>
-    <div class="overview-card">
-      <div class="overview-card-header"><span class="overview-icon">🚆</span><h3 class="overview-card-title">Anreise nach Paris</h3></div>
-      <ul class="overview-list">
-        <li><strong>Flugzeug:</strong> Von den meisten großen Flughäfen gibt es Direktflüge nach Paris-Charles-de-Gaulle (CDG)</li>
-        <li><strong>Flixbus:</strong> Meine Eltern sind mit dem Flixbus von Münster angereist – ca. 8 Stunden Fahrtzeit über Nacht</li>
-        <li><strong>Bahn:</strong> Wir sind mit der Bahn gefahren: Start 10:49 Uhr in Leipzig, zweimal umsteigen (Mannheim und Karlsruhe), theoretische Ankunft am Gare de l'Est um 18:16 Uhr (in der Realität ca. 60 Minuten Verspätung). Zurück nur ein Umstieg in Frankfurt, dafür 2 Stunden Verspätung. Preis: hin und zurück 215 € p. P.</li>
-        <li><strong>Auto:</strong> Natürlich auch möglich. Die Autobahn ist mautpflichtig, und im Großraum Paris braucht ihr die französische Umweltplakette „Crit'Air" – online beim französischen Umweltministerium (certificat-air.gouv.fr) für 4,76 € inkl. Versand nach Deutschland</li>
-        <li><strong>Parken:</strong> im Hotel nach Parkmöglichkeiten fragen, Parkhaus (nervenschonend im Voraus reservieren) oder Park-and-Ride. Parken am Straßenrand möglichst vermeiden: Risiko für Blechschäden, teuer und oft zeitlich begrenzt</li>
-      </ul>
-    </div>
-  </div>
-</div></section>
-
 <!-- ═══ Tag für Tag ═══ -->
-<section class="section-pad bg-off"><div class="section-inner">
+<section class="section-pad bg-cream"><div class="section-inner">
   <p class="section-tag">Reisebericht</p><h2 class="section-title">Tag für <em>Tag</em></h2>
 
   <div class="day-divider" style="margin-top:32px">
@@ -278,7 +245,7 @@
       </figure>
       <figure>
         <img src="Paris/compressed/par-d1-flur-wohnung.jpg" alt="Schmaler Hausflur mit schwarz-weißem Schachbrettboden und Steinwand" loading="lazy">
-        <figcaption class="cap">Der Flur Richtung Ausgang – mit Schachbrettboden</figcaption>
+        <figcaption class="cap">Der Flur Richtung Ausgang</figcaption>
       </figure>
       <figure>
         <img src="Paris/compressed/par-d1-haustuer-wohnung.jpg" alt="Zwei blaugraue Wohnungstüren auf rotem Fliesenboden im Treppenhaus" loading="lazy">
@@ -307,20 +274,38 @@
   </div>
 
   <div class="day-content">
-    <div class="info-box">
-      <h3 class="info-box-title">🏰 Infobox: Disneyland-Tickets &amp; Anreise</h3>
-      <p>Unsere Tickets haben wir über die offizielle Ticketseite geholt (tickets.disneylandparis.com). Welche Tickets gibt es?</p>
-      <ul class="overview-list">
-        <li><strong>Datiertes Ticket:</strong> Du wählst ein festes Datum für deinen Besuch aus, das garantiert dir den Zugang an diesem Tag. Wählbar sind Tages- und Mehrtagestickets, und du musst entscheiden, ob du nur einen Park oder beide sehen willst. Hast du, wie wir, nur einen Tag, entscheide dich für einen – für zwei Parks reicht die Zeit nicht, gerade wenn du auch mal eine Parade oder Show sehen willst. Datierte Tickets sind bis 3 Tage vor dem Besuch kostenlos stornierbar.</li>
-        <li><strong>Undatiertes Ticket:</strong> ab Kauf 1 Jahr gültig, für einen oder beide Parks, mit 14-tägigem Widerrufsrecht. Vor dem Besuch muss man sich mit dem Ticket trotzdem registrieren, um Eintritt zu erhalten – und je nach Saison sind Besuchstage schnell ausgebucht.</li>
-        <li><strong>Kombipakete</strong> mit Hotels am oder im Park: Hier hat man zum Teil früher und länger Zutritt.</li>
-        <li><strong>Zusatztickets</strong> wie Premier Access, garantierte Showeinlässe oder reservierte Bereiche mit besonders gutem Blick auf die Paraden.</li>
-      </ul>
-      <p style="margin-top:22px"><strong>Anreise zum Disneyland:</strong></p>
-      <ul class="overview-list">
-        <li><strong>Auto:</strong> über die Autobahn erreichbar, kostenpflichtiger Parkplatz (normales Auto: 30 €)</li>
-        <li><strong>Zug:</strong> Der RER A fährt direkt bis vors Disneyland (Halt Marne-la-Vallée – Chessy) und ist von Paris aus mit dem Standardticket nutzbar.</li>
-      </ul>
+    <!-- ══ Highlight Box: Disneyland-Tickets (Stil wie Thailand-Seite) ══ -->
+    <div class="highlight-box">
+      <div class="highlight-box-header">
+        <span class="highlight-icon">🏰</span>
+        <div>
+          <div class="highlight-tag">Infobox</div>
+          <h4 class="highlight-title">Disneyland-Tickets &amp; Anreise</h4>
+        </div>
+      </div>
+      <div class="highlight-pills">
+        <div class="highlight-pill">
+          <strong>Tickets kaufen</strong>
+          Unsere Tickets haben wir über die offizielle Ticketseite geholt: <a href="https://tickets.disneylandparis.com" target="_blank" rel="noopener">tickets.disneylandparis.com ↗</a>
+        </div>
+        <div class="highlight-pill">
+          <strong>Datiertes Ticket</strong>
+          Du wählst ein festes Datum für deinen Besuch aus, das garantiert dir den Zugang an diesem Tag. Wählbar sind Tages- und Mehrtagestickets, und du musst entscheiden, ob du nur einen Park oder beide sehen willst. Hast du, wie wir, nur einen Tag, entscheide dich für einen – für zwei Parks reicht die Zeit nicht, gerade wenn du auch mal eine Parade oder Show sehen willst. Datierte Tickets sind bis 3 Tage vor dem Besuch kostenlos stornierbar.
+        </div>
+        <div class="highlight-pill">
+          <strong>Undatiertes Ticket</strong>
+          Ab Kauf 1 Jahr gültig, für einen oder beide Parks, mit 14-tägigem Widerrufsrecht. Vor dem Besuch muss man sich mit dem Ticket trotzdem registrieren, um Eintritt zu erhalten – und je nach Saison sind Besuchstage schnell ausgebucht.
+        </div>
+        <div class="highlight-pill">
+          <strong>Kombipakete &amp; Zusatztickets</strong>
+          Pakete mit Hotels am oder im Park bieten zum Teil früheren und längeren Zutritt. Dazu gibt es Zusatztickets wie Premier Access, garantierte Showeinlässe oder reservierte Bereiche mit besonders gutem Blick auf die Paraden.
+        </div>
+        <div class="highlight-pill">
+          <strong>Anreise</strong>
+          🚗 Auto: über die Autobahn erreichbar, kostenpflichtiger Parkplatz (normales Auto: 30 €)<br>
+          🚆 Zug: Der RER A fährt direkt bis vors Disneyland (Halt Marne-la-Vallée – Chessy) und ist von Paris aus mit dem Standardticket nutzbar.
+        </div>
+      </div>
     </div>
 
     <div class="day-text">
@@ -342,7 +327,7 @@
       <p>Der RER A hält direkt am Disneyland, das Schild sieht man gleich beim Verlassen des Bahnhofs. Es folgt ein Sicherheitscheck – unser Proviant war kein Problem. Um 9:30 Uhr öffnen die Tore, und wir stehen tatsächlich im Disneyland. Leider hat sich das Wetter nicht an die Vorhersage gehalten: Bewölkt und trocken sollte es sein, wir haben dann mal bewölkt und nass daraus gemacht.</p>
     </div>
 
-    <div class="photo-row-3">
+    <div class="photo-row-3 photo-row-equal">
       <figure>
         <img src="Paris/compressed/par-d2-halloween-eingang.jpg" alt="Eingangsgebäude des Disneyland Park mit Halloween-Festival-Dekoration" loading="lazy">
         <figcaption class="cap">Der Eingang im Halloween-Look</figcaption>
@@ -362,27 +347,34 @@
       <p>Der Park ist schon für sich eine Attraktion: die Deko, die Themenwelten … Aber was haben wir konkret gesehen, und wie fällt unser Fazit aus?</p>
     </div>
 
-    <div class="info-box">
-      <h3 class="info-box-title">🎢 Unser Disneyland-Check</h3>
-      <ul class="overview-list">
-        <li><strong>Parade zur Mittagszeit:</strong> kann man sich mal anschauen – viele Darsteller, gut gestaltete Wagen und Musik</li>
-        <li><strong>Show „König der Löwen":</strong> eine ganz tolle Show, die uns sehr gut gefallen hat. Einen Platz zu bekommen war kein Problem, wir waren gute 20 Minuten vorher da</li>
-        <li><strong>Pirates of the Caribbean:</strong> nette, entspannte Bootsfahrt</li>
-        <li><strong>Star Tours – The Adventures Continue:</strong> war früher wahrscheinlich sehr spannend, mittlerweile wirkt die Technik eher veraltet und wenig spektakulär</li>
-        <li><strong>Hyperspace Mountain:</strong> coole Achterbahn im Dunkeln</li>
-        <li><strong>Phantom Manor:</strong> „Gruselhaus", nicht wirklich gruselig</li>
-        <li><strong>Buzz Lightyear Laser Blast:</strong> mit kleineren Kids bestimmt lustig, für uns war's okay</li>
-        <li><strong>Indiana Jones and the Temple of Peril:</strong> Achterbahn, hat Spaß gemacht</li>
-        <li><strong>Disneyland Railroad:</strong> Einige Stationen waren geschlossen, wir haben sie genutzt, um zum Parkeingang zurückzufahren</li>
-        <li><strong>Thunder Mesa Riverboat:</strong> Schaufelraddampfer-Fahrt, ganz nett gemacht, ca. 20 Minuten über den See</li>
-      </ul>
-      <p>Beim nächsten Mal würde ich wahrscheinlich zuerst zum Big Thunder Mountain laufen – dort gibt es im Gegensatz zum Hyperspace Mountain keine Single-Rider-Spur.</p>
+    <!-- ══ Highlight Box: Disneyland-Check ══ -->
+    <div class="highlight-box">
+      <div class="highlight-box-header">
+        <span class="highlight-icon">🎢</span>
+        <div>
+          <div class="highlight-tag">Unser Fazit</div>
+          <h4 class="highlight-title">Unser Disneyland-Check</h4>
+        </div>
+      </div>
+      <div class="highlight-pills">
+        <div class="highlight-pill"><strong>Parade zur Mittagszeit</strong>Kann man sich mal anschauen – viele Darsteller, gut gestaltete Wagen und Musik.</div>
+        <div class="highlight-pill"><strong>Show „König der Löwen"</strong>Eine ganz tolle Show, die uns sehr gut gefallen hat. Einen Platz zu bekommen war kein Problem, wir waren gute 20 Minuten vorher da.</div>
+        <div class="highlight-pill"><strong>Pirates of the Caribbean</strong>Nette, entspannte Bootsfahrt.</div>
+        <div class="highlight-pill"><strong>Star Tours – The Adventures Continue</strong>War früher wahrscheinlich sehr spannend, mittlerweile wirkt die Technik eher veraltet und wenig spektakulär.</div>
+        <div class="highlight-pill"><strong>Hyperspace Mountain</strong>Coole Achterbahn im Dunkeln.</div>
+        <div class="highlight-pill"><strong>Phantom Manor</strong>„Gruselhaus", nicht wirklich gruselig.</div>
+        <div class="highlight-pill"><strong>Buzz Lightyear Laser Blast</strong>Mit kleineren Kids bestimmt lustig, für uns war's okay.</div>
+        <div class="highlight-pill"><strong>Indiana Jones and the Temple of Peril</strong>Achterbahn, hat Spaß gemacht.</div>
+        <div class="highlight-pill"><strong>Disneyland Railroad</strong>Einige Stationen waren geschlossen, wir haben sie genutzt, um zum Parkeingang zurückzufahren.</div>
+        <div class="highlight-pill"><strong>Thunder Mesa Riverboat</strong>Schaufelraddampfer-Fahrt, ganz nett gemacht, ca. 20 Minuten über den See.</div>
+        <div class="highlight-pill"><strong>Beim nächsten Mal</strong>Würde ich wahrscheinlich zuerst zum Big Thunder Mountain laufen – dort gibt es im Gegensatz zum Hyperspace Mountain keine Single-Rider-Spur.</div>
+      </div>
     </div>
 
     <div class="photo-row-2">
       <figure>
         <img src="Paris/compressed/par-d2-koenig-der-loewen.jpg" alt="Bunt beleuchtete Bühne der Show König der Löwen im Disneyland Paris" loading="lazy">
-        <figcaption class="cap">Die Show „König der Löwen" – ganz toll</figcaption>
+        <figcaption class="cap">Die Show „König der Löwen"</figcaption>
       </figure>
       <figure>
         <img src="Paris/compressed/par-d2-phantom-manor.jpg" alt="Das viktorianische Spukhaus Phantom Manor auf einem Hügel" loading="lazy">
@@ -413,18 +405,10 @@
       <p>Zurück im Marais wollten wir nicht mehr weit laufen und sind direkt um die Ecke ins „La Tartine" gegangen – ein französisches Bistro mit Happy Hour. Wir haben gut gegessen (Zwiebelsuppe, Croque Madame und Croque Monsieur, Bœuf bourguignon), also einmal quer durch die klassische Bistroküche.</p>
     </div>
 
-    <div class="photo-row-3">
+    <div class="photo-wide-solo">
       <figure>
         <img src="Paris/compressed/par-d2-croque-madame.jpg" alt="Croque Madame mit Spiegelei und Salat auf einem weißen Teller" loading="lazy">
         <figcaption class="cap">Croque Madame im „La Tartine"</figcaption>
-      </figure>
-      <figure>
-        <img src="Paris/compressed/par-d2-bistro-ragout.jpg" alt="Fleischragout in heller Soße mit Reis" loading="lazy">
-        <figcaption class="cap">Klassische Bistroküche</figcaption>
-      </figure>
-      <figure>
-        <img src="Paris/compressed/par-d2-escargots.jpg" alt="Weinbergschnecken in einer Schneckenpfanne, dahinter ein Bier" loading="lazy">
-        <figcaption class="cap">Escargots – typisch französisch</figcaption>
       </figure>
     </div>
   </div>
@@ -441,14 +425,10 @@
       <p>Der nächste Morgen startet mit Sonne und einem Frühstück im „Little Cafe". Leider eine Enttäuschung: teuer, nicht lecker und eine sehr kleine Portion.</p>
     </div>
 
-    <div class="photo-row-3">
-      <figure>
-        <img src="Paris/compressed/par-d3-little-cafe.jpg" alt="Croissants, Orangensaft und Kaffee auf einem Bistrotisch in einer sonnigen Gasse" loading="lazy">
-        <figcaption class="cap">Frühstück im „Little Cafe"</figcaption>
-      </figure>
+    <div class="photo-row-2">
       <figure>
         <img src="Paris/compressed/par-d3-croissants.jpg" alt="Zwei Croissants, Kaffee und Orangensaft auf einem Tisch" loading="lazy">
-        <figcaption class="cap">Croissant, Kaffee, O-Saft</figcaption>
+        <figcaption class="cap">Frühstück im „Little Cafe"</figcaption>
       </figure>
       <figure>
         <img src="Paris/compressed/par-d3-avocado-toast.jpg" alt="Avocado-Toast mit pochiertem Ei und Gurken" loading="lazy">
@@ -495,7 +475,7 @@
       <p>Wir schlendern weiter zum Place du Tertre. Hier sitzen die Künstler mit ihren Werken, drumherum gibt es viele schöne Cafés, Bistros und Läden. Da wir meine Eltern unten zurückgelassen haben, setzen wir uns nicht, sondern treten nach dem Rundgang den Rückweg an. Die Gegend kann ich empfehlen – sie hat uns gut gefallen, und die Basilika ist auch von außen schön und beeindruckend.</p>
     </div>
 
-    <div class="photo-row-3">
+    <div class="photo-row-3 photo-row-equal photo-row-4x3">
       <figure>
         <img src="Paris/compressed/par-d3-place-du-tertre.jpg" alt="Der Place du Tertre mit Künstlerständen unter Bäumen" loading="lazy">
         <figcaption class="cap">Der Place du Tertre mit seinen Künstlern</figcaption>
@@ -525,7 +505,7 @@
       </figure>
     </div>
 
-    <div class="photo-row-2">
+    <div class="photo-row-3">
       <figure>
         <img src="Paris/compressed/par-d3-biscuiterie.jpg" alt="Schaufenster der Biscuiterie de Montmartre" loading="lazy">
         <figcaption class="cap">Die Biscuiterie de Montmartre</figcaption>
@@ -534,32 +514,40 @@
         <img src="Paris/compressed/par-d3-strassenecke.jpg" alt="Typisch Pariser Straßenkreuzung mit hellen Haussmann-Fassaden" loading="lazy">
         <figcaption class="cap">Typisch Paris: Haussmann-Fassaden</figcaption>
       </figure>
-    </div>
-
-    <div class="photo-row-3">
-      <figure>
-        <img src="Paris/compressed/par-d3-fisch-pommes.jpg" alt="Panierter Fisch mit Pommes, Salat und Remoulade" loading="lazy">
-        <figcaption class="cap">Zwischendurch: Fisch mit Pommes …</figcaption>
-      </figure>
-      <figure>
-        <img src="Paris/compressed/par-d3-burger.jpg" alt="Burger mit Pommes auf einem Bistrotisch" loading="lazy">
-        <figcaption class="cap">… und ein Burger</figcaption>
-      </figure>
       <figure>
         <img src="Paris/compressed/par-d3-mochi.jpg" alt="Bunte Mochi-Eiskugeln in einer Papierschale" loading="lazy">
-        <figcaption class="cap">Mochi-Eis als Nachtisch</figcaption>
+        <figcaption class="cap">Mochi-Eis zwischendurch</figcaption>
       </figure>
     </div>
 
     <div class="day-text">
-      <p>Abends geht's zu einem unserer Highlights dieses Urlaubs: einer Seine-Rundfahrt mit dem funkelnden Eiffelturm direkt vor uns. Die Tickets für die 20-Uhr-Abfahrt haben wir einen Tag vorher bei vedettesdupontneuf.com besorgt (15 € p. P.). Ich kann die Tour absolut empfehlen: Unterwegs sieht man viele Sehenswürdigkeiten vom Wasser aus, viele Pariser sitzen am Ufer, und die Beleuchtung sorgt für eine besondere Stimmung. Zusätzlich hatten wir Glück, dass der Vollmond gerade erst vorbei war – der fast volle Mond hat die Stimmung noch verschönert. Besonders beeindruckend: Die Abfahrt ist perfekt getimt, sodass man pünktlich zum Funkelstart des Eiffelturms auf seiner Höhe ist. Ein unglaublich schöner Augenblick.</p>
+      <p>Zum Abendessen geht es noch einmal ins „Comptoir Rivoli" um die Ecke.</p>
     </div>
 
-    <div class="photo-portrait-solo">
+    <div class="photo-row-2">
       <figure>
-        <img src="Paris/compressed/par-d3-metro-abend.jpg" alt="Jugendstil-Metroeingang am Abend vor beleuchteten Cafés" loading="lazy">
-        <figcaption class="cap">Abends auf dem Weg zum Boot</figcaption>
+        <img src="Paris/compressed/par-d3-fisch-pommes.jpg" alt="Panierter Fisch mit Pommes, Salat und Remoulade" loading="lazy">
+        <figcaption class="cap">Fisch mit Pommes im „Comptoir Rivoli"</figcaption>
       </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-burger.jpg" alt="Burger mit Pommes auf einem Bistrotisch" loading="lazy">
+        <figcaption class="cap">Burger mit Pommes</figcaption>
+      </figure>
+    </div>
+
+    <div class="photo-row-2">
+      <figure>
+        <img src="Paris/compressed/par-d3-bistro-ragout.jpg" alt="Fleischragout in heller Soße mit Reis" loading="lazy">
+        <figcaption class="cap">Klassische Bistroküche</figcaption>
+      </figure>
+      <figure>
+        <img src="Paris/compressed/par-d3-escargots.jpg" alt="Weinbergschnecken in einer Schneckenpfanne, dahinter ein Bier" loading="lazy">
+        <figcaption class="cap">Escargots – typisch französisch</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
+      <p>Abends geht's zu einem unserer Highlights dieses Urlaubs: einer Seine-Rundfahrt mit dem funkelnden Eiffelturm direkt vor uns. Die Tickets für die 20-Uhr-Abfahrt haben wir einen Tag vorher bei <a href="https://www.vedettesdupontneuf.com" target="_blank" rel="noopener">vedettesdupontneuf.com ↗</a> besorgt (15 € p. P.). Ich kann die Tour absolut empfehlen: Unterwegs sieht man viele Sehenswürdigkeiten vom Wasser aus, viele Pariser sitzen am Ufer, und die Beleuchtung sorgt für eine besondere Stimmung. Zusätzlich hatten wir Glück, dass der Vollmond gerade erst vorbei war – der fast volle Mond hat die Stimmung noch verschönert. Besonders beeindruckend: Die Abfahrt ist perfekt getimt, sodass man pünktlich zum Funkelstart des Eiffelturms auf seiner Höhe ist. Ein unglaublich schöner Augenblick.</p>
     </div>
 
     <div class="photo-row-2">
@@ -591,9 +579,9 @@
       <p>Am nächsten Tag brauchen meine Eltern eine Pause, also ziehen Robert und ich alleine los. Das Wetter hat sich wieder auf Grau und Niesel eingestellt – nicht optimal für eine Sightseeing-Runde, aber nicht zu ändern. Wir starten mit dem Louvre, bestaunen ihn allerdings nur von außen, da wir kein passendes Zeitfenster buchen konnten. Auch hier wieder der Tipp: Wenn man etwas unbedingt sehen will, rechtzeitig reservieren. Wir schlendern an der Pyramide vorbei und sind platt, wie riesig das Areal ist: Der Louvre hat eine Ausstellungsfläche von unglaublichen 72.735 Quadratmetern, die gesamte umbaute Palastfläche beträgt 135.000 Quadratmeter (knapp 19 Fußballfelder)!</p>
     </div>
 
-    <div class="photo-row-3">
+    <div class="photo-row-3 photo-row-equal">
       <figure>
-        <img src="Paris/compressed/par-d4-pont-des-arts.jpg" alt="Der Pont des Arts mit Blick auf die Kuppel des Institut de France unter grauem Himmel" loading="lazy">
+        <img src="Paris/compressed/par-d4-pont-des-arts.jpg" style="object-position:center top" alt="Der Pont des Arts mit Blick auf die Kuppel des Institut de France unter grauem Himmel" loading="lazy">
         <figcaption class="cap">Über den Pont des Arts</figcaption>
       </figure>
       <figure>
@@ -664,15 +652,13 @@
       <p>Auf dem Rückweg zur Wohnung gibt es noch ein Eis bei Berthillon – kein Schnäppchen, aber super lecker! Zurück in der Wohnung folgt ein vorgezogenes Abendessen von Schwartz's Deli. Das „best hot pastrami sandwich" war sehr lecker, und vor den Fleischmengen musste selbst mein Mann kapitulieren.</p>
     </div>
 
-    <div class="photo-portrait-solo">
-      <figure>
+    <!-- Hoch- und Querformat nebeneinander in gleicher Höhe: flex-grow = Seitenverhältnis -->
+    <div class="photo-pair">
+      <figure style="flex:0.753">
         <img src="Paris/compressed/par-d4-berthillon-eis.jpg" alt="Zwei Eiswaffeln mit Eis von Berthillon" loading="lazy">
         <figcaption class="cap">Eis bei Berthillon – kein Schnäppchen, aber super lecker</figcaption>
       </figure>
-    </div>
-
-    <div class="photo-wide-solo">
-      <figure>
+      <figure style="flex:1.777">
         <img src="Paris/compressed/par-d4-schwartz-deli.jpg" alt="Pastrami-Sandwich mit Pommes in einer Box von Schwartz's Deli" loading="lazy">
         <figcaption class="cap">Pastrami-Sandwich von Schwartz's Deli</figcaption>
       </figure>
@@ -808,7 +794,7 @@
   </div>
 </div></section>
 
-<div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+<div class="section-pad-sm bg-off"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
   <a href="reise-danzig-2026.html" class="btn-outline-dark">← Danzig 2026</a>
   <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
   <a href="reise-thailand-2026.html" class="btn-outline-dark">Thailand 2026 →</a>
