@@ -67,8 +67,15 @@
     /* Gut-zu-wissen-Kärtchen grün wie die Infoboxen (#A8BFA3, siehe .highlight-box) */
     .gut-zu-wissen .overview-card { background: #A8BFA3; border-color: transparent; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
     .gut-zu-wissen .overview-icon { background: rgba(255,255,255,0.45); }
-    .gut-zu-wissen .overview-list li { color: var(--text-dark); }
-    .gut-zu-wissen .overview-list li::before { background: var(--teal-dark); }
+    /* Unterpunkte als hellere, umrandete Felder – wie .highlight-pill */
+    .gut-zu-wissen .overview-list li {
+      color: var(--text-dark);
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.75);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .gut-zu-wissen .overview-list li::before { display: none; }
     @media (max-width: 600px) {
       .photo-portrait-solo, .photo-wide-solo { max-width: 100%; }
       .photo-pair { flex-direction: column; }
@@ -160,7 +167,7 @@
         <li><strong>Eiffelturm</strong> (<a href="https://www.toureiffel.paris" target="_blank" rel="noopener">toureiffel.paris ↗</a>): ca. 3 Monate vorher, gerade wenn du bis zur Spitze willst. Ticket aktuell 36,70 €</li>
         <li><strong>Katakomben</strong> (<a href="https://www.catacombes.paris.fr" target="_blank" rel="noopener">catacombes.paris.fr ↗</a>): Slots werden 7 Tage vorher freigeschaltet, ca. 31 €</li>
         <li><strong>Sainte-Chapelle</strong> (<a href="https://www.sainte-chapelle.fr" target="_blank" rel="noopener">sainte-chapelle.fr ↗</a>): am besten ebenfalls vorbuchen – wir kamen in unserer Woche nicht rein</li>
-        <li><strong>Disneyland:</strong> in der Nebensaison entspannter, zur Hauptreisezeit auf jeden Fall frühzeitig Tickets sichern</li>
+        <li><strong>Disneyland</strong> (<a href="https://tickets.disneylandparis.com" target="_blank" rel="noopener">tickets.disneylandparis.com ↗</a>): in der Nebensaison entspannter, zur Hauptreisezeit auf jeden Fall frühzeitig Tickets sichern</li>
         <li><strong>Notre-Dame</strong> (<a href="https://resa.notredamedeparis.fr/en/reservationindividuelle/tickets" target="_blank" rel="noopener">resa.notredamedeparis.fr ↗</a>): kostenloser Eintritt, Slots werden 2–3 Tage vorher freigegeben. Zur gewählten Zeit geht man entspannt an der ewig langen Schlange vorbei direkt zum Eingang für Reservierungen</li>
       </ul>
     </div>
