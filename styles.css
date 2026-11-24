@@ -1288,3 +1288,10 @@ figcaption.cap { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 
 }
 .map-wrap.map-sights { height: 540px; }
 @media (max-width: 680px) { .map-wrap.map-sights { height: 420px; } }
+
+/* Infokärtchen fest als 2×2-Raster (Karten einer Zeile gleich hoch) */
+.overview-grid.grid-2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 760px) { .overview-grid.grid-2 { grid-template-columns: 1fr; } }
+/* Einleitung über die volle Breite unter den Info-Kacheln */
+.intro-full { margin-top: 32px; }
+.intro-full .trip-text { max-width: none; }

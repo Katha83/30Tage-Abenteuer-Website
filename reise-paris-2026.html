@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20261124b">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
     {lat:48.8590,lng:2.3600,name:"Le Marais",day:"Tag 5 · unser Viertel",anchor:"tag-5"},
     {lat:48.8532,lng:2.3692,name:"Place de la Bastille",day:"Tag 5",anchor:"tag-5"}
   ];</script>
-  <script src="main.js" defer></script>
+  <script src="main.js?v=20261124b" defer></script>
   <style>
     /* Wie bei Danzig: Fotos vollständig im eigenen Seitenverhältnis zeigen statt
        auf feste Querformat-Höhen zu beschneiden; Fotos nach Ausrichtung gruppiert. */
@@ -164,7 +164,20 @@
 <section class="section-pad-sm map-section"><div class="section-inner">
   <p class="section-tag">Sehenswürdigkeiten</p><h2 class="section-title">Unsere Stationen <em>auf der Karte</em></h2>
   <div class="map-wrap map-sights" id="trip-map" style="margin-top:24px"></div>
-  <ol class="sight-legend" id="trip-map-legend" aria-label="Sehenswürdigkeiten auf der Karte"></ol>
+  <ol class="sight-legend" id="trip-map-legend" aria-label="Sehenswürdigkeiten auf der Karte">
+    <li><button type="button" class="sight-item is-far" data-i="0"><span class="map-legend-num">1</span><span class="sight-text"><span class="sight-name">Disneyland Paris</span><span class="sight-day">Tag 2 · ca. 35 km östlich</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="1"><span class="map-legend-num">2</span><span class="sight-text"><span class="sight-name">Sainte-Chapelle</span><span class="sight-day">Tag 3</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="2"><span class="map-legend-num">3</span><span class="sight-text"><span class="sight-name">Shakespeare and Company</span><span class="sight-day">Tag 3</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="3"><span class="map-legend-num">4</span><span class="sight-text"><span class="sight-name">Notre-Dame</span><span class="sight-day">Tag 3 & 4</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="4"><span class="map-legend-num">5</span><span class="sight-text"><span class="sight-name">Montmartre: Sacré-Cœur &amp; Place du Tertre</span><span class="sight-day">Tag 3</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="5"><span class="map-legend-num">6</span><span class="sight-text"><span class="sight-name">Seine-Rundfahrt (Anleger Pont Neuf)</span><span class="sight-day">Tag 3</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="6"><span class="map-legend-num">7</span><span class="sight-text"><span class="sight-name">Louvre &amp; Pyramide</span><span class="sight-day">Tag 4</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="7"><span class="map-legend-num">8</span><span class="sight-text"><span class="sight-name">Sorbonne</span><span class="sight-day">Tag 4</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="8"><span class="map-legend-num">9</span><span class="sight-text"><span class="sight-name">Panthéon</span><span class="sight-day">Tag 4</span></span></button></li>
+    <li><button type="button" class="sight-item is-far" data-i="9"><span class="map-legend-num">10</span><span class="sight-text"><span class="sight-name">Plenitude Arena (Céline Dion)</span><span class="sight-day">Tag 4 · Nanterre, westlich</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="10"><span class="map-legend-num">11</span><span class="sight-text"><span class="sight-name">Eiffelturm</span><span class="sight-day">Tag 3 & 5</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="11"><span class="map-legend-num">12</span><span class="sight-text"><span class="sight-name">Le Marais</span><span class="sight-day">Tag 5 · unser Viertel</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="12"><span class="map-legend-num">13</span><span class="sight-text"><span class="sight-name">Place de la Bastille</span><span class="sight-day">Tag 5</span></span></button></li>  </ol>
   <p class="sight-legend-note">Klick auf einen Eintrag zoomt auf die Karte. <span class="dot" style="background:#C9A46A"></span>Goldene Punkte liegen außerhalb des Zentrums – über „Mit Umgebung“ oben rechts in der Karte sichtbar.</p>
 </div></section>
 
@@ -172,7 +185,7 @@
 <section class="section-pad bg-cream gut-zu-wissen"><div class="section-inner">
   <p class="section-tag">Gut zu wissen</p><h2 class="section-title">Tickets, Metro &amp; <em>Anreise</em></h2>
   <p class="trip-text gut-zu-wissen-lead">So viel Andrang an den Sehenswürdigkeiten hatten wir in anderen Städten noch nie. Wer bestimmte Dinge auf jeden Fall sehen will, kommt um eine rechtzeitige Reservierung nicht herum.</p>
-  <div class="overview-grid masonry">
+  <div class="overview-grid grid-2">
     <div class="overview-card">
       <div class="overview-card-header"><span class="overview-icon">⏰</span><h3 class="overview-card-title">Frühzeitig reservieren</h3></div>
       <ul class="overview-list">
@@ -222,17 +235,15 @@
 
 <section class="section-pad bg-off"><div class="section-inner">
   <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet</em></h2>
-  <div class="intro-split">
-  <div>
-    <p class="trip-text">Paris stand schon länger auf unserer „Würden wir gerne mal besuchen"-Liste. Aber wie so oft wurde daraus ein „irgendwann". Dann kam eine unglaubliche Möglichkeit, die Paris auf Platz 1 katapultiert hat: Wir haben Karten für Céline Dion bekommen! Wir haben Céline bereits in Berlin und Las Vegas live gesehen, und nach ihrer schweren Erkrankung hatte sie endlich ihr Comeback angekündigt. Nach sechs Jahren steht sie wieder auf der großen Bühne – mit zunächst zehn Konzerten in 2026, alle in Paris. Der Vorverkauf wurde per Losverfahren entschieden und nach 9 Mio. (!!) Anmeldungen geschlossen. Und was soll ich sagen? Wir haben einen Zugang gewonnen und im Vorverkauf vier Karten ergattert. Damit stand Paris als nächstes Städteziel fest.</p>
-    <p class="trip-text">Was wir nicht wussten: Am Anreisewochenende war der Papst in der Stadt, und am Montag startete die Fashion Week – ich hatte mich schon über die vielen stylischen, großen und schlanken Menschen gewundert. Dadurch war es natürlich auch voller und teurer.</p>
-  </div>
   <div class="info-grid">
     <div class="info-card"><div class="info-card-label">Zeitraum</div><div class="info-card-value">27. September – 2. Oktober 2026</div></div>
     <div class="info-card"><div class="info-card-label">Anreise</div><div class="info-card-value">Bahn ab Leipzig · 215 € p. P. (hin &amp; zurück)</div></div>
     <div class="info-card"><div class="info-card-label">Unterkunft</div><div class="info-card-value">Airbnb-Wohnung im Marais · 1.162,51 €</div></div>
     <div class="info-card"><div class="info-card-label">Reiseart</div><div class="info-card-value">Städtetrip</div></div>
   </div>
+  <div class="intro-full">
+    <p class="trip-text">Paris stand schon länger auf unserer „Würden wir gerne mal besuchen"-Liste. Aber wie so oft wurde daraus ein „irgendwann". Dann kam eine unglaubliche Möglichkeit, die Paris auf Platz 1 katapultiert hat: Wir haben Karten für Céline Dion bekommen! Wir haben Céline bereits in Berlin und Las Vegas live gesehen, und nach ihrer schweren Erkrankung hatte sie endlich ihr Comeback angekündigt. Nach sechs Jahren steht sie wieder auf der großen Bühne – mit zunächst zehn Konzerten in 2026, alle in Paris. Der Vorverkauf wurde per Losverfahren entschieden und nach 9 Mio. (!!) Anmeldungen geschlossen. Und was soll ich sagen? Wir haben einen Zugang gewonnen und im Vorverkauf vier Karten ergattert. Damit stand Paris als nächstes Städteziel fest.</p>
+    <p class="trip-text">Was wir nicht wussten: Am Anreisewochenende war der Papst in der Stadt, und am Montag startete die Fashion Week – ich hatte mich schon über die vielen stylischen, großen und schlanken Menschen gewundert. Dadurch war es natürlich auch voller und teurer.</p>
   </div>
 </div></section>
 
