@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <script>window.TRIP_ROUTE=[{lat:6.01,lng:80.21,name:"Unawatuna"},{lat:6.44,lng:80.90,name:"Uda Walawe"},{lat:6.87,lng:81.05,name:"Ella"},{lat:7.30,lng:80.64,name:"Kandy"},{lat:7.86,lng:80.65,name:"Dambulla"},{lat:7.96,lng:80.76,name:"Sigiriya"},{lat:8.33,lng:80.41,name:"Anuradhapura"},{lat:8.57,lng:81.22,name:"Trincomalee"},{lat:7.21,lng:79.84,name:"Negombo"}];</script>
-  <script src="main.js" defer></script>
+  <script src="main.js?v=20261124c" defer></script>
   <style>
     html { scroll-behavior: smooth; }
 
@@ -159,7 +159,6 @@
         </div>
       </div>
     </li>
-    <li><a href="index.html#timeline">Zeitreise</a></li>
     <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
       <div class="dropdown simple">
         <a href="reisetipps.html#planung">Wie wir planen</a><a href="reisetipps.html#packliste">Packliste</a>
@@ -186,6 +185,18 @@
 <section class="section-pad-sm map-section"><div class="section-inner">
   <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
   <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+  <ol class="sight-legend" id="trip-map-legend" aria-label="Stopps auf der Karte">
+    <li><button type="button" class="sight-item" data-i="0"><span class="map-legend-num">1</span><span class="sight-text"><span class="sight-name">Unawatuna</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="1"><span class="map-legend-num">2</span><span class="sight-text"><span class="sight-name">Uda Walawe</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="2"><span class="map-legend-num">3</span><span class="sight-text"><span class="sight-name">Ella</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="3"><span class="map-legend-num">4</span><span class="sight-text"><span class="sight-name">Kandy</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="4"><span class="map-legend-num">5</span><span class="sight-text"><span class="sight-name">Dambulla</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="5"><span class="map-legend-num">6</span><span class="sight-text"><span class="sight-name">Sigiriya</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="6"><span class="map-legend-num">7</span><span class="sight-text"><span class="sight-name">Anuradhapura</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="7"><span class="map-legend-num">8</span><span class="sight-text"><span class="sight-name">Trincomalee</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="8"><span class="map-legend-num">9</span><span class="sight-text"><span class="sight-name">Negombo</span></span></button></li>
+  </ol>
+  <p class="sight-legend-note">Klick auf einen Stopp zoomt auf die Karte.</p>
 </div></section>
 
 <section class="section-pad bg-cream"><div class="section-inner">

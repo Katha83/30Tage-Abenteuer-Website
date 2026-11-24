@@ -101,7 +101,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-  <script>window.TRIP_ROUTE=[{lat:25.79,lng:-80.13,name:"Miami"},{lat:24.56,lng:-81.78,name:"Key West"},{lat:25.09,lng:-80.45,name:"Key Largo"},{lat:26.14,lng:-81.80,name:"Naples"},{lat:27.52,lng:-82.73,name:"Anna Maria Island"},{lat:26.12,lng:-80.14,name:"Fort Lauderdale"}];</script><script src="main.js" defer></script>
+  <script>window.TRIP_ROUTE=[{lat:25.79,lng:-80.13,name:"Miami"},{lat:24.56,lng:-81.78,name:"Key West"},{lat:25.09,lng:-80.45,name:"Key Largo"},{lat:26.14,lng:-81.80,name:"Naples"},{lat:27.52,lng:-82.73,name:"Anna Maria Island"},{lat:26.12,lng:-80.14,name:"Fort Lauderdale"}];</script><script src="main.js?v=20261124c" defer></script>
 </head><body>
 <div id="cursor-dot" aria-hidden="true"></div><div id="cursor-ring" aria-hidden="true"></div>
 <header id="nav" role="banner">
@@ -145,7 +145,6 @@
         </div>
       </div>
     </li>
-    <li><a href="index.html#timeline">Zeitreise</a></li>
     <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
       <div class="dropdown simple">
         <a href="reisetipps.html#planung">Wie wir planen</a><a href="reisetipps.html#packliste">Packliste</a>
@@ -168,6 +167,15 @@
 <section class="section-pad-sm map-section"><div class="section-inner">
   <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
   <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+  <ol class="sight-legend" id="trip-map-legend" aria-label="Stopps auf der Karte">
+    <li><button type="button" class="sight-item" data-i="0"><span class="map-legend-num">1</span><span class="sight-text"><span class="sight-name">Miami</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="1"><span class="map-legend-num">2</span><span class="sight-text"><span class="sight-name">Key West</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="2"><span class="map-legend-num">3</span><span class="sight-text"><span class="sight-name">Key Largo</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="3"><span class="map-legend-num">4</span><span class="sight-text"><span class="sight-name">Naples</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="4"><span class="map-legend-num">5</span><span class="sight-text"><span class="sight-name">Anna Maria Island</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="5"><span class="map-legend-num">6</span><span class="sight-text"><span class="sight-name">Fort Lauderdale</span></span></button></li>
+  </ol>
+  <p class="sight-legend-note">Klick auf einen Stopp zoomt auf die Karte.</p>
 </div></section>
 <section class="section-pad bg-cream"><div class="section-inner">
   <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>

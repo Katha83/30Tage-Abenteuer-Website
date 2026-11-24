@@ -1,19 +1,40 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Vietnam 2018 - 30 Tage Abenteuer</title>
-  <meta name="description" content="Vietnam Rundreise 2018 - Ho-Chi-Minh-Stadt, Hoi An, Hue, Sapa und Halong-Bucht.">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <meta name="description" content="Vietnam Rundreise 2018 – Ho-Chi-Minh-Stadt, Hoi An, Hue, Sapa, Hanoi und die Halong-Bucht.">
+  <title>Vietnam 2018 – 30 Tage Abenteuer</title>
+  <script>
+  window.TRIP_ROUTE=[
+    {lat:10.8231,lng:106.6297,name:"Ho-Chi-Minh-Stadt",day:"Start · 3 Nächte",anchor:"stop-ho-chi-minh-stadt"},
+    {lat:15.88,lng:108.338,name:"Hoi An",day:"Stop 01 · 3 Nächte",anchor:"stop-hoi-an"},
+    {lat:16.4637,lng:107.5909,name:"Hue",day:"Stop 02 · 1 Nacht",anchor:"stop-hue"},
+    {lat:22.3364,lng:103.8438,name:"Sapa",day:"Stop 03 · 2 Nächte",anchor:"stop-sapa"},
+    {lat:21.0285,lng:105.8542,name:"Hanoi",day:"Stop 04 · 3 Nächte",anchor:"stop-hanoi"},
+    {lat:20.9101,lng:107.1839,name:"Halong-Bucht",day:"Finale · 1 Nacht",anchor:"stop-halong-bucht"}
+  ];</script>
+  <script src="main.js?v=20261124c" defer></script>
   <style>
     html { scroll-behavior: smooth; }
+
+    /* Station card overrides */
     .station-card { background: #A8BFA3; }
     .station-card .station-hotel,
     .station-card .station-date,
     .station-card .station-activities { color: var(--teal-dark); }
+
+    /* "Reise im Detail" heading with inline section-tag line */
+    .section-title-with-line { display: flex; align-items: center; gap: 10px; }
+    .section-title-with-line::before { content: ''; flex-shrink: 0; width: 24px; height: 1.5px; background: var(--teal); }
+
     .station-card-img {
       margin: -18px -18px 14px;
       overflow: hidden;
@@ -35,7 +56,8 @@
       font-size: 2rem; opacity: 0.85;
     }
     .station-link {
-      display: inline-block; margin-top: 14px;
+      display: inline-block;
+      margin-top: 14px;
       font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--teal); text-decoration: none;
@@ -44,9 +66,12 @@
     }
     .station-link:hover { border-color: var(--teal); opacity: 0.8; }
     .station-link::after { content: ' ↓'; }
+
+    /* Stop detail sections */
     .stop-section { scroll-margin-top: var(--nav-h, 80px); }
     .stop-badge {
-      display: inline-block; background: var(--teal);
+      display: inline-block;
+      background: var(--teal);
       color: #fff; font-size: 0.68rem; font-weight: 700;
       letter-spacing: 0.12em; text-transform: uppercase;
       padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
@@ -74,7 +99,10 @@
     .stop-text a { color: var(--teal); }
     .stop-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .stop-photo { margin: 0; }
-    .stop-photo img { width: 100%; height: 185px; object-fit: cover; border-radius: 8px; display: block; }
+    .stop-photo img {
+      width: 100%; height: 185px;
+      object-fit: cover; border-radius: 8px; display: block;
+    }
     .stop-photo.wide { grid-column: 1 / -1; }
     .stop-photo.wide img { height: 250px; }
     .stop-photo figcaption { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
@@ -84,8 +112,9 @@
       display: flex; flex-wrap: wrap; gap: 10px;
     }
     .stop-info-pill {
-      background: var(--off-white); border-radius: 8px;
-      padding: 12px 18px; font-size: 0.875rem; line-height: 1.5;
+      background: var(--off-white);
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 0.875rem; line-height: 1.5;
     }
     .stop-info-pill strong {
       display: block; font-size: 0.67rem; font-weight: 700;
@@ -99,15 +128,18 @@
     .stop-coming strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-mid); }
     .stop-coming span { font-size: 0.875rem; color: var(--text-muted); }
   </style>
-</head>
-<body>
-  <div id="preloader"><div id="preloader-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" style="height:60px"></div><div id="preloader-count">0%</div></div>
-  <div id="cursor-dot"></div><div id="cursor-ring"></div>
-  <nav id="nav"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a><button class="nav-burger" aria-label="Menue" aria-expanded="false" id="nav-burger"><span></span><span></span><span></span></button><ul class="nav-links" id="nav-links"><li class="has-dropdown"><a href="index.html#reisen">Reiseziele</a>
+</head><body>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="30 Tage Abenteuer – Startseite"><img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
       <div class="dropdown wide">
         <div class="dropdown-col">
           <span class="dropdown-heading">Asien</span>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-bali">
             <a href="reise-bali-2017.html" class="dropdown-sublink">Bali 2017</a>
             <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok 2025</a>
@@ -115,11 +147,11 @@
           <a href="reise-bali-lombok-2025.html">Lombok</a>
           <a href="reise-philippinen-2025.html">Philippinen</a>
           <a href="reise-srilanka-2023.html">Sri Lanka</a>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-thailand">
             <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
-            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und S&#252;dtour</a>
-            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand S&#252;den</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
           </div>
           <a href="reise-vietnam-2018.html">Vietnam</a>
         </div>
@@ -139,11 +171,59 @@
           <a href="reise-paris-2026.html">Paris</a>
         </div>
       </div>
-    </li><li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple"><a href="reisetipps.html#planung">Reiseplanung</a><a href="reisetipps.html#packliste">Packliste</a><a href="reisetipps.html#hotels">Hotels &amp; Unterkuenfte</a><a href="reisetipps.html#kreditkarte">Kreditkarte &amp; Finanzen</a><a href="reisetipps.html#budget">Budget &amp; Kosten</a></div></li><li><a href="ueber-uns.html">Ueber Uns</a></li></ul></div></nav>
-  <header class="trip-hero" style="background-image:url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80')"><div class="hero-overlay"></div><div class="trip-hero-content"><div class="trip-breadcrumb"><a href="index.html">Home</a> / <a href="index.html#reisen">Reiseziele</a> / Vietnam 2018</div><h1 class="trip-hero-title">Vietnam 2018</h1><div class="trip-hero-meta"><span>Maerz / April 2018</span><span>14 Naechte</span><span>Rundreise</span></div></div></header>
-  <section class="section bg-cream"><div class="container"><div class="info-grid reveal-hidden"><div class="info-card"><span class="info-icon">✈️</span><span class="info-label">Kontinent</span><span class="info-value">Asien</span></div><div class="info-card"><span class="info-icon">📍</span><span class="info-label">Laender</span><span class="info-value">Vietnam</span></div><div class="info-card"><span class="info-icon">🌡️</span><span class="info-label">Beste Reisezeit</span><span class="info-value">Nov – Apr (Sued), Sep – Dez (Nord)</span></div><div class="info-card"><span class="info-icon">💰</span><span class="info-label">Budget/Person</span><span class="info-value">ca. 1.200 EUR</span></div></div></div></section>
-  <section class="section bg-off"><div class="container"><h2 class="section-title reveal-hidden">Unsere Route</h2><div class="map-wrap reveal-hidden" id="trip-map"></div></div></section>
-  <section class="section bg-cream"><div class="container"><h2 class="section-title reveal-hidden">Allgemeines</h2><div class="placeholder-text reveal-hidden"><p>Vietnam hat uns von der ersten bis zur letzten Minute begeistert. Von den pulsierenden Strassen Ho-Chi-Minh-Stadts ueber das malerische Hoi An bis zu den beeindruckenden Reisterrassen Sapas und schliesslich der majestaetischen Halong-Bucht – jede Station war ein Erlebnis fuer sich.</p><p>Was uns am meisten beeindruckt hat: die Freundlichkeit der Menschen, das unglaubliche Essen und die Vielfalt des Landes auf einer Laenge von fast 2.000 km. Unser persoenlicher Bericht mit Tipps und Empfehlungen folgt hier bald.</p></div></div></section>
+    </li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+        <a href="reisetipps.html#budget">Reisebudget</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</header><div class="trip-hero" style="margin-top:var(--nav-h)">
+  <img class="trip-hero-img" src="Bilder/Hero/hero-vietnam.jpg" alt="Vietnam – Hoi An, Halong-Bucht, Hanoi" loading="eager">
+  <div class="trip-hero-overlay"></div>
+  <div class="trip-hero-content">
+    <p class="section-tag">Südostasien · Von Süd nach Nord</p>
+    <h1 class="trip-hero-title">Vietnam 2018</h1>
+    <div class="trip-hero-meta"><span>📅 März / April 2018</span><span>🌙 14 Nächte</span><span>🗺 6 Stationen</span></div>
+  </div>
+</div>
+<div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Vietnam 2018</span></div>
+<section class="section-pad-sm map-section"><div class="section-inner">
+  <p class="section-tag">Unsere Route</p><h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
+  <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+  <ol class="sight-legend" id="trip-map-legend" aria-label="Unsere Route auf der Karte">
+    <li><button type="button" class="sight-item" data-i="0"><span class="map-legend-num">1</span><span class="sight-text"><span class="sight-name">Ho-Chi-Minh-Stadt</span><span class="sight-day">Start · 3 Nächte</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="1"><span class="map-legend-num">2</span><span class="sight-text"><span class="sight-name">Hoi An</span><span class="sight-day">Stop 01 · 3 Nächte</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="2"><span class="map-legend-num">3</span><span class="sight-text"><span class="sight-name">Hue</span><span class="sight-day">Stop 02 · 1 Nacht</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="3"><span class="map-legend-num">4</span><span class="sight-text"><span class="sight-name">Sapa</span><span class="sight-day">Stop 03 · 2 Nächte</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="4"><span class="map-legend-num">5</span><span class="sight-text"><span class="sight-name">Hanoi</span><span class="sight-day">Stop 04 · 3 Nächte</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="5"><span class="map-legend-num">6</span><span class="sight-text"><span class="sight-name">Halong-Bucht</span><span class="sight-day">Finale · 1 Nacht</span></span></button></li>
+  </ol>
+  <p class="sight-legend-note">Klick auf einen Eintrag zoomt auf die Karte.</p>
+</div></section>
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">März / April 2018</div></div>
+    <div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">14 Nächte</div></div>
+    <div class="info-card"><div class="info-card-label">Beste Reisezeit</div><div class="info-card-value">Nov – Apr (Süden), Sep – Dez (Norden)</div></div>
+    <div class="info-card"><div class="info-card-label">Budget/Person</div><div class="info-card-value">ca. 1.200 €</div></div>
+  </div>
+  <div style="max-width:720px;margin-top:40px">
+    <p class="trip-text">Vietnam hat uns von der ersten bis zur letzten Minute begeistert. Von den pulsierenden Straßen Ho-Chi-Minh-Stadts über das malerische Hoi An bis zu den beeindruckenden Reisterrassen Sapas und schließlich der majestätischen Halong-Bucht – jede Station war ein Erlebnis für sich.</p>
+    <p class="trip-text">Was uns am meisten beeindruckt hat: die Freundlichkeit der Menschen, das unglaubliche Essen und die Vielfalt des Landes auf einer Länge von fast 2.000 km.</p>
+    <div class="placeholder-text">✏️ Platzhalter: Unser ausführlicher Reisebericht mit Fotos folgt.</div>
+  </div>
+</div></section>
 <section class="section-pad"><div class="section-inner">
   <p class="section-tag">Stationen</p><h2 class="section-title">6 Stationen · <em>14 Nächte</em></h2>
   <div class="station-grid" style="margin-top:32px">
@@ -242,13 +322,70 @@
     </div>
   </div>
 </section>
-  <section class="section bg-cream"><div class="container"><h2 class="section-title reveal-hidden">Fotogalerie</h2><div class="photo-gallery reveal-hidden"><div class="photo-placeholder"><span>Ho-Chi-Minh-Stadt Skyline</span></div><div class="photo-placeholder"><span>Hoi An Laternen</span></div><div class="photo-placeholder"><span>Easy Rider nach Hue</span></div><div class="photo-placeholder"><span>Sapa Reisterrassen</span></div><div class="photo-placeholder"><span>Hanoi Altstadt</span></div><div class="photo-placeholder"><span>Halong-Bucht Junk Boot</span></div><div class="photo-placeholder"><span>Mekong Delta</span></div><div class="photo-placeholder"><span>Cu Chi Tunnel</span></div></div></div></section>
-  <nav class="trip-nav-prev-next"><div class="container"><div class="pn-prev"><a href="reise-bali-2017.html">&larr; Bali 2017</a></div><div class="pn-next"><a href="reise-thailand-2019.html">Thailand 2019 &rarr;</a></div></div></nav>
-  <footer class="site-footer"><div class="container footer-inner"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" class="footer-logo"><p>&copy; 2026 30 Tage Abenteuer</p><div class="footer-links"><a href="ueber-uns.html">Ueber Uns</a><a href="reisetipps.html">Reisetipps</a></div></div></footer>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script>window.TRIP_ROUTE = [{lat:10.8231,lng:106.6297,name:"Ho-Chi-Minh-Stadt",hotel:"Saigon Inn"},{lat:15.8800,lng:108.3380,name:"Hoi An",hotel:"Flamingo Villa"},{lat:16.4637,lng:107.5909,name:"Hue",hotel:"La Perle"},{lat:22.3364,lng:103.8438,name:"Sapa"},{lat:21.0285,lng:105.8542,name:"Hanoi",hotel:"Paradise Hotel"},{lat:20.9101,lng:107.1839,name:"Halong-Bucht"}];</script>
-  <script src="main.js"></script>
+<div class="section-pad-sm bg-off"><div class="section-inner">
+  <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
+  <div class="photo-gallery">
+    <div class="photo-placeholder-sm">Ho-Chi-Minh-Stadt Skyline</div>
+    <div class="photo-placeholder-sm">Hoi An Laternen</div>
+    <div class="photo-placeholder-sm">Easy Rider nach Hue</div>
+    <div class="photo-placeholder-sm">Kaiserpalast Hue</div>
+    <div class="photo-placeholder-sm">Reisterrassen Sapa</div>
+    <div class="photo-placeholder-sm">Hanoi Altstadt</div>
+    <div class="photo-placeholder-sm">Halong-Bucht Dschunke</div>
+    <div class="photo-placeholder-sm">Streetfood</div>
+  </div>
+</div></div>
+<div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <a href="reise-bali-2017.html" class="btn-outline-dark">← Bali 2017</a>
+  <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+  <a href="reise-thailand-2019.html" class="btn-outline-dark">Thailand 2019 →</a>
+</div></div><footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer">
+        <p>Unsere echten Routen, ehrlichen Erlebnisse und Inspiration für alle, die raus wollen – Katha &amp; Robert seit 2011 unterwegs.</p>
+        <a href="https://www.instagram.com/30tageabenteuer" target="_blank" rel="noopener" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          @30TageAbenteuer
+        </a>
+      </div>
+      <div>
+        <div class="footer-col-title">Reiseziele</div>
+        <ul class="footer-links">
+          <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+          <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+          <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+          <li><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a></li>
+          <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+          <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Mehr</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html">Reisetipps</a></li>
+          <li><a href="ueber-uns.html">Über Uns</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Reisetipps</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html#planung">Wie wir planen</a></li>
+          <li><a href="reisetipps.html#packliste">Packliste</a></li>
+          <li><a href="reisetipps.html#hotels">Hotels finden</a></li>
+          <li><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span> · Alle Rechte vorbehalten</p>
+      <p class="footer-copy" style="font-style:italic">Made with Fernweh &amp; Kaffee ☕</p>
+    </div>
+  </div>
+</footer>
 </body></html>

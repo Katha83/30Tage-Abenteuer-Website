@@ -1,25 +1,146 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Las Vegas 2019 - 30 Tage Abenteuer</title>
-  <meta name="description" content="Las Vegas und Grand Canyon - Neonlichter, Casinos und das groesste Naturwunder der Welt.">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="preloader"><div id="preloader-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" style="height:60px;"></div><div id="preloader-count">0%</div></div>
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
-  <nav id="nav"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a><button class="nav-burger" aria-label="Menue" aria-expanded="false" id="nav-burger"><span></span><span></span><span></span></button><ul class="nav-links" id="nav-links"><li class="has-dropdown"><a href="index.html#reisen">Reiseziele</a>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <meta name="description" content="Las Vegas 2019 – Neonlichter, Casinos, Hoover Dam und ein Ausflug zum Grand Canyon.">
+  <title>Las Vegas 2019 – 30 Tage Abenteuer</title>
+  <script>
+  window.TRIP_MAP_MODE='sights';
+  window.TRIP_MAP_CORE_LABEL="Las Vegas";
+  window.TRIP_MAP_ALL_LABEL="Mit Ausflügen";
+  window.TRIP_ROUTE=[
+    {lat:36.1147,lng:-115.1728,name:"Las Vegas Strip",day:"5 Nächte · unsere Basis"},
+    {lat:36.1699,lng:-115.143,name:"Fremont Street",day:"Downtown Las Vegas"},
+    {lat:36.016,lng:-114.7377,name:"Hoover Dam",day:"Halbtagsausflug",far:true},
+    {lat:36.0544,lng:-112.1401,name:"Grand Canyon South Rim",day:"Tagesausflug",far:true}
+  ];</script>
+  <script src="main.js?v=20261124c" defer></script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Station card overrides */
+    .station-card { background: #A8BFA3; }
+    .station-card .station-hotel,
+    .station-card .station-date,
+    .station-card .station-activities { color: var(--teal-dark); }
+
+    /* "Reise im Detail" heading with inline section-tag line */
+    .section-title-with-line { display: flex; align-items: center; gap: 10px; }
+    .section-title-with-line::before { content: ''; flex-shrink: 0; width: 24px; height: 1.5px; background: var(--teal); }
+
+    .station-card-img {
+      margin: -18px -18px 14px;
+      overflow: hidden;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      height: 130px;
+    }
+    .station-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .station-card:hover .station-card-img img { transform: scale(1.06); }
+    .station-card-img-placeholder {
+      height: 130px;
+      margin: -18px -18px 14px;
+      background: linear-gradient(135deg, var(--teal-light), var(--teal-dark));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; opacity: 0.85;
+    }
+    .station-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+    .station-link:hover { border-color: var(--teal); opacity: 0.8; }
+    .station-link::after { content: ' ↓'; }
+
+    /* Stop detail sections */
+    .stop-section { scroll-margin-top: var(--nav-h, 80px); }
+    .stop-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .stop-title-main {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.1;
+      margin: 0 0 14px; color: var(--text-dark);
+    }
+    .stop-title-main em { font-style: italic; color: var(--teal); }
+    .stop-meta-row {
+      display: flex; flex-wrap: wrap; gap: 16px 28px;
+      font-size: 0.875rem; color: #666;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .stop-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: start;
+    }
+    @media (max-width: 800px) { .stop-body { grid-template-columns: 1fr; } }
+    .stop-text p { font-size: 1.02rem; line-height: 1.9; margin-bottom: 22px; color: var(--text-mid); }
+    .stop-text p:last-child { margin-bottom: 0; }
+    .stop-text a { color: var(--teal); }
+    .stop-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stop-photo { margin: 0; }
+    .stop-photo img {
+      width: 100%; height: 185px;
+      object-fit: cover; border-radius: 8px; display: block;
+    }
+    .stop-photo.wide { grid-column: 1 / -1; }
+    .stop-photo.wide img { height: 250px; }
+    .stop-photo figcaption { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 1.35; }
+    .stop-practical {
+      margin-top: 40px; padding-top: 28px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .stop-info-pill {
+      background: var(--off-white);
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 0.875rem; line-height: 1.5;
+    }
+    .stop-info-pill strong {
+      display: block; font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999; margin-bottom: 2px;
+    }
+    .stop-coming {
+      padding: 44px 32px; background: var(--off-white);
+      border-radius: 12px; text-align: center;
+    }
+    .stop-coming strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--text-mid); }
+    .stop-coming span { font-size: 0.875rem; color: var(--text-muted); }
+  </style>
+</head><body>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="30 Tage Abenteuer – Startseite"><img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
       <div class="dropdown wide">
         <div class="dropdown-col">
           <span class="dropdown-heading">Asien</span>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-bali">
             <a href="reise-bali-2017.html" class="dropdown-sublink">Bali 2017</a>
             <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok 2025</a>
@@ -27,11 +148,11 @@
           <a href="reise-bali-lombok-2025.html">Lombok</a>
           <a href="reise-philippinen-2025.html">Philippinen</a>
           <a href="reise-srilanka-2023.html">Sri Lanka</a>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-thailand">
             <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
-            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und S&#252;dtour</a>
-            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand S&#252;den</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
           </div>
           <a href="reise-vietnam-2018.html">Vietnam</a>
         </div>
@@ -51,27 +172,127 @@
           <a href="reise-paris-2026.html">Paris</a>
         </div>
       </div>
-    </li><li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple"><a href="reisetipps.html#planung">Reiseplanung</a><a href="reisetipps.html#packliste">Packliste</a><a href="reisetipps.html#hotels">Hotels &amp; Unterkuenfte</a><a href="reisetipps.html#kreditkarte">Kreditkarte &amp; Finanzen</a><a href="reisetipps.html#budget">Budget &amp; Kosten</a></div></li><li><a href="ueber-uns.html">Ueber Uns</a></li></ul></div></nav>
-  <header class="trip-hero" style="background-image:url('https://images.unsplash.com/photo-1581351721010-8cf859cb14a4?w=1600&q=80')">
-    <div class="hero-overlay"></div>
-    <div class="trip-hero-content">
-      <div class="trip-breadcrumb"><a href="index.html">Home</a> / <a href="index.html#reisen">Reiseziele</a> / Las Vegas 2019</div>
-      <h1 class="trip-hero-title">Las Vegas 2019</h1>
-      <div class="trip-hero-meta"><span>Oktober 2019</span><span>6 Naechte</span><span>Staedtetrip &amp; Natur</span></div>
+    </li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+        <a href="reisetipps.html#budget">Reisebudget</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</header><div class="trip-hero" style="margin-top:var(--nav-h)">
+  <img class="trip-hero-img" src="Bilder/Hero/hero-lasvegas.jpg" alt="Las Vegas – The Strip bei Nacht" loading="eager">
+  <div class="trip-hero-overlay"></div>
+  <div class="trip-hero-content">
+    <p class="section-tag">Nordamerika · Städtetrip &amp; Natur</p>
+    <h1 class="trip-hero-title">Las Vegas 2019</h1>
+    <div class="trip-hero-meta"><span>📅 Oktober 2019</span><span>🌙 6 Nächte</span><span>🎰 Strip &amp; Grand Canyon</span></div>
+  </div>
+</div>
+<div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Las Vegas 2019</span></div>
+<section class="section-pad-sm map-section"><div class="section-inner">
+  <p class="section-tag">Stationen</p><h2 class="section-title">Unsere Stationen <em>auf der Karte</em></h2>
+  <div class="map-wrap map-sights" id="trip-map" style="margin-top:24px"></div>
+  <ol class="sight-legend" id="trip-map-legend" aria-label="Stationen auf der Karte">
+    <li><button type="button" class="sight-item" data-i="0"><span class="map-legend-num">1</span><span class="sight-text"><span class="sight-name">Las Vegas Strip</span><span class="sight-day">5 Nächte · unsere Basis</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="1"><span class="map-legend-num">2</span><span class="sight-text"><span class="sight-name">Fremont Street</span><span class="sight-day">Downtown Las Vegas</span></span></button></li>
+    <li><button type="button" class="sight-item is-far" data-i="2"><span class="map-legend-num">3</span><span class="sight-text"><span class="sight-name">Hoover Dam</span><span class="sight-day">Halbtagsausflug</span></span></button></li>
+    <li><button type="button" class="sight-item is-far" data-i="3"><span class="map-legend-num">4</span><span class="sight-text"><span class="sight-name">Grand Canyon South Rim</span><span class="sight-day">Tagesausflug</span></span></button></li>
+  </ol>
+  <p class="sight-legend-note">Klick auf einen Eintrag zoomt auf die Karte. <span class="dot" style="background:#C9A46A"></span>Goldene Punkte sind Tagesausflüge – über „Mit Ausflügen“ oben rechts in der Karte sichtbar.</p>
+</div></section>
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Allgemeines</p><h2 class="section-title">Was uns <em>erwartet hat</em></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">Oktober 2019</div></div>
+    <div class="info-card"><div class="info-card-label">Nächte</div><div class="info-card-value">6 Nächte</div></div>
+    <div class="info-card"><div class="info-card-label">Beste Reisezeit</div><div class="info-card-value">März – Mai / Sept – Nov</div></div>
+    <div class="info-card"><div class="info-card-label">Highlights</div><div class="info-card-value">Strip, Grand Canyon</div></div>
+  </div>
+  <div style="max-width:720px;margin-top:40px">
+    <p class="trip-text">Las Vegas – die Stadt, die niemals schläft. Neonlichter, riesige Casinos und mittendrin wir zwei. Was nach Kitsch klingt, hat uns mit seiner schieren Überwältigungsstrategie vollkommen in den Bann gezogen. Und das Beste: Der Grand Canyon liegt nur einen Tagesausflug entfernt.</p>
+    <div class="placeholder-text">✏️ Platzhalter: Unser ausführlicher Reisebericht mit Fotos folgt.</div>
+  </div>
+</div></section>
+<section class="section-pad"><div class="section-inner">
+  <p class="section-tag">Stationen</p><h2 class="section-title">4 Stationen · <em>6 Nächte</em></h2>
+  <div class="station-grid" style="margin-top:32px">
+    <div class="station-card"><div class="station-card-img-placeholder">🎰</div><div class="station-order">Stop 01</div><div class="station-name">Las Vegas Strip</div><div class="station-hotel">🏨 5 Nächte</div><div class="station-date">Die Stadt der Superlative</div><div class="station-activities">Casinos, Weltklasse-Shows und die verrückteste Skyline der Welt. Abends leuchtet der Strip in allen Farben – ein Spektakel für sich.</div></div>
+    <div class="station-card"><div class="station-card-img-placeholder">✨</div><div class="station-order">Stop 02</div><div class="station-name">Fremont Street</div><div class="station-hotel">📍 Downtown Las Vegas</div><div class="station-date">Das Original-Vegas</div><div class="station-activities">Das alte Las Vegas mit überdachter LED-Show, Zipline und einer ganz anderen Atmosphäre. Unbedingt abends besuchen!</div></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏗</div><div class="station-order">Stop 03</div><div class="station-name">Hoover Dam</div><div class="station-hotel">🚗 Halbtagsausflug</div><div class="station-date">Ingenieurswunder der 1930er</div><div class="station-activities">Auf dem Weg zum Grand Canyon – beeindruckendes Zeugnis amerikanischer Ingenieurskunst.</div></div>
+    <div class="station-card"><div class="station-card-img-placeholder">🏜</div><div class="station-order">Stop 04</div><div class="station-name">Grand Canyon South Rim</div><div class="station-hotel">🚗 Tagesausflug</div><div class="station-date">Eines der Naturwunder der Welt</div><div class="station-activities">Der erste Blick in den Grand Canyon ist unbeschreiblich. Kein Foto kann diese Weite und Tiefe einfangen. Absolutes Muss.</div></div>
+  </div>
+</div></section>
+<div class="section-pad-sm bg-off"><div class="section-inner">
+  <p class="section-tag">Impressionen</p><h2 class="section-title">Unsere <em>Bilder</em></h2>
+  <div class="photo-gallery">
+    <div class="photo-placeholder-sm">Las Vegas Strip bei Nacht</div>
+    <div class="photo-placeholder-sm">Grand Canyon Panorama</div>
+    <div class="photo-placeholder-sm">Hoover Dam</div>
+    <div class="photo-placeholder-sm">Fremont Street Experience</div>
+    <div class="photo-placeholder-sm">Bellagio Fountain Show</div>
+    <div class="photo-placeholder-sm">Sunset Grand Canyon</div>
+  </div>
+</div></div>
+<div class="section-pad-sm bg-cream"><div class="section-inner" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <a href="reise-thailand-2019.html" class="btn-outline-dark">← Thailand 2019</a>
+  <a href="index.html#destinations" class="btn-outline-dark" style="margin:0 auto">Alle Reisen</a>
+  <a href="reise-costarica-2022.html" class="btn-outline-dark">Costa Rica 2022 →</a>
+</div></div><footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer">
+        <p>Unsere echten Routen, ehrlichen Erlebnisse und Inspiration für alle, die raus wollen – Katha &amp; Robert seit 2011 unterwegs.</p>
+        <a href="https://www.instagram.com/30tageabenteuer" target="_blank" rel="noopener" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          @30TageAbenteuer
+        </a>
+      </div>
+      <div>
+        <div class="footer-col-title">Reiseziele</div>
+        <ul class="footer-links">
+          <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+          <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+          <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+          <li><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a></li>
+          <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+          <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Mehr</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html">Reisetipps</a></li>
+          <li><a href="ueber-uns.html">Über Uns</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Reisetipps</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html#planung">Wie wir planen</a></li>
+          <li><a href="reisetipps.html#packliste">Packliste</a></li>
+          <li><a href="reisetipps.html#hotels">Hotels finden</a></li>
+          <li><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a></li>
+        </ul>
+      </div>
     </div>
-  </header>
-  <section class="section bg-cream"><div class="container"><div class="info-grid reveal-hidden"><div class="info-card"><span class="info-icon">✈️</span><span class="info-label">Kontinent</span><span class="info-value">Nordamerika</span></div><div class="info-card"><span class="info-icon">📍</span><span class="info-label">Laender</span><span class="info-value">USA</span></div><div class="info-card"><span class="info-icon">🌡️</span><span class="info-label">Beste Reisezeit</span><span class="info-value">Maerz–Mai / Sept–Nov</span></div><div class="info-card"><span class="info-icon">🎰</span><span class="info-label">Highlights</span><span class="info-value">Strip, Grand Canyon</span></div></div></div></section>
-  <section class="section bg-off"><div class="container"><h2 class="section-title reveal-hidden">Unsere Route</h2><div class="map-wrap reveal-hidden" id="trip-map"></div></div></section>
-  <section class="section bg-cream"><div class="container"><h2 class="section-title reveal-hidden">Allgemeines</h2><div class="placeholder-text reveal-hidden"><p>Las Vegas – die Stadt, die niemals schlaeft. Neonlichter, riesige Casinos und mittendrin wir zwei. Was nach Kitsch klingt, hat uns mit seiner schieren Ueberwaeeltigungsstrategie vollkommen in den Bann gezogen. Und das Beste: Der Grand Canyon liegt nur einen Tagesausflug entfernt.</p><p>Unser Bericht mit Tipps fuer den Strip, lohnenswerte Shows und den eindrucksvollsten Blick in den Canyon folgt hier bald.</p></div></div></section>
-  <section class="section bg-off"><div class="container"><h2 class="section-title reveal-hidden">Unsere Stationen</h2><div class="station-grid"><article class="station-card reveal-hidden"><div class="station-num">1</div><div class="station-body"><h3 class="station-name">Las Vegas Strip</h3><div class="station-meta"><span>5 Naechte</span></div><div class="station-highlight">Die Stadt der Superlative</div><p class="station-text">Casinos, Weltklasse-Shows und die verrueekteste Skyline der Welt. Abends leuchtet der Strip in allen Farben – ein Spektakel fuer sich.</p></div></article><article class="station-card reveal-hidden"><div class="station-num">2</div><div class="station-body"><h3 class="station-name">Grand Canyon South Rim</h3><div class="station-meta"><span>Tagesausflug</span></div><div class="station-highlight">Eines der Weltwunder</div><p class="station-text">Der erste Blick in den Grand Canyon ist unbeschreiblich. Kein Foto kann diese Weite und Tiefe einfangen. Absolutes Muss.</p></div></article><article class="station-card reveal-hidden"><div class="station-num">3</div><div class="station-body"><h3 class="station-name">Hoover Dam</h3><div class="station-meta"><span>Halbtagsausflug</span></div><div class="station-highlight">Ingenieurswunder der 1930er</div><p class="station-text">Auf dem Weg zum Grand Canyon – beeindruckendes Zeugnis amerikanischer Ingenieurskunst.</p></div></article><article class="station-card reveal-hidden"><div class="station-num">4</div><div class="station-body"><h3 class="station-name">Fremont Street</h3><div class="station-meta"><span>Downtown Las Vegas</span></div><div class="station-highlight">Das Original-Vegas</div><p class="station-text">Das alte Las Vegas mit ueberdachter LED-Show, Zipline und einer ganz anderen Atmosphaere. Unbedingt abends besuchen!</p></div></article></div></div></section>
-  <section class="section bg-cream"><div class="container"><h2 class="section-title reveal-hidden">Fotogalerie</h2><div class="photo-gallery reveal-hidden"><div class="photo-placeholder"><span>Las Vegas Strip bei Nacht</span></div><div class="photo-placeholder"><span>Grand Canyon Panorama</span></div><div class="photo-placeholder"><span>Hoover Dam</span></div><div class="photo-placeholder"><span>Fremont Street Experience</span></div><div class="photo-placeholder"><span>Bellagio Fountain Show</span></div><div class="photo-placeholder"><span>Sunset Grand Canyon</span></div></div></div></section>
-  <nav class="trip-nav-prev-next"><div class="container"><div class="pn-prev"><a href="reise-thailand-2019.html">&larr; Thailand 2019</a></div><div class="pn-next"><a href="reise-costarica-2022.html">Costa Rica 2022 &rarr;</a></div></div></nav>
-  <footer class="site-footer"><div class="container footer-inner"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" class="footer-logo"><p>&copy; 2026 30 Tage Abenteuer &middot; Alle Rechte vorbehalten</p><div class="footer-links"><a href="ueber-uns.html">Ueber Uns</a><a href="reisetipps.html">Reisetipps</a></div></div></footer>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script>window.TRIP_ROUTE = [{lat:36.1699,lng:-115.1398,name:"Las Vegas Strip"},{lat:36.0544,lng:-112.1401,name:"Grand Canyon South Rim"},{lat:36.0160,lng:-114.7377,name:"Hoover Dam"}];</script>
-  <script src="main.js"></script>
-</body>
-</html>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span> · Alle Rechte vorbehalten</p>
+      <p class="footer-copy" style="font-style:italic">Made with Fernweh &amp; Kaffee ☕</p>
+    </div>
+  </div>
+</footer>
+</body></html>

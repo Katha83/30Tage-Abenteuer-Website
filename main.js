@@ -386,10 +386,9 @@
     const core = sights ? route.filter(p => !p.far).map(p => [p.lat, p.lng]) : latlngs;
     const fitCore = () => map.fitBounds(core.length ? core : latlngs, { padding: [36, 36] });
     fitCore();
-    if (!sights) return;
 
     // Umschalter Stadtzentrum / Umgebung, sobald es weiter entfernte Punkte gibt
-    if (route.some(p => p.far)) {
+    if (sights && route.some(p => p.far)) {
       const Toggle = L.Control.extend({
         options: { position: 'topright' },
         onAdd() {
@@ -409,18 +408,22 @@
     }
 
     // Nummerierte Liste unter der Karte – Klick zoomt auf den Punkt
+    // (Städtetrips: Sehenswürdigkeit + Tag, Rundreisen: Stop + Unterkunft)
     const legend = qs('#trip-map-legend');
     if (legend) {
-      legend.innerHTML = route.map((p, i) =>
-        `<li><button type="button" class="sight-item${p.far ? ' is-far' : ''}" data-i="${i}">` +
-        `<span class="map-legend-num">${i + 1}</span>` +
-        `<span class="sight-text"><span class="sight-name">${p.name}</span>` +
-        (p.day ? `<span class="sight-day">${p.day}</span>` : '') +
-        `</span></button></li>`).join('');
+      legend.innerHTML = route.map((p, i) => {
+        const sub = p.day || p.hotel;
+        return `<li><button type="button" class="sight-item${p.far ? ' is-far' : ''}" data-i="${i}">` +
+          `<span class="map-legend-num">${i + 1}</span>` +
+          `<span class="sight-text"><span class="sight-name">${p.name}</span>` +
+          (sub ? `<span class="sight-day">${sub}</span>` : '') +
+          `</span></button></li>`;
+      }).join('');
       legend.querySelectorAll('.sight-item').forEach(btn => btn.addEventListener('click', () => {
         const i = +btn.dataset.i, p = route[i];
         mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        map.flyTo([p.lat, p.lng], Math.max(map.getZoom(), p.far ? 14 : 16), { duration: .8 });
+        const z = sights ? (p.far ? 14 : 16) : 9;
+        map.flyTo([p.lat, p.lng], Math.max(map.getZoom(), z), { duration: .8 });
         markers[i].openTooltip();
       }));
     }

@@ -120,7 +120,7 @@
       { lat: -22.56, lng: 17.08, name: "Windhoek", hotel: "Bryans View / Otjisazu Lodge" }
     ];
   </script>
-  <script src="main.js" defer></script>
+  <script src="main.js?v=20261124c" defer></script>
 </head>
 <body>
 
@@ -169,7 +169,6 @@
         </div>
       </div>
     </li>
-    <li><a href="index.html#timeline">Zeitreise</a></li>
     <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
       <div class="dropdown simple">
         <a href="reisetipps.html#planung">Wie wir planen</a>
@@ -215,6 +214,23 @@
     <p class="section-tag">Unsere Route</p>
     <h2 class="section-title">Die Route auf <em>einen Blick</em></h2>
     <div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+  <ol class="sight-legend" id="trip-map-legend" aria-label="Stopps auf der Karte">
+    <li><button type="button" class="sight-item" data-i="0"><span class="map-legend-num">1</span><span class="sight-text"><span class="sight-name">Windhoek / Düsternbrook</span><span class="sight-day">Düsternbrook Guesthouse</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="1"><span class="map-legend-num">2</span><span class="sight-text"><span class="sight-name">Waterberg</span><span class="sight-day">Waterberg Wilderness</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="2"><span class="map-legend-num">3</span><span class="sight-text"><span class="sight-name">Etosha / Namutoni</span><span class="sight-day">Namutoni Campsite</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="3"><span class="map-legend-num">4</span><span class="sight-text"><span class="sight-name">Etosha / Okakuejo</span><span class="sight-day">Okakuejo</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="4"><span class="map-legend-num">5</span><span class="sight-text"><span class="sight-name">Etosha / Olifantsrus</span><span class="sight-day">Olifantsrus</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="5"><span class="map-legend-num">6</span><span class="sight-text"><span class="sight-name">Twyfelfontein</span><span class="sight-day">Mowani Campsite</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="6"><span class="map-legend-num">7</span><span class="sight-text"><span class="sight-name">Spitzkoppe</span><span class="sight-day">Spitzkoppe Camp Site</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="7"><span class="map-legend-num">8</span><span class="sight-text"><span class="sight-name">Swakopmund</span><span class="sight-day">Alte Brücke Campsite</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="8"><span class="map-legend-num">9</span><span class="sight-text"><span class="sight-name">Sesriem / Sossusvlei</span><span class="sight-day">Sesriem Oshana</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="9"><span class="map-legend-num">10</span><span class="sight-text"><span class="sight-name">Namib Wüste</span><span class="sight-day">Little Hunters Rest</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="10"><span class="map-legend-num">11</span><span class="sight-text"><span class="sight-name">Lüderitz / Kolmanskuppe</span><span class="sight-day">Shark Island Campsite</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="11"><span class="map-legend-num">12</span><span class="sight-text"><span class="sight-name">Fish River Canyon</span><span class="sight-day">Canyon Roadhouse Camping</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="12"><span class="map-legend-num">13</span><span class="sight-text"><span class="sight-name">Kalahari</span><span class="sight-day">Bagatelle Kalahari Lodge</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="13"><span class="map-legend-num">14</span><span class="sight-text"><span class="sight-name">Windhoek</span><span class="sight-day">Bryans View / Otjisazu Lodge</span></span></button></li>
+  </ol>
+  <p class="sight-legend-note">Klick auf einen Stopp zoomt auf die Karte.</p>
   </div>
 </section>
 

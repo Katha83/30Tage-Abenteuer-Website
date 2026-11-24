@@ -98,7 +98,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-<script>window.TRIP_ROUTE=[{lat:9.64,lng:-85.17,name:"Santa Teresa"},{lat:10.31,lng:-84.82,name:"Monteverde"},{lat:10.70,lng:-85.23,name:"Rio Celeste"},{lat:10.47,lng:-84.64,name:"La Fortuna"},{lat:10.54,lng:-83.51,name:"Tortuguero"},{lat:9.66,lng:-82.76,name:"Puerto Viejo"},{lat:9.97,lng:-84.21,name:"Alajuela"}];</script><script src="main.js" defer></script>
+<script>window.TRIP_ROUTE=[{lat:9.64,lng:-85.17,name:"Santa Teresa"},{lat:10.31,lng:-84.82,name:"Monteverde"},{lat:10.70,lng:-85.23,name:"Rio Celeste"},{lat:10.47,lng:-84.64,name:"La Fortuna"},{lat:10.54,lng:-83.51,name:"Tortuguero"},{lat:9.66,lng:-82.76,name:"Puerto Viejo"},{lat:9.97,lng:-84.21,name:"Alajuela"}];</script><script src="main.js?v=20261124c" defer></script>
 </head><body>
 <div id="cursor-dot" aria-hidden="true"></div><div id="cursor-ring" aria-hidden="true"></div>
 <header id="nav" role="banner">
@@ -141,7 +141,6 @@
         </div>
       </div>
     </li>
-<li><a href="index.html#timeline">Zeitreise</a></li>
 <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple">
 <a href="reisetipps.html#planung">Wie wir planen</a><a href="reisetipps.html#packliste">Packliste</a>
 <a href="reisetipps.html#hotels">Hotels finden</a><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
@@ -152,7 +151,17 @@
 <div class="trip-hero-meta"><span>📅 März – Apr 2022</span><span>🌙 19 Nächte</span><span>🌊 Surfen in Santa Teresa</span></div></div></div>
 <div class="trip-breadcrumb"><a href="index.html">Start</a><span class="sep">/</span><a href="index.html#destinations">Reiseziele</a><span class="sep">/</span><span>Costa Rica 2022</span></div>
 <section class="section-pad-sm map-section"><div class="section-inner"><p class="section-tag">Unsere Route</p>
-<h2 class="section-title">Die Route auf <em>einen Blick</em></h2><div class="map-wrap" id="trip-map" style="margin-top:24px"></div></div></section>
+<h2 class="section-title">Die Route auf <em>einen Blick</em></h2><div class="map-wrap" id="trip-map" style="margin-top:24px"></div>
+  <ol class="sight-legend" id="trip-map-legend" aria-label="Stopps auf der Karte">
+    <li><button type="button" class="sight-item" data-i="0"><span class="map-legend-num">1</span><span class="sight-text"><span class="sight-name">Santa Teresa</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="1"><span class="map-legend-num">2</span><span class="sight-text"><span class="sight-name">Monteverde</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="2"><span class="map-legend-num">3</span><span class="sight-text"><span class="sight-name">Rio Celeste</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="3"><span class="map-legend-num">4</span><span class="sight-text"><span class="sight-name">La Fortuna</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="4"><span class="map-legend-num">5</span><span class="sight-text"><span class="sight-name">Tortuguero</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="5"><span class="map-legend-num">6</span><span class="sight-text"><span class="sight-name">Puerto Viejo</span></span></button></li>
+    <li><button type="button" class="sight-item" data-i="6"><span class="map-legend-num">7</span><span class="sight-text"><span class="sight-name">Alajuela</span></span></button></li>
+  </ol>
+  <p class="sight-legend-note">Klick auf einen Stopp zoomt auf die Karte.</p></div></section>
 <section class="section-pad bg-cream"><div class="section-inner"><p class="section-tag">Allgemeines</p>
 <h2 class="section-title">Was uns <em>erwartet hat</em></h2>
 <div class="info-grid"><div class="info-card"><div class="info-card-label">Reisezeitraum</div><div class="info-card-value">März – April 2022</div></div>
