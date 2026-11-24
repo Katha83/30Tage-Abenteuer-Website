@@ -1299,3 +1299,6 @@ figcaption.cap { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 
   .day-divider-inner { flex-shrink: 1; min-width: 0; }
   .photo-mosaic:not(.big-center) { grid-template-columns: 1fr; }
 }
+
+/* Abstand, wenn zwei Textblöcke direkt aufeinander folgen */
+.day-text + .day-text { margin-top: 22px; }
