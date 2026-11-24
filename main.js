@@ -408,17 +408,14 @@
     }
 
     // Nummerierte Liste unter der Karte – Klick zoomt auf den Punkt
-    // (Städtetrips: Sehenswürdigkeit + Tag, Rundreisen: nur der Ortsname)
+    // (nur Nummer + Name – reine Übersicht, Details stehen im Tooltip/Bericht)
     const legend = qs('#trip-map-legend');
     if (legend) {
-      legend.innerHTML = route.map((p, i) => {
-        const sub = sights ? p.day : '';
-        return `<li><button type="button" class="sight-item${p.far ? ' is-far' : ''}" data-i="${i}">` +
-          `<span class="map-legend-num">${i + 1}</span>` +
-          `<span class="sight-text"><span class="sight-name">${p.name}</span>` +
-          (sub ? `<span class="sight-day">${sub}</span>` : '') +
-          `</span></button></li>`;
-      }).join('');
+      legend.innerHTML = route.map((p, i) =>
+        `<li><button type="button" class="sight-item${p.far ? ' is-far' : ''}" data-i="${i}">` +
+        `<span class="map-legend-num">${i + 1}</span>` +
+        `<span class="sight-text"><span class="sight-name">${p.name}</span></span></button></li>`
+      ).join('');
       legend.querySelectorAll('.sight-item').forEach(btn => btn.addEventListener('click', () => {
         const i = +btn.dataset.i, p = route[i];
         mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
