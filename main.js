@@ -408,11 +408,11 @@
     }
 
     // Nummerierte Liste unter der Karte – Klick zoomt auf den Punkt
-    // (Städtetrips: Sehenswürdigkeit + Tag, Rundreisen: Stop + Unterkunft)
+    // (Städtetrips: Sehenswürdigkeit + Tag, Rundreisen: nur der Ortsname)
     const legend = qs('#trip-map-legend');
     if (legend) {
       legend.innerHTML = route.map((p, i) => {
-        const sub = p.day || p.hotel;
+        const sub = sights ? p.day : '';
         return `<li><button type="button" class="sight-item${p.far ? ' is-far' : ''}" data-i="${i}">` +
           `<span class="map-legend-num">${i + 1}</span>` +
           `<span class="sight-text"><span class="sight-name">${p.name}</span>` +
