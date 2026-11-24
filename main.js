@@ -323,7 +323,7 @@
     const center = route[Math.floor(route.length / 2)];
     const zoom = window.TRIP_MAP_ZOOM || 5; // pages can override, e.g. for a single-city Kurztrip
 
-    const map = L.map('trip-map', { zoomControl: true, scrollWheelZoom: false })
+    const map = L.map('trip-map', { zoomControl: true, scrollWheelZoom: false, zoomSnap: window.TRIP_MAP_MODE === 'sights' ? .25 : 1 })
       .setView([center.lat, center.lng], zoom);
 
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -331,28 +331,38 @@
       maxZoom: 18
     }).addTo(map);
 
-    // Route polyline
+    // Städtetrips: window.TRIP_MAP_MODE = 'sights' → nummerierte Sehenswürdigkeiten
+    // ohne Routenlinie, Legende wird automatisch in #trip-map-legend erzeugt.
+    // Punkte mit far:true (z. B. Disneyland, Sopot) liegen außerhalb des Startausschnitts
+    // und sind über den Button "Umgebung" bzw. die Legende erreichbar.
+    const sights = window.TRIP_MAP_MODE === 'sights';
     const latlngs = route.map(p => [p.lat, p.lng]);
-    L.polyline(latlngs, {
-      color: '#4F8070', weight: 3, opacity: .75,
-      dashArray: '8 6'
-    }).addTo(map);
+    if (!sights) {
+      L.polyline(latlngs, {
+        color: '#4F8070', weight: 3, opacity: .75,
+        dashArray: '8 6'
+      }).addTo(map);
+    }
 
+    const size = sights ? 26 : 30;
+    const markers = [];
     route.forEach((p, i) => {
       const icon = L.divIcon({
-        html: `<div style="width:30px;height:30px;background:#4F8070;border:3px solid white;
+        html: `<div style="width:${size}px;height:${size}px;background:${p.far ? '#C9A46A' : '#4F8070'};border:3px solid white;
                border-radius:50%;box-shadow:0 2px 10px rgba(79,128,112,.5);
                display:flex;align-items:center;justify-content:center;
-               color:#fff;font-size:12px;font-weight:700;cursor:pointer">${i+1}</div>`,
-        iconSize: [30, 30], iconAnchor: [15, 15], className: ''
+               color:#fff;font-size:${sights ? 11 : 12}px;font-weight:700;cursor:pointer">${i+1}</div>`,
+        iconSize: [size, size], iconAnchor: [size / 2, size / 2], className: ''
       });
-      const marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
+      const marker = L.marker([p.lat, p.lng], { icon, riseOnHover: true }).addTo(map);
+      markers.push(marker);
 
       // Tooltip on hover
       marker.bindTooltip(
-        `<strong style="color:#3D6E60;font-size:.9rem">${p.name}</strong>` +
+        `<strong style="color:#3D6E60;font-size:.9rem">${sights ? (i + 1) + '. ' : ''}${p.name}</strong>` +
         (p.hotel ? `<br><span style="font-size:.78rem;color:#666">${p.hotel}</span>` : '') +
-        `<br><span style="font-size:.72rem;color:#4F8070;margin-top:3px;display:block">→ Zum Bericht</span>`,
+        (p.day ? `<br><span style="font-size:.78rem;color:#666">${p.day}</span>` : '') +
+        (p.anchor ? `<br><span style="font-size:.72rem;color:#4F8070;margin-top:3px;display:block">→ Zum Bericht</span>` : ''),
         { direction: 'top', offset: [0, -10], opacity: 1, className: 'map-tooltip' }
       );
 
@@ -372,8 +382,48 @@
       }
     });
 
-    // Fit to route
-    map.fitBounds(latlngs, { padding: [40, 40] });
+    // Fit to route (bei Städtetrips nur auf die Punkte im Stadtgebiet)
+    const core = sights ? route.filter(p => !p.far).map(p => [p.lat, p.lng]) : latlngs;
+    const fitCore = () => map.fitBounds(core.length ? core : latlngs, { padding: [36, 36] });
+    fitCore();
+    if (!sights) return;
+
+    // Umschalter Stadtzentrum / Umgebung, sobald es weiter entfernte Punkte gibt
+    if (route.some(p => p.far)) {
+      const Toggle = L.Control.extend({
+        options: { position: 'topright' },
+        onAdd() {
+          const wrap = L.DomUtil.create('div', 'leaflet-bar map-view-toggle');
+          wrap.innerHTML = `<button type="button" class="active" data-v="core">${window.TRIP_MAP_CORE_LABEL || 'Stadtzentrum'}</button>` +
+                           `<button type="button" data-v="all">${window.TRIP_MAP_ALL_LABEL || 'Mit Umgebung'}</button>`;
+          L.DomEvent.disableClickPropagation(wrap);
+          wrap.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+            wrap.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+            if (b.dataset.v === 'all') map.flyToBounds(latlngs, { padding: [36, 36], duration: .8 });
+            else map.flyToBounds(core, { padding: [36, 36], duration: .8 });
+          }));
+          return wrap;
+        }
+      });
+      map.addControl(new Toggle());
+    }
+
+    // Nummerierte Liste unter der Karte – Klick zoomt auf den Punkt
+    const legend = qs('#trip-map-legend');
+    if (legend) {
+      legend.innerHTML = route.map((p, i) =>
+        `<li><button type="button" class="sight-item${p.far ? ' is-far' : ''}" data-i="${i}">` +
+        `<span class="map-legend-num">${i + 1}</span>` +
+        `<span class="sight-text"><span class="sight-name">${p.name}</span>` +
+        (p.day ? `<span class="sight-day">${p.day}</span>` : '') +
+        `</span></button></li>`).join('');
+      legend.querySelectorAll('.sight-item').forEach(btn => btn.addEventListener('click', () => {
+        const i = +btn.dataset.i, p = route[i];
+        mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        map.flyTo([p.lat, p.lng], Math.max(map.getZoom(), p.far ? 14 : 16), { duration: .8 });
+        markers[i].openTooltip();
+      }));
+    }
   }
 
   /* ── 15. SECTION TITLE REVEAL ────────────────────────── */
@@ -413,7 +463,7 @@
       setTimeout(() => { lbImg.src = ''; }, 300);
     }
 
-    const sel = '.dest-img, .stop-photo img, .station-card-img img, .about-img-wrap img, .photo-row-3 img, .photo-row-2 img, .photo-row-2-1 img, .photo-full img, .day-split img';
+    const sel = '.dest-img, .stop-photo img, .station-card-img img, .about-img-wrap img, .photo-row-3 img, .photo-row-2 img, .photo-row-2-1 img, .photo-full img, .day-split img, .day-content figure img';
     qsa(sel).forEach(el => {
       el.style.cursor = 'zoom-in';
       el.addEventListener('click', () => {
