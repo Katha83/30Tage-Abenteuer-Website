@@ -1,25 +1,85 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ueber Uns - 30 Tage Abenteuer</title>
-  <meta name="description" content="Wer steckt hinter 30 Tage Abenteuer? Katharina und ihr Mann – zwei Reisebegeisterte mit 15 Reisen, 26 Laendern und der Leidenschaft fuer echte Abenteuer.">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="preloader"><div id="preloader-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" style="height:60px;"></div><div id="preloader-count">0%</div></div>
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <meta name="description" content="Wer steckt hinter 30 Tage Abenteuer? Katha und Robert – seit 2011 mit Fernweh, Vollzeitjobs und 30 Tagen Urlaub im Jahr unterwegs.">
+  <title>Über uns – 30 Tage Abenteuer</title>
+  <script src="main.js?v=20261124e" defer></script>
+  <style>
+    .about-hero { padding: 72px 0 64px; background: var(--cream); }
+    .about-hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+    .about-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.2rem, 4.5vw, 3.4rem); line-height: 1.1; margin: 8px 0 20px; color: var(--text-dark); }
+    .about-title em { color: var(--teal); }
+    .about-lead { font-size: 1.2rem; font-weight: 700; color: var(--teal-dark); margin-bottom: 18px; }
+    .about-hero-img { margin: 0; }
+    .about-hero-img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 35% 70%; border-radius: var(--radius-lg); display: block; box-shadow: 0 18px 40px rgba(0,0,0,.12); }
+    .about-hero-img figcaption { font-size: .75rem; color: var(--text-light); margin-top: 8px; text-align: right; }
 
-  <nav id="nav"><div class="nav-inner"><a href="index.html" class="nav-logo"><img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer"></a><button class="nav-burger" aria-label="Menue" aria-expanded="false" id="nav-burger"><span></span><span></span><span></span></button><ul class="nav-links" id="nav-links"><li class="has-dropdown"><a href="index.html#reisen">Reiseziele</a>
+    .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 32px; }
+    .profile-card { background: var(--off-white); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-columns: 200px 1fr; }
+    .profile-img-placeholder { background: linear-gradient(135deg, var(--teal-light), var(--teal-dark)); color: #fff; font-size: 2.2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 260px; text-align: center; padding: 12px; }
+    .profile-img-placeholder span { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; opacity: .9; }
+    .profile-body { padding: 24px 26px; }
+    .profile-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.7rem; margin: 0; color: var(--text-dark); }
+    .profile-role { color: var(--teal); font-weight: 700; font-size: .85rem; margin: 2px 0 16px; }
+    .profile-facts { margin: 0; display: grid; gap: 10px; }
+    .profile-facts dt { font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-light); }
+    .profile-facts dd { margin: 1px 0 0; font-size: .92rem; color: var(--text-mid); }
+    .ph { color: #B08A4E !important; font-style: italic; }
+
+    .trip-timeline { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+    .trip-timeline li { display: grid; grid-template-columns: 54px 1fr; column-gap: 12px; align-items: baseline; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+    .tl-year { grid-row: span 2; font-weight: 800; color: var(--teal); font-size: 1.05rem; }
+    .trip-timeline a { font-weight: 700; color: var(--text-dark); text-decoration: none; }
+    .trip-timeline a:hover { color: var(--teal); }
+    .tl-note { font-size: .75rem; color: var(--text-light); }
+
+    .style-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 32px; }
+    .style-card { background: var(--off-white); border-radius: var(--radius); padding: 24px 22px; }
+    .style-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .style-card h3 { font-size: 1rem; margin: 0 0 8px; color: var(--text-dark); }
+    .style-card p { font-size: .9rem; line-height: 1.65; color: var(--text-mid); margin: 0; }
+
+    .fav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .fav-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
+    .fav-list li { display: flex; gap: 14px; align-items: flex-start; background: #fff; border-radius: 12px; padding: 16px 18px; }
+    .fav-num { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--teal); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .fav-list p { margin: 4px 0 0; font-size: .9rem; }
+    .mishap-card { background: #fff; border-radius: var(--radius); padding: 28px; }
+    .mishap-card .section-title { margin-bottom: 18px; }
+
+    .about-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    @media (max-width: 980px) {
+      .style-grid { grid-template-columns: 1fr 1fr; }
+      .profile-grid, .fav-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .about-hero { padding: 40px 0; }
+      .about-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-hero-img img { aspect-ratio: 4 / 3; object-position: 30% 75%; }
+      .profile-card { grid-template-columns: 1fr; }
+      .profile-img-placeholder { min-height: 180px; }
+      .style-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head><body><div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<header id="nav" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="30 Tage Abenteuer – Startseite"><img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer"></a>
+  <nav aria-label="Hauptnavigation"><ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li class="has-dropdown"><a href="#">Reiseziele</a>
       <div class="dropdown wide">
         <div class="dropdown-col">
           <span class="dropdown-heading">Asien</span>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-bali">Bali <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-bali">
             <a href="reise-bali-2017.html" class="dropdown-sublink">Bali 2017</a>
             <a href="reise-bali-lombok-2025.html" class="dropdown-sublink">Bali &amp; Lombok 2025</a>
@@ -27,11 +87,11 @@
           <a href="reise-bali-lombok-2025.html">Lombok</a>
           <a href="reise-philippinen-2025.html">Philippinen</a>
           <a href="reise-srilanka-2023.html">Sri Lanka</a>
-          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">&#9662;</span></button>
+          <button class="dropdown-country dropdown-toggle" data-target="nav-thailand">Thailand <span class="drop-chevron">▾</span></button>
           <div class="dropdown-sub-group" id="nav-thailand">
             <a href="reise-thailand-kambodscha-2011.html" class="dropdown-sublink">Thailand &amp; Kambodscha</a>
-            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und S&#252;dtour</a>
-            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand S&#252;den</a>
+            <a href="reise-thailand-2019.html" class="dropdown-sublink">Thailand Nord- und Südtour</a>
+            <a href="reise-thailand-2026.html" class="dropdown-sublink">Thailand Süden</a>
           </div>
           <a href="reise-vietnam-2018.html">Vietnam</a>
         </div>
@@ -51,125 +111,198 @@
           <a href="reise-paris-2026.html">Paris</a>
         </div>
       </div>
-    </li><li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a><div class="dropdown simple"><a href="reisetipps.html#planung">Reiseplanung</a><a href="reisetipps.html#packliste">Packliste</a><a href="reisetipps.html#hotels">Hotels &amp; Unterkuenfte</a><a href="reisetipps.html#kreditkarte">Kreditkarte &amp; Finanzen</a><a href="reisetipps.html#budget">Budget &amp; Kosten</a></div></li><li><a href="ueber-uns.html">Ueber Uns</a></li></ul></div></nav>
+    </li>
+    <li class="has-dropdown"><a href="reisetipps.html">Reisetipps</a>
+      <div class="dropdown simple">
+        <a href="reisetipps.html#planung">Wie wir planen</a>
+        <a href="reisetipps.html#packliste">Packliste</a>
+        <a href="reisetipps.html#hotels">Hotels finden</a>
+        <a href="reisetipps.html#kreditkarte">Reisekreditkarte</a>
+        <a href="reisetipps.html#budget">Reisebudget</a>
+      </div>
+    </li>
+    <li><a href="ueber-uns.html">Über Uns</a></li>
+  </ul></nav>
+  <a href="index.html#destinations" class="nav-cta magnetic">Alle Reisen</a>
+  <button class="nav-hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<!-- ══ INTRO: Wer wir sind ══ -->
+<section class="about-hero" style="margin-top:var(--nav-h)"><div class="section-inner about-hero-grid">
+  <div>
+    <p class="section-tag">Über uns</p>
+    <h1 class="about-title">Katha &amp; Robert –<br><em>Fernweh auf Rezept</em></h1>
+    <p class="about-lead">Hinter diesem Blog stecken Katha und Robert. Katha hat das Fernweh. Robert hat Katha.</p>
+    <p class="trip-text">Seit 2003 sind wir ein Paar und haben natürlich einige klassische Hotelurlaube in der Türkei und Co. gemacht – aber 2011 hat mich, Katha, auf einer Reise nach Thailand und Kambodscha das Individualreise-Fieber erwischt und seitdem nicht mehr losgelassen. Seit 2013 zieht es uns gemeinsam in die Welt: Ich plane und träume, Robert lässt sich begeistert mitreißen.</p>
+    <p class="trip-text">Hier teilen wir unsere Routen und Erlebnisse – nicht als Reiseprofis, sondern als zwei Menschen mit Vollzeitjobs, Alltag und 30 Tagen Urlaub im Jahr. Und wir finden: Das reicht für ziemlich fantastische Abenteuer.</p>
+  </div>
+  <figure class="about-hero-img">
+    <!-- Übergangsfoto, wird noch ersetzt -->
+    <img src="Bilder/Costa Rica 2022/IMG_20220403_091304.jpg" alt="Katha und Robert im Nebelwald von Monteverde, Costa Rica 2022" loading="eager">
+    <figcaption>Monteverde, Costa Rica 2022</figcaption>
+  </figure>
+</div></section>
 
-  <header class="trip-hero" style="background-image:url('Bilder/Namibia 2024/IMG_7470.jpg')">
-    <div class="hero-overlay"></div>
-    <div class="trip-hero-content">
-      <div class="trip-breadcrumb"><a href="index.html">Home</a> / Ueber Uns</div>
-      <h1 class="trip-hero-title">Ueber Uns</h1>
-      <p style="color:rgba(255,255,255,0.85);font-size:1.15rem;margin-top:1rem;">Zwei Menschen, eine Leidenschaft, unzaehlige Abenteuer.</p>
+<!-- ══ ZAHLEN ══ -->
+<section id="stats" aria-label="Reise-Statistiken">
+  <div class="stats-inner">
+    <div class="stat-item"><span class="stat-num" data-count="15">0</span><span class="stat-label">Reisen</span></div>
+    <div class="stat-item"><span class="stat-num" data-count="24">0</span><span class="stat-label">Länder</span></div>
+    <div class="stat-item"><span class="stat-num" data-count="4">0</span><span class="stat-label">Kontinente</span></div>
+    <div class="stat-item"><span class="stat-num">2011</span><span class="stat-label">Erstes Abenteuer</span></div>
+  </div>
+</section>
+
+<!-- ══ STECKBRIEFE ══ -->
+<section class="section-pad"><div class="section-inner">
+  <p class="section-tag">Steckbriefe</p><h2 class="section-title">Zwei Reisende, <em>zwei Rollen</em></h2>
+  <div class="profile-grid">
+    <article class="profile-card">
+      <div class="profile-img-placeholder">📷<span>Einzelfoto Katha folgt</span></div>
+      <div class="profile-body">
+        <h3 class="profile-name">Katha</h3>
+        <p class="profile-role">Die Planerin &amp; Träumerin</p>
+        <dl class="profile-facts">
+          <div><dt>Meine Rolle auf Reisen</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Lieblingsreise bisher</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Bestes Essen unterwegs</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Ohne … verreise ich nie</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Mein Reise-Tick</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Nächstes Traumziel</dt><dd class="ph">✏️ Platzhalter</dd></div>
+        </dl>
+      </div>
+    </article>
+    <article class="profile-card">
+      <div class="profile-img-placeholder">📷<span>Einzelfoto Robert folgt</span></div>
+      <div class="profile-body">
+        <h3 class="profile-name">Robert</h3>
+        <p class="profile-role">Der begeisterte Mitreisende</p>
+        <dl class="profile-facts">
+          <div><dt>Meine Rolle auf Reisen</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Lieblingsreise bisher</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Bestes Essen unterwegs</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Ohne … verreise ich nie</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Mein Reise-Tick</dt><dd class="ph">✏️ Platzhalter</dd></div>
+          <div><dt>Nächstes Traumziel</dt><dd class="ph">✏️ Platzhalter</dd></div>
+        </dl>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<!-- ══ ZEITLEISTE ══ -->
+<section class="section-pad bg-cream"><div class="section-inner">
+  <p class="section-tag">Unsere Reisen</p><h2 class="section-title">Von 2011 <em>bis heute</em></h2>
+  <ol class="trip-timeline">
+    <li><span class="tl-year">2011</span><a href="reise-thailand-kambodscha-2011.html">Thailand &amp; Kambodscha</a><span class="tl-note">Der Anfang von allem</span></li>
+    <li><span class="tl-year">2013</span><a href="reise-usa-2013.html">USA Roadtrip</a><span class="tl-note">Erste gemeinsame Fernreise</span></li>
+    <li><span class="tl-year">2017</span><a href="reise-newyork-2017.html">New York City</a><span class="tl-note">Städtetrip</span></li>
+    <li><span class="tl-year">2017</span><a href="reise-bali-2017.html">Bali</a><span class="tl-note">Rundreise</span></li>
+    <li><span class="tl-year">2018</span><a href="reise-vietnam-2018.html">Vietnam</a><span class="tl-note">14 Nächte</span></li>
+    <li><span class="tl-year">2019</span><a href="reise-thailand-2019.html">Thailand Nord &amp; Süd</a><span class="tl-note">21 Nächte</span></li>
+    <li><span class="tl-year">2019</span><a href="reise-lasvegas-2019.html">Las Vegas</a><span class="tl-note">Städtetrip</span></li>
+    <li><span class="tl-year">2022</span><a href="reise-costarica-2022.html">Costa Rica</a><span class="tl-note">19 Nächte</span></li>
+    <li><span class="tl-year">2023</span><a href="reise-srilanka-2023.html">Sri Lanka</a><span class="tl-note">20 Nächte</span></li>
+    <li><span class="tl-year">2023</span><a href="reise-florida-2023.html">Florida &amp; Bahamas</a><span class="tl-note">14 Nächte</span></li>
+    <li><span class="tl-year">2024</span><a href="reise-namibia-2024.html">Namibia</a><span class="tl-note">Camping-Roadtrip</span></li>
+    <li><span class="tl-year">2024</span><a href="reise-london-2024.html">London</a><span class="tl-note">Städtetrip</span></li>
+    <li><span class="tl-year">2025</span><a href="reise-philippinen-2025.html">Philippinen</a><span class="tl-note">15 Nächte</span></li>
+    <li><span class="tl-year">2025</span><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok</a><span class="tl-note">23 Nächte</span></li>
+    <li><span class="tl-year">2026</span><a href="reise-thailand-2026.html">Thailand Inselrunde</a><span class="tl-note">19 Nächte</span></li>
+    <li><span class="tl-year">2026</span><a href="reise-danzig-2026.html">Danzig</a><span class="tl-note">Städtetrip</span></li>
+    <li><span class="tl-year">2026</span><a href="reise-paris-2026.html">Paris</a><span class="tl-note">Städtetrip</span></li>
+  </ol>
+</div></section>
+
+<!-- ══ REISESTIL ══ -->
+<section class="section-pad"><div class="section-inner">
+  <p class="section-tag">Unser Reisestil</p><h2 class="section-title">So reisen <em>wir</em></h2>
+  <div class="style-grid">
+    <div class="style-card"><div class="style-icon">🗺</div><h3>Individuell statt Pauschal</h3><p>Wir stellen unsere Routen selbst zusammen, buchen Flüge und Unterkünfte vorab – und lassen uns vor Ort trotzdem gern treiben.</p></div>
+    <div class="style-card"><div class="style-icon">⏳</div><h3>30 Tage im Jahr</h3><p>Vollzeitjobs, Alltag, begrenzter Urlaub: Unsere Reisen müssen in die Urlaubstage passen – genau dafür gibt es diesen Blog.</p></div>
+    <div class="style-card"><div class="style-icon">🍜</div><h3>Essen wie die Einheimischen</h3><p>Garküchen, Märkte, kleine Familienrestaurants – das echte Essen eines Landes ist für uns ein Highlight jeder Reise.</p></div>
+    <div class="style-card"><div class="style-icon">🌿</div><h3>Natur vor Menschenmassen</h3><p>Lieber der ruhige Strand als der berühmte Hotspot – das kostet manchmal mehr Planung, bringt aber die besseren Geschichten.</p></div>
+  </div>
+  <div class="placeholder-text" style="margin-top:24px">✏️ Platzhalter: Bitte kurz prüfen, ob diese vier Punkte euren Reisestil treffen – gerne ändern oder ergänzen.</div>
+</div></section>
+
+<!-- ══ LIEBLINGSREISEN & PANNE ══ -->
+<section class="section-pad bg-off"><div class="section-inner">
+  <div class="fav-grid">
+    <div>
+      <p class="section-tag">Unsere Top 3</p><h2 class="section-title">Die Reisen, die <em>hängen bleiben</em></h2>
+      <ol class="fav-list">
+        <li><span class="fav-num">1</span><div><strong class="ph">✏️ Reise</strong><p class="ph">✏️ Warum diese Reise?</p></div></li>
+        <li><span class="fav-num">2</span><div><strong class="ph">✏️ Reise</strong><p class="ph">✏️ Warum diese Reise?</p></div></li>
+        <li><span class="fav-num">3</span><div><strong class="ph">✏️ Reise</strong><p class="ph">✏️ Warum diese Reise?</p></div></li>
+      </ol>
     </div>
-  </header>
+    <div class="mishap-card">
+      <p class="section-tag">Ehrlich gesagt</p>
+      <h2 class="section-title">Als mal <em>alles schiefging</em></h2>
+      <div class="placeholder-text">✏️ Platzhalter: Eure beste Pannen-Geschichte – verpasste Fähre, falsches Hotel, Reifenplatten in der Wüste … Ein paar Sätze reichen.</div>
+    </div>
+  </div>
+</div></section>
 
-  <!-- Who we are -->
-  <section class="section bg-cream">
-    <div class="container">
-      <div style="max-width:800px;margin:0 auto;">
-        <h2 class="section-title reveal-hidden">Hallo, wir sind Katharina und ihr Mann!</h2>
-        <div class="placeholder-text reveal-hidden" style="font-size:1.05rem;line-height:1.9;">
-          <p>Wir sind zwei reisebegeisterte Menschen aus Deutschland, die 2011 mit einem Rucksack nach Thailand geflogen sind – und seitdem nicht aufgehoert haben zu reisen.</p>
-          <p>Was als erste grosse Fernreise begann, hat sich zu einer echten Leidenschaft entwickelt: Wir lieben es, neue Kulturen zu entdecken, einheimisches Essen zu probieren, uns in unbekannten Staedten zu verlaufen und die Momente zu finden, die in keinem Reisefuehrer stehen.</p>
-          <p>Nach 15 Reisen und 26 Laendern wissen wir: Das naechste Abenteuer ist immer das aufregendste. Dieser Blog ist unser Reisetagebuch, unsere Erinnerungssammlung und hoffentlich auch Inspiration fuer euch.</p>
-        </div>
+<!-- ══ ÜBER DIESEN BLOG ══ -->
+<section class="section-pad"><div class="section-inner" style="max-width:760px">
+  <p class="section-tag">Über diesen Blog</p><h2 class="section-title">Ehrlich, selbst bezahlt, <em>selbst erlebt</em></h2>
+  <p class="trip-text">30 Tage Abenteuer ist unser persönliches Reisetagebuch – kein kommerzielles Projekt, keine bezahlten Empfehlungen. Alles, was wir hier schreiben, haben wir selbst erlebt und selbst bezahlt.</p>
+  <p class="trip-text">Wir schreiben ehrlich über Höhenflüge und über Momente, in denen alles schiefging. Denn echtes Reisen ist nicht immer perfekt – und genau das macht es so unvergesslich.</p>
+  <div class="about-cta">
+    <a href="index.html#destinations" class="btn-outline-dark">Alle Reisen ansehen</a>
+    <a href="https://www.instagram.com/30tageabenteuer" target="_blank" rel="noopener" class="btn-outline-dark">Instagram @30TageAbenteuer</a>
+  </div>
+</div></section>
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="BrandBoard und Logo/Logo Variante Halbkreis.png" alt="30 Tage Abenteuer">
+        <p>Unsere echten Routen, ehrlichen Erlebnisse und Inspiration für alle, die raus wollen – Katha &amp; Robert seit 2011 unterwegs.</p>
+        <a href="https://www.instagram.com/30tageabenteuer" target="_blank" rel="noopener" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          @30TageAbenteuer
+        </a>
+      </div>
+      <div>
+        <div class="footer-col-title">Reiseziele</div>
+        <ul class="footer-links">
+          <li><a href="reise-thailand-2026.html">Thailand 2026</a></li>
+          <li><a href="reise-namibia-2024.html">Namibia 2024</a></li>
+          <li><a href="reise-philippinen-2025.html">Philippinen 2025</a></li>
+          <li><a href="reise-bali-lombok-2025.html">Bali &amp; Lombok 2025</a></li>
+          <li><a href="reise-srilanka-2023.html">Sri Lanka 2023</a></li>
+          <li><a href="reise-costarica-2022.html">Costa Rica 2022</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Mehr</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html">Reisetipps</a></li>
+          <li><a href="ueber-uns.html">Über Uns</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Reisetipps</div>
+        <ul class="footer-links">
+          <li><a href="reisetipps.html#planung">Wie wir planen</a></li>
+          <li><a href="reisetipps.html#packliste">Packliste</a></li>
+          <li><a href="reisetipps.html#hotels">Hotels finden</a></li>
+          <li><a href="reisetipps.html#kreditkarte">Reisekreditkarte</a></li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="section bg-off">
-    <div class="container">
-      <div class="info-grid reveal-hidden">
-        <div class="info-card">
-          <span class="info-icon">🌍</span>
-          <span class="info-label">Reisen</span>
-          <span class="info-value" data-count="15">0</span>
-        </div>
-        <div class="info-card">
-          <span class="info-icon">📍</span>
-          <span class="info-label">Laender</span>
-          <span class="info-value" data-count="26">0</span>
-        </div>
-        <div class="info-card">
-          <span class="info-icon">🌙</span>
-          <span class="info-label">Naechte unterwegs</span>
-          <span class="info-value" data-count="200">0</span>
-        </div>
-        <div class="info-card">
-          <span class="info-icon">⭐</span>
-          <span class="info-label">Erste Reise</span>
-          <span class="info-value">2011</span>
-        </div>
-      </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 <span>30 Tage Abenteuer</span> · Alle Rechte vorbehalten</p>
+      <p class="footer-copy" style="font-style:italic">Made with Fernweh &amp; Kaffee ☕</p>
     </div>
-  </section>
-
-  <!-- Reisestil -->
-  <section class="section bg-cream">
-    <div class="container">
-      <h2 class="section-title reveal-hidden">Unser Reisestil</h2>
-      <div class="tipp-grid">
-        <div class="tipp-card reveal-hidden">
-          <span class="tipp-icon">🌿</span>
-          <h3>Natur vor Touristenmassen</h3>
-          <p>Wir suchen lieber den einsamen Strand als den beruechmten. Die echte Wildnis statt dem touristischen Hotspot. Das bedeutet manchmal mehr Planung – aber auch die besseren Geschichten.</p>
-        </div>
-        <div class="tipp-card reveal-hidden">
-          <span class="tipp-icon">🍜</span>
-          <h3>Essen wie die Einheimischen</h3>
-          <p>Strassenessen, Maerkte, kleine Familienrestaurants – wir meiden touristisch-gekuenstelte Speisekarten und suchen lieber das echte Essen des Landes.</p>
-        </div>
-        <div class="tipp-card reveal-hidden">
-          <span class="tipp-icon">📸</span>
-          <h3>Momente statt Massen-Fotos</h3>
-          <p>Wir fotografieren viel, aber wir reisen nicht fuer Instagram. Uns geht es um echte Erlebnisse – die besten Bilder entstehen oft zufaellig.</p>
-        </div>
-        <div class="tipp-card reveal-hidden">
-          <span class="tipp-icon">🗓️</span>
-          <h3>Gut geplant, aber flexibel</h3>
-          <p>Wir planen unsere Unterkuenfte und Fluege im Voraus, aber lassen uns vor Ort gerne treiben. Manchmal sind die ungeplanten Umwege die schoensten.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Lieblings-Reisen -->
-  <section class="section bg-off">
-    <div class="container">
-      <h2 class="section-title reveal-hidden">Unsere absoluten Lieblings-Reisen</h2>
-      <div class="placeholder-text reveal-hidden" style="max-width:720px;margin:0 auto;">
-        <p>Diese Frage ist wie: Welches Kind liebst du mehr? Aber wenn wir muessen: <strong>Namibia 2024</strong> hat uns mit seiner Wildheit und Stille umgehauen. <strong>Vietnam 2018</strong> hat alle Sinne auf einmal angesprochen. Und <strong>Thailand &amp; Kambodscha 2011</strong> – weil es der Anfang von allem war.</p>
-        <p style="margin-top:1.5rem;"><a href="index.html#reisen" style="color:var(--teal);font-weight:600;text-decoration:underline;">Alle unsere Reisen ansehen &rarr;</a></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Kontakt / Blog-Infos -->
-  <section class="section bg-cream">
-    <div class="container">
-      <h2 class="section-title reveal-hidden">Ueber diesen Blog</h2>
-      <div class="placeholder-text reveal-hidden" style="max-width:720px;margin:0 auto;">
-        <p>30 Tage Abenteuer ist unser persoenliches Reisetagebuch – kein kommerzielles Projekt, keine bezahlten Empfehlungen. Alles, was wir hier schreiben, haben wir selbst erlebt und bezahlt.</p>
-        <p>Wir schreiben ehrlich ueber Hoehenfluge und ueber Momente, in denen alles schief ging. Denn echtes Reisen ist nicht immer perfekt – und genau das macht es so unvergesslich.</p>
-        <p style="margin-top:1.5rem;color:var(--teal-dark);font-style:italic;">"Die Welt ist ein Buch. Wer nicht reist, liest nur eine Seite." &ndash; Augustinus</p>
-      </div>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <img src="BrandBoard und Logo/Logo 30Tage Transparenter Hintergrund.png" alt="30 Tage Abenteuer" class="footer-logo">
-      <p>&copy; 2026 30 Tage Abenteuer &middot; Alle Rechte vorbehalten</p>
-      <div class="footer-links">
-        <a href="ueber-uns.html">Ueber Uns</a>
-        <a href="reisetipps.html">Reisetipps</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="main.js"></script>
-</body>
-</html>
+  </div>
+</footer>
+</body></html>
