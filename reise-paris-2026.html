@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css?v=20261124b">
+  <link rel="stylesheet" href="styles.css?v=20261124c">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -444,19 +444,21 @@
 
   <div class="day-content">
     <div class="day-text">
-      <div class="float-r" style="width:44%">
-        <div class="photo-flex keep">
-          <figure style="--r:1.78">
-            <img src="Paris/compressed/par-d3-croissants.jpg" alt="Zwei Croissants, Kaffee und Orangensaft auf einem Tisch" loading="lazy">
-            <figcaption class="cap">Frühstück im „Little Cafe"</figcaption>
-          </figure>
-          <figure style="--r:1.78">
-            <img src="Paris/compressed/par-d3-avocado-toast.jpg" alt="Avocado-Toast mit pochiertem Ei und Gurken" loading="lazy">
-            <figcaption class="cap">Avocado-Toast – teuer und klein</figcaption>
-          </figure>
-        </div>
-      </div>
       <p>Der nächste Morgen startet mit Sonne und einem Frühstück im „Little Cafe". Leider eine Enttäuschung: teuer, nicht lecker und eine sehr kleine Portion.</p>
+    </div>
+
+    <div class="photo-flex" style="max-width:860px;margin-inline:auto">
+      <figure style="--r:1.78">
+        <img src="Paris/compressed/par-d3-croissants.jpg" alt="Zwei Croissants, Kaffee und Orangensaft auf einem Tisch" loading="lazy">
+        <figcaption class="cap">Frühstück im „Little Cafe"</figcaption>
+      </figure>
+      <figure style="--r:1.78">
+        <img src="Paris/compressed/par-d3-avocado-toast.jpg" alt="Avocado-Toast mit pochiertem Ei und Gurken" loading="lazy">
+        <figcaption class="cap">Avocado-Toast – teuer und klein</figcaption>
+      </figure>
+    </div>
+
+    <div class="day-text">
       <p>Die Enttäuschung ging an diesem Tag leider weiter. Wir wollten in die Sainte-Chapelle, aber bei über 1,5 Stunden Wartezeit und nach einem Blick ins Internet war klar: In dieser Woche bekommen wir keinen Slot mehr. Also schlendern wir durch die Gassen Richtung Shakespeare and Company – ein unglaublich schöner Buchladen. Auch hier stand ich gute 25 Minuten an, um reinzukommen. Drinnen sind keine Fotos erlaubt, aber wer Buchläden so liebt wie ich, wird ihn großartig finden – die Wartezeit lohnt sich.</p>
     </div>
 
@@ -476,59 +478,62 @@
     </div>
 
     <div class="day-text">
-      <figure class="float-l" style="width:36%">
-        <img src="Paris/compressed/par-d3-place-du-tertre.jpg" alt="Der Place du Tertre mit Künstlerständen unter Bäumen" loading="lazy">
-        <figcaption class="cap">Der Place du Tertre mit seinen Künstlern</figcaption>
+      <figure class="float-l" style="width:42%">
+        <img src="Paris/compressed/par-d3-sacre-coeur.jpg" alt="Die weiße Basilika Sacré-Cœur bei strahlend blauem Himmel mit Menschenschlange davor" loading="lazy">
+        <figcaption class="cap">Die Sacré-Cœur – auch von außen beeindruckend</figcaption>
       </figure>
       <p>Danach beschließen wir, das Zentrum zu verlassen und nach Montmartre zu fahren. Also ab in die Metro, und los geht's. Zur Sacré-Cœur kommt man entweder per Bus oder mit der Standseilbahn (beides mit den normalen Tickets) – oder, wenn man wie wir auf der „falschen" Seite ist, nur über viele Treppen. Oben ist uns die Schlange vor der Sacré-Cœur ebenfalls zu lang (Eintritt frei), also genießen wir An- und Ausblick vom Fuß der Basilika.</p>
       <p>Wir schlendern weiter zum Place du Tertre. Hier sitzen die Künstler mit ihren Werken, drumherum gibt es viele schöne Cafés, Bistros und Läden. Da wir meine Eltern unten zurückgelassen haben, setzen wir uns nicht, sondern treten nach dem Rundgang den Rückweg an. Die Gegend kann ich empfehlen – sie hat uns gut gefallen, und die Basilika ist auch von außen schön und beeindruckend.</p>
     </div>
 
-    <!-- Querformat groß in der Mitte, je zwei Hochformate links und rechts -->
-    <div class="photo-mosaic big-center" style="--cols:1fr 3.55fr 1fr">
-      <figure>
+    <div class="photo-flex">
+      <figure style="--r:0.75">
         <img src="Paris/compressed/par-d3-metro-eingang.jpg" alt="Grüner Jugendstil-Metroeingang mit Métropolitain-Schild" loading="lazy">
-        <figcaption class="cap">Metro im Jugendstil</figcaption>
+        <figcaption class="cap">Ab in die Metro – Eingang im Jugendstil</figcaption>
       </figure>
-      <figure class="big">
-        <img src="Paris/compressed/par-d3-sacre-coeur.jpg" alt="Die weiße Basilika Sacré-Cœur bei strahlend blauem Himmel mit Menschenschlange davor" loading="lazy">
-        <figcaption class="cap">Die Sacré-Cœur – auch von außen beeindruckend</figcaption>
+      <figure style="--r:1.33">
+        <img src="Paris/compressed/par-d3-place-du-tertre.jpg" alt="Der Place du Tertre mit Künstlerständen unter Bäumen" loading="lazy">
+        <figcaption class="cap">Der Place du Tertre mit seinen Künstlern</figcaption>
       </figure>
-      <figure>
-        <img src="Paris/compressed/par-d3-sacre-coeur-gasse.jpg" alt="Gasse mit Souvenirläden und Blick auf die Sacré-Cœur" loading="lazy">
-        <figcaption class="cap">Die Sacré-Cœur immer im Blick</figcaption>
-      </figure>
-      <figure>
+      <figure style="--r:0.75">
         <img src="Paris/compressed/par-d3-montmartre-gasse.jpg" alt="Steile Kopfsteinpflastergasse mit Läden in Montmartre" loading="lazy">
         <figcaption class="cap">Gassen in Montmartre</figcaption>
-      </figure>
-      <figure>
-        <img src="Paris/compressed/par-d3-montmartre-tasche.jpg" alt="Gestreifte Strohtasche mit Montmartre-Schriftzug an einer blauen Wand mit Blumenranken" loading="lazy">
-        <figcaption class="cap">Souvenirs mit Charme</figcaption>
       </figure>
     </div>
 
     <div class="photo-flex">
-      <figure style="--r:1.33">
-        <img src="Paris/compressed/par-d3-montmartre-bistro.jpg" alt="Eckbistro mit roten Markisen und Herbstdeko in Montmartre" loading="lazy">
-        <figcaption class="cap">Bistros rund um den Platz</figcaption>
+      <figure style="--r:0.75">
+        <img src="Paris/compressed/par-d3-sacre-coeur-gasse.jpg" alt="Gasse mit Souvenirläden und Blick auf die Sacré-Cœur" loading="lazy">
+        <figcaption class="cap">Die Sacré-Cœur immer im Blick</figcaption>
       </figure>
       <figure style="--r:1.78">
         <img src="Paris/compressed/par-d3-montmartre-ente.jpg" alt="Orangefarbene Ente vor einem Restaurant auf einer Kopfsteinpflasterstraße in Montmartre" loading="lazy">
         <figcaption class="cap">Ganz klassisch: eine Ente in Montmartre</figcaption>
       </figure>
+      <figure style="--r:0.75">
+        <img src="Paris/compressed/par-d3-montmartre-tasche.jpg" alt="Gestreifte Strohtasche mit Montmartre-Schriftzug an einer blauen Wand mit Blumenranken" loading="lazy">
+        <figcaption class="cap">Souvenirs mit Charme</figcaption>
+      </figure>
     </div>
 
-    <div class="photo-flex">
-      <figure style="--r:1.78">
+    <!-- Querformat groß links, zwei Querformate rechts gestapelt -->
+    <div class="photo-mosaic" style="--cols:1.49fr 1fr">
+      <figure class="big">
+        <img src="Paris/compressed/par-d3-montmartre-bistro.jpg" alt="Eckbistro mit roten Markisen und Herbstdeko in Montmartre" loading="lazy">
+        <figcaption class="cap">Bistros rund um den Platz</figcaption>
+      </figure>
+      <figure>
         <img src="Paris/compressed/par-d3-biscuiterie.jpg" alt="Schaufenster der Biscuiterie de Montmartre" loading="lazy">
         <figcaption class="cap">Die Biscuiterie de Montmartre</figcaption>
       </figure>
-      <figure style="--r:1.78">
+      <figure>
         <img src="Paris/compressed/par-d3-strassenecke.jpg" alt="Typisch Pariser Straßenkreuzung mit hellen Haussmann-Fassaden" loading="lazy">
         <figcaption class="cap">Typisch Paris: Haussmann-Fassaden</figcaption>
       </figure>
-      <figure style="--r:1.78">
+    </div>
+
+    <div class="photo-wide-solo" style="max-width:560px">
+      <figure>
         <img src="Paris/compressed/par-d3-mochi.jpg" alt="Bunte Mochi-Eiskugeln in einer Papierschale" loading="lazy">
         <figcaption class="cap">Mochi-Eis zwischendurch</figcaption>
       </figure>
@@ -604,28 +609,30 @@
       </figure>
     </div>
 
-    <div class="day-text">
-      <p>Weiter geht's zur Kathedrale Notre-Dame, für die wir ein Zeitfenster buchen konnten. Die Tickets sind kostenlos, über eine Spende freut man sich natürlich. Ungefähr zu unserer Zeit stellen wir uns in die separate, sehr kurze Schlange für reservierte Tickets, dann noch die Taschenkontrolle, und schon stehen wir in den beeindruckenden Räumen von Notre-Dame. Einen Audioguide haben wir nicht, wir drehen einfach in Ruhe eine Runde.</p>
-    </div>
-
-    <div class="photo-mosaic big-center" style="--cols:1fr 3.55fr 1fr">
+    <div class="story-split" style="--cols:1.1fr 1fr">
+      <div class="day-text">
+        <p>Weiter geht's zur Kathedrale Notre-Dame, für die wir ein Zeitfenster buchen konnten. Die Tickets sind kostenlos, über eine Spende freut man sich natürlich. Ungefähr zu unserer Zeit stellen wir uns in die separate, sehr kurze Schlange für reservierte Tickets, dann noch die Taschenkontrolle, und schon stehen wir in den beeindruckenden Räumen von Notre-Dame. Einen Audioguide haben wir nicht, wir drehen einfach in Ruhe eine Runde.</p>
+      </div>
       <figure>
-        <img src="Paris/compressed/par-d4-notre-dame-leuchter.jpg" alt="Goldener Kronleuchter im hellen Kirchenschiff von Notre-Dame" loading="lazy">
-        <figcaption class="cap">Goldene Leuchter</figcaption>
-      </figure>
-      <figure class="big">
         <img src="Paris/compressed/par-d4-notre-dame-querhaus.jpg" alt="Das Querhaus von Notre-Dame mit Fensterrose und Altarbereich" loading="lazy">
         <figcaption class="cap">Die frisch restaurierte Notre-Dame von innen</figcaption>
       </figure>
-      <figure>
+    </div>
+
+    <div class="photo-flex">
+      <figure style="--r:0.75">
+        <img src="Paris/compressed/par-d4-notre-dame-leuchter.jpg" alt="Goldener Kronleuchter im hellen Kirchenschiff von Notre-Dame" loading="lazy">
+        <figcaption class="cap">Das Kirchenschiff mit goldenen Leuchtern</figcaption>
+      </figure>
+      <figure style="--r:0.75">
         <img src="Paris/compressed/par-d4-notre-dame-rosette.jpg" alt="Große blaue Fensterrose in Notre-Dame" loading="lazy">
         <figcaption class="cap">Die Fensterrose</figcaption>
       </figure>
-      <figure>
+      <figure style="--r:0.75">
         <img src="Paris/compressed/par-d4-notre-dame-fenster.jpg" alt="Farbenprächtiges Buntglasfenster in einer Seitenkapelle von Notre-Dame" loading="lazy">
-        <figcaption class="cap">Buntglasfenster</figcaption>
+        <figcaption class="cap">Farbenprächtige Buntglasfenster</figcaption>
       </figure>
-      <figure>
+      <figure style="--r:0.75">
         <img src="Paris/compressed/par-d4-notre-dame-chor.jpg" alt="Blick durch das hohe Kirchenschiff von Notre-Dame zum Chor" loading="lazy">
         <figcaption class="cap">Blick Richtung Chor</figcaption>
       </figure>
@@ -677,17 +684,19 @@
       <p>Es war ein großartiges Konzert, und das Publikum war der Wahnsinn. Als französischsprachige Künstlerin ist Céline in Frankreich eine absolute Ikone, und so wurde sie auch bei jedem Song gefeiert. Gänsehaut.</p>
     </div>
 
-    <!-- Großes Arena-Foto rechts, Hoch- und Querformat links gestapelt -->
-    <div class="photo-mosaic big-right" style="--cols:1fr 3.37fr">
-      <figure>
+    <div class="photo-flex">
+      <figure style="--r:0.75">
         <img src="Paris/compressed/par-d4-konzert-fluegel.jpg" alt="Céline Dion mit ausgebreiteten Armen neben dem Pianisten am Flügel, auf der Großleinwand" loading="lazy">
         <figcaption class="cap">Gänsehaut-Moment am Flügel</figcaption>
       </figure>
-      <figure>
+      <figure style="--r:1.78">
         <img src="Paris/compressed/par-d4-konzert-buehne.jpg" alt="Konzertbühne mit Céline Dion auf der Leinwand" loading="lazy">
-        <figcaption class="cap">Dank der Bildschirme gut zu sehen</figcaption>
+        <figcaption class="cap">Dank der Bildschirme auch von ganz oben gut zu sehen</figcaption>
       </figure>
-      <figure class="big">
+    </div>
+
+    <div class="photo-wide-solo">
+      <figure>
         <img src="Paris/compressed/par-d4-konzert-arena.jpg" alt="Volle Arena mit tausenden Handylichtern während des Konzerts" loading="lazy">
         <figcaption class="cap">Ein Lichtermeer – das Publikum war der Wahnsinn</figcaption>
       </figure>

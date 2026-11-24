@@ -1261,7 +1261,7 @@ figcaption.cap { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 
   .intro-split { grid-template-columns: 1fr; gap: 28px; }
 }
 @media (max-width: 680px) {
-  .day-text .float-r, .day-text .float-l { float: none; width: 100%; margin: 4px 0 22px; }
+  .day-text .float-r, .day-text .float-l { float: none; width: 100% !important; max-width: none !important; margin: 4px 0 22px; }
   .photo-flex { flex-wrap: wrap; }
   .photo-flex figure { flex: 1 1 100%; }
   .photo-flex.keep figure { flex: var(--r, 1) 1 0; }
@@ -1295,3 +1295,7 @@ figcaption.cap { font-size: 0.72rem; color: #999; margin-top: 5px; line-height: 
 /* Einleitung über die volle Breite unter den Info-Kacheln */
 .intro-full { margin-top: 32px; }
 .intro-full .trip-text { max-width: none; }
+@media (max-width: 680px) {
+  .day-divider-inner { flex-shrink: 1; min-width: 0; }
+  .photo-mosaic:not(.big-center) { grid-template-columns: 1fr; }
+}
